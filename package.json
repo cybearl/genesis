@@ -7,11 +7,10 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "start": "ts-node src/scripts/main.ts",
+        "core-install": "yarn install",
+        "main": "ts-node src/scripts/main.ts",
         "generate": "ts-node src/scripts/generate.ts",
-        "score": "ts-node src/scripts/score.ts",
-        "test": "mocha --exit --timeout 65000 --require node_modules/ts-node/register src/tests/*.test.ts",
-        "test:coverage": "nyc yarn test"
+        "score": "ts-node src/scripts/score.ts"
     },
     "dependencies": {
         "@types/minimist": "^1.2.2",
