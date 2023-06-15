@@ -1,8 +1,8 @@
 {
-    "name": "server",
-    "version": "2023.5.0",
-    "description": "GENESIS::SERVER",
-    "repository": "https://github.com/yoratoni/genesis.git",
+    "name": "core",
+    "version": "1.0.0",
+    "description": "GENESIS::CORE",
+    "repository": "https://github.com/cybearl/core",
     "author": "yoratoni <yoratoni.dev@gmail.com>",
     "license": "MIT",
     "private": true,
