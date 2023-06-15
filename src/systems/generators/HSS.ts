@@ -9,7 +9,7 @@ import logger from "utils/logger";
  * @param dirPath The path to the directory where to list the json files.
  * @returns The list of json files.
  */
-function getJsonFiles(dirPath: string) {
+export function getJsonFiles(dirPath: string) {
     const files = fs.readdirSync(dirPath);
     const jsonFiles: string[] = [];
 
@@ -28,7 +28,7 @@ function getJsonFiles(dirPath: string) {
  * @param query The query to search.
  * @returns The files that match the query.
  */
-function searchJsonFiles(dirPath: string, query: string) {
+export function searchJsonFiles(dirPath: string, query: string) {
     const files = getJsonFiles(dirPath);
     const res: string[] = [];
 
