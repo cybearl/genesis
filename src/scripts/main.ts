@@ -9,6 +9,6 @@ bot.start();
 
 setTimeout(async () => {
     await bot.stop();
-}, 6000);
+}, 60000);
 
 
