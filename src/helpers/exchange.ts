@@ -201,12 +201,18 @@ export async function fetchOHLCV(
     since: number | undefined = undefined,
     limit = 60
 ): Promise<OHLCV[]> {
-    const ohlcv = await exchange.fetchOHLCV(symbol, timeframe, since, limit);
+    let OHLCVs: OHLCV[] = [];
+
+    try {
+        OHLCVs = await exchange.fetchOHLCV(symbol, timeframe, since, limit);
+    } catch {
+        logger.error("Invalid parameter(s) for the OHLCV request.");
+    }
 
     // Log the OHLCV information
     logger.verbose(`${exchange.name} OHLCV fetched for ${symbol} (${limit} x ${timeframe}).`);
 
-    return ohlcv;
+    return OHLCVs;
 }
 
 /**
@@ -235,7 +241,7 @@ export async function precalculateFees(
     const ticker = await fetchTicker(exchange, symbol);
     const price = ticker.last;
 
-    if (typeof(price) !== "number") {
+    if (typeof (price) !== "number") {
         logger.error(`${exchange.name} price is not a number for ${symbol}.`);
         process.exit(1);
     }
