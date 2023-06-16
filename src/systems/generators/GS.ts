@@ -27,6 +27,8 @@ import logger from "utils/logger";
 export default async function main(
     args: NsGeneral.generatorSystemOptions
 ) {
+    // TODO: if '--help' is passed, print the help message and exit
+
     const tokens = parseTradingPair(args.pair);
     const timeframe = getTimeframe(args.timeframe);
     const now = Date.now();
@@ -80,9 +82,11 @@ export default async function main(
         OHLCVs.push(...OHLCV);
     }
 
-    // Save OHLCV data to JSON file
+    // Generate the output directory if it doesn't exist (recursively)
     if (!fs.existsSync(args.path)) {
         fs.mkdirSync(args.path, { recursive: true });
+
+        logger.info(`Directory '${args.path}' created.`);
     }
 
     // Format the file name
@@ -91,6 +95,7 @@ export default async function main(
     const formattedNowDate = getCurrentDateString("YYYY-MM-DD");
     const fileName = `${fileBaseName} ${formattedSinceDate} ${formattedNowDate}.json`;
 
+    // Save OHLCV data to JSON file
     fs.writeFileSync(
         path.join(args.path, fileName),
         JSON.stringify(OHLCVs, null, 4)

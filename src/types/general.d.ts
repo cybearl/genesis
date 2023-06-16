@@ -8,6 +8,7 @@ declare namespace NsGeneral {
      * Options for the generator system function.
      */
     interface generatorSystemOptions {
+        help: boolean;
         path: string;
         pair: string;
         timeframe: NsGeneral.IsTimeframe;
@@ -19,9 +20,10 @@ declare namespace NsGeneral {
      * Options for the historical scoring system function (HSS).
      */
     interface historicalScoringSystemOptions {
+        help: boolean;
+        show: boolean;
         path: string;
-        pair: string;
-        timeframe: NsGeneral.IsTimeframe;
+        query: string;
     }
 }
 
