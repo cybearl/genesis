@@ -114,14 +114,13 @@ This system is used to generate the data needed by the HSS to calculate the scor
 It generates a JSON file containing the data of the market for each candle over a period of time.
 
 The command to run the generator is `yarn server:generate` and it supports the following arguments (all optional):
-- `--path` The directory path to save the generated data to.
 - `--pair` The trading pair to generate the data for.
 - `--timeframe` The timeframe to generate the data for.
 - `--since` Timestamp to start generating the data from,
     represented as the amount of days before the current time (> 0).
 - `--entriesPerPage` The amount of entries per page (0 < entriesPerPage <= 512).
 
-The default path for the generated data is `src/systems/generators/data/`.
+The default path for the generated data is `src/systems/generators/data/` & cannot be changed.
 
 Can be found inside `src/systems/generators/GS.ts`.
 

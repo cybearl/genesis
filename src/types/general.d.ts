@@ -9,7 +9,7 @@ declare namespace NsGeneral {
      */
     interface generatorSystemOptions {
         help: boolean;
-        path: string;
+        dataPath: string;
         pair: string;
         timeframe: NsGeneral.IsTimeframe;
         since: number;
@@ -22,7 +22,8 @@ declare namespace NsGeneral {
     interface historicalScoringSystemOptions {
         help: boolean;
         show: boolean;
-        path: string;
+        dataPath: string;
+        scorePath: string;
         query: string;
     }
 }

@@ -117,3 +117,40 @@ export function removeDays(date: Date, days: number) {
 
     return result;
 }
+
+/**
+ * Converts a date inside a filename into a valid date object.
+ * Format can be found in 'GENERAL_CONFIG.fileDateFormat'.
+ * @param filename The filename to convert.
+ * @returns The date object.
+ */
+export function convertFilenameDateToDate(filename: string) {
+    const date = filename.split("-").map((e) => parseInt(e));
+
+    const result = new Date(
+        date[0],        // Year
+        date[1] - 1,    // Month (Javascript.. starts at 0 for some reason)
+        date[2],        // Day
+        date[3],        // Hour
+        date[4],        // Minute
+        date[5]         // Second
+    );
+
+    return result;
+}
+
+/**
+ * Custom console table for printing objects.
+ * Dates are converted to strings.
+ * @param obj The object to print.
+ */
+export function consoleTable(obj: { [key: string]: unknown }) {
+    // Convert dates to strings
+    for (const key in obj) {
+        if (obj[key] instanceof Date) {
+            obj[key] = getDateString(obj[key] as Date);
+        }
+    }
+
+    console.table(obj);
+}

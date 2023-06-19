@@ -3,6 +3,7 @@ import path from "path";
 
 import { OHLCV } from "ccxt";
 
+import { GENERAL_CONFIG } from "configs/global.config";
 import {
     checkExchangeStatus,
     fetchOHLCV,
@@ -12,6 +13,7 @@ import {
     parseTradingPair
 } from "helpers/exchange";
 import { getCurrentDateString, getDateString, getTimeframe, removeDays } from "helpers/inputs";
+import { generateHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 
@@ -27,7 +29,10 @@ import logger from "utils/logger";
 export default async function main(
     args: NsGeneral.generatorSystemOptions
 ) {
-    // TODO: if '--help' is passed, print the help message and exit
+    if (args.help) {
+        console.log(generateHelpMsg);
+        return;
+    }
 
     const tokens = parseTradingPair(args.pair);
     const timeframe = getTimeframe(args.timeframe);
@@ -83,21 +88,21 @@ export default async function main(
     }
 
     // Generate the output directory if it doesn't exist (recursively)
-    if (!fs.existsSync(args.path)) {
-        fs.mkdirSync(args.path, { recursive: true });
+    if (!fs.existsSync(args.dataPath)) {
+        fs.mkdirSync(args.dataPath, { recursive: true });
 
-        logger.info(`Directory '${args.path}' created.`);
+        logger.info(`Directory '${args.dataPath}' created.`);
     }
 
     // Format the file name
     const fileBaseName = `(${tokens.base}-${tokens.quote}) ${args.timeframe}`;
-    const formattedSinceDate = getDateString(sinceDate, "YYYY-MM-DD");
-    const formattedNowDate = getCurrentDateString("YYYY-MM-DD");
+    const formattedSinceDate = getDateString(sinceDate, GENERAL_CONFIG.fileDateFormat);
+    const formattedNowDate = getCurrentDateString(GENERAL_CONFIG.fileDateFormat);
     const fileName = `${fileBaseName} ${formattedSinceDate} ${formattedNowDate}.json`;
 
     // Save OHLCV data to JSON file
     fs.writeFileSync(
-        path.join(args.path, fileName),
+        path.join(args.dataPath, fileName),
         JSON.stringify(OHLCVs, null, 4)
     );
 }

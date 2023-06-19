@@ -1,5 +1,6 @@
 import fs from "fs";
 
+import { consoleTable, convertFilenameDateToDate } from "helpers/inputs";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 
@@ -7,15 +8,22 @@ import logger from "utils/logger";
 /**
  * List all json files in a directory.
  * @param dirPath The path to the directory where to list the json files.
+ * @param removeExtension If true, remove the '.json' extension from the file names.
  * @returns The list of json files.
  */
-function getJsonFiles(dirPath: string) {
+function getJsonFiles(dirPath: string, removeExtension = true) {
     const files = fs.readdirSync(dirPath);
     const jsonFiles: string[] = [];
 
     for (const file of files) {
         if (file.endsWith(".json")) {
-            jsonFiles.push(file);
+            let filename = file;
+
+            if (removeExtension) {
+                filename = file.slice(0, -5);
+            }
+
+            jsonFiles.push(filename);
         }
     }
 
@@ -47,6 +55,37 @@ function searchInJsonFiles(
 }
 
 /**
+ * Parse the name of a data file to recover the info about the contained data.
+ * @param fileName The name of the file.
+ * @returns The info about the data contained in the file.
+ */
+function parseDataFilename(fileName: string) {
+    const sep = fileName.split(" ");
+
+    // Format the trading pair as 'BASE/QUOTE'
+    const tradingPair = sep[0]
+        .split("-")
+        .join("/")
+        .substring(1, sep[0].length - 1);
+
+    // Timeframe is already in the correct format
+    const timeframe = sep[1];
+
+    // Convert start and end dates to Date objects (replace '_' with 'T')
+    const startDate = convertFilenameDateToDate(sep[2]);
+    const endDate = convertFilenameDateToDate(sep[3]);
+
+    const res = {
+        tradingPair,
+        timeframe,
+        startDate,
+        endDate
+    };
+
+    consoleTable(res);
+}
+
+/**
  * Main function for the HSS system,
  * generates a score for a strategy based on
  * the historical data of a trading pair.
@@ -58,6 +97,18 @@ function searchInJsonFiles(
 export default async function main(
     args: NsGeneral.historicalScoringSystemOptions
 ) {
+    const availableData = getJsonFiles(args.dataPath);
+
+    if (args.show) {
+        const parsedData = [];
+
+        for (const data of availableData) {
+            parsedData.push(parseDataFilename(data));
+        }
+
+        return;
+    }
+
     // TODO: if '--help' is passed, print the help message and exit
     // TODO: if '--show' is passed, print the available data and exit
 
@@ -65,9 +116,9 @@ export default async function main(
 
 
     // Generate the output directory if it doesn't exist (recursively)
-    if (!fs.existsSync(args.path)) {
-        fs.mkdirSync(args.path, { recursive: true });
+    if (!fs.existsSync(args.scorePath)) {
+        fs.mkdirSync(args.scorePath, { recursive: true });
 
-        logger.info(`Directory '${args.path}' created.`);
+        logger.info(`Directory '${args.scorePath}' created.`);
     }
 }

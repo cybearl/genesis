@@ -14,10 +14,13 @@ import logger from "utils/logger";
  * @param --show Shows the available data for the HSS with a query.
  */
 async function main(args: minimist.ParsedArgs) {
+    logger.info("Historical Scoring System (HSS) - Main function");
+
     const options: NsGeneral.historicalScoringSystemOptions = {
         help: false,
         show: false,
-        path: GENERAL_CONFIG.scorePath,
+        dataPath: GENERAL_CONFIG.dataPath,
+        scorePath: GENERAL_CONFIG.scorePath,
         query: "ALL"
     };
 
@@ -30,9 +33,9 @@ async function main(args: minimist.ParsedArgs) {
     }
 
     // NOTE:
-    //  Skipping path -> fixed value to 'GENERAL_CONFIG.scorePath'
+    //  Skipping paths -> fixed value to 'GENERAL_CONFIG.scorePath' & 'GENERAL_CONFIG.dataPath'
 
-    // Disable parameters if '--help'
+    // Disable parameters if '--help' is passed
     if (!options.help) {
         if (args.query) {
             options.query = args.query as string;

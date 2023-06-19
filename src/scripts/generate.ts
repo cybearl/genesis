@@ -11,7 +11,6 @@ import logger from "utils/logger";
 /**
  * Runs the GS main function with the command line arguments parsed.
  * @param --help Shows the help message.
- * @param --path The directory path to save the generated data to.
  * @param --pair The trading pair to generate the data for.
  * @param --timeframe The timeframe to generate the data for.
  * @param --since Timestamp to start generating the data from,
@@ -19,15 +18,18 @@ import logger from "utils/logger";
  * @param --entriesPerPage The amount of entries per page.
  */
 async function main(args: minimist.ParsedArgs) {
+    logger.info("Generator System (GS) - Main function");
+
     const options: NsGeneral.generatorSystemOptions = {
         help: false,
-        path: GENERAL_CONFIG.dataPath,
+        dataPath: GENERAL_CONFIG.dataPath,
         pair: "BNB/USDT",
         timeframe: "1m",
         since: 1,
         entriesPerPage: 512
     };
 
+    // Help
     if (args.help) {
         options.help = true;
     }
@@ -37,6 +39,7 @@ async function main(args: minimist.ParsedArgs) {
 
     // Disable parameters if '--help' is passed
     if (!options.help) {
+        // Pair
         if (args.pair) {
             if (!args.pair.includes("/")) {
                 logger.error(`Invalid trading pair '${args.pair}'.`);
@@ -48,6 +51,7 @@ async function main(args: minimist.ParsedArgs) {
             logger.warn(`No 'pair' parameter provided, defaults to ${options.pair}.`);
         }
 
+        // Timeframe
         if (args.timeframe) {
             const validTimeframes = [
                 "1s", "30s", "1m", "3m",
@@ -65,6 +69,7 @@ async function main(args: minimist.ParsedArgs) {
             logger.warn(`No 'timeframe' parameter provided, defaults to '${options.timeframe}'`);
         }
 
+        // Since
         if (args.since) {
             if (!Number.isInteger(args.since as number) && args.since <= 0) {
                 logger.error(`Invalid 'since' parameter '${args.since}'.`);
@@ -76,6 +81,7 @@ async function main(args: minimist.ParsedArgs) {
             logger.warn(`No 'since' parameter provided, defaults to ${options.since} days.`);
         }
 
+        // Entries per page
         if (args.entriesPerPage) {
             if (!Number.isInteger(args.entriesPerPage as number) && args.entriesPerPage <= 0) {
                 logger.error(`Invalid 'entriesPerPage' parameter '${args.entriesPerPage}'.`);

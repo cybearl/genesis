@@ -7,6 +7,7 @@ export const GENERAL_CONFIG = {
     verbose: false,                                                            // Set the winston logger to verbose mode
     timeframeFactorForGeneralLoop: 4,                                          // Timeframe factor for the general loop (x4 by default)
     dateFormat: "YYYY-MM-DD HH:mm:ss",                                         // Date format
+    fileDateFormat: "YYYY-MM-DD-HH-mm-ss",                                     // Date format for file names
     dataPath: path.join(__dirname, "..", "systems", "generators", "data"),     // Path to the data directory
     scorePath: path.join(__dirname, "..", "systems", "generators", "scores"),  // Path to the scores directory
 };
