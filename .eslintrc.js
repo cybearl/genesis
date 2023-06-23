@@ -23,14 +23,14 @@ module.exports = {
         "import/resolver": {
             "typescript": {
                 "alwaysTryTypes": true,
-                "project": "packages/*/tsconfig.json"
+                "project": "packages/**/tsconfig.json"
             }
         },
     },
     rules: {
         "indent": "off",
         "@typescript-eslint/indent": [
-            "error",
+            "warn",
             4,
             {
                 "SwitchCase": 1
@@ -45,7 +45,7 @@ module.exports = {
             "double"
         ],
         "semi": [
-            "warn",
+            "error",
             "always"
         ],
         "object-curly-spacing": [
