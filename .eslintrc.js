@@ -80,6 +80,16 @@ module.exports = {
                     caseInsensitive: true
                 }
             }
+        ],
+        "arrow-body-style": [
+            "warn",
+            "as-needed"
+        ],
+        "import/newline-after-import": [
+            "warn",
+            {
+                count: 2
+            }
         ]
     }
 };
