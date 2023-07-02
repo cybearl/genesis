@@ -122,6 +122,8 @@ The command to run the generator is `yarn server:generate` and it supports the f
     represented as the amount of days before the current time (> 0).
 - `--entriesPerPage` The amount of entries per page (0 < entriesPerPage <= 512).
 
+`--help` can be used to display the help message.
+
 The default path for the generated data is `src/systems/generators/data/` & cannot be changed.
 
 Can be found inside `src/systems/generators/GS.ts`.
@@ -132,8 +134,16 @@ This system is used to calculate the score of a strategy based on its performanc
 It generates a JSON file containing a result for each strategy, the result contains the score of the strategy
 and other useful data.
 
-These result files are called pipes, they are used by the SP to weight the strategies.
-Their default path is `src/systems/generators/pipes/`.
+These result files are called scores, they are used by the SP to weight the strategies.
+Their default path is `src/systems/generators/scores/`.
+
+- `--help` can be used to display the help message.
+- `--show` can be used to display the available data for scoring.
+
+`WORK IN PROGRESS..`
+
+From a filter on the available data, such as the trading pair, the timeframe, etc.
+the HSS will generate a score for each strategy, generating a JSON file per strategy.
 
 Can be found inside `src/systems/generators/HSS.ts`.
 
