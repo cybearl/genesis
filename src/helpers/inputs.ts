@@ -140,17 +140,12 @@ export function convertFilenameDateToDate(filename: string) {
 }
 
 /**
- * Custom console table for printing objects.
+ * Custom console table for printing object arrays.
  * Dates are converted to strings.
- * @param obj The object to print.
+ * @param objs The objects to print.
  */
-export function consoleTable(obj: { [key: string]: unknown }) {
-    // Convert dates to strings
-    for (const key in obj) {
-        if (obj[key] instanceof Date) {
-            obj[key] = getDateString(obj[key] as Date);
-        }
-    }
+export function consoleTable(objs: { [key: string]: unknown }[]) {
+    const formattedObject = {};
 
-    console.table(obj);
+    
 }

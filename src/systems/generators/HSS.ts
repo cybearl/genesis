@@ -82,7 +82,7 @@ function parseDataFilename(fileName: string) {
         endDate
     };
 
-    consoleTable(res);
+    return res;
 }
 
 /**
@@ -103,8 +103,12 @@ export default async function main(
         const parsedData = [];
 
         for (const data of availableData) {
-            parsedData.push(parseDataFilename(data));
+            parsedData.push(
+                parseDataFilename(data)
+            );
         }
+
+        consoleTable(parsedData);
 
         return;
     }
