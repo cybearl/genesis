@@ -19,6 +19,8 @@
     </a>
 </p>
 
+### WORK IN PROGRESS..
+
 Technical Summary
 -----------------
 The principle of the bot is based on a governance system with multiple trading strategies.
