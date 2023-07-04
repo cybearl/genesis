@@ -35,8 +35,8 @@ async function main(args: minimist.ParsedArgs) {
     // NOTE:
     //  Skipping paths -> fixed value to 'GENERAL_CONFIG.scorePath' & 'GENERAL_CONFIG.dataPath'
 
-    // Disable parameters if '--help' is passed
-    if (!options.help) {
+    // Disable parameters if '--help' / 'show' is passed
+    if (!options.help && !options.show) {
         if (args.query) {
             options.query = args.query as string;
         } else {

@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import * as readline from "readline";
 
+import asTable, { configure } from "as-table";
 import date from "date-and-time";
 import { ObjectId } from "mongodb";
 
@@ -144,8 +145,49 @@ export function convertFilenameDateToDate(filename: string) {
  * Dates are converted to strings.
  * @param objs The objects to print.
  */
-export function consoleTable(objs: { [key: string]: unknown }[]) {
-    const formattedObject = {};
+export function consoleTable(objs: { [key: string]: unknown; }[]) {
+    const formattedObjs = objs.map((obj) => {
 
-    
+        if (obj.startDate) {
+            obj.startDate = getDateString(obj.startDate as Date);
+        }
+
+        if (obj.endDate) {
+            obj.endDate = getDateString(obj.endDate as Date);
+        }
+
+        if (obj.date) {
+            obj.date = getDateString(obj.date as Date);
+        }
+
+        return obj;
+    });
+
+    const table = configure({
+        delimiter: " | ",
+        dash: "-",
+    })(formattedObjs);
+
+    console.log(`\n${table}\n`);
+}
+
+/**
+ * Search in a list of filenames for a query.
+ * @param filenames The filenames to search.
+ * @param query The query to search.
+ * @returns The filename(s) that match the query.
+ */
+export function searchQueryInFilenames(
+    filenames: string[],
+    query: string
+) {
+    const res: string[] = [];
+
+    for (const filename of filenames) {
+        if (filename.includes(query)) {
+            res.push(filename);
+        }
+    }
+
+    return res;
 }
