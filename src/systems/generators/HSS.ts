@@ -1,58 +1,11 @@
 import fs from "fs";
 
-import { consoleTable, convertFilenameDateToDate } from "helpers/inputs";
+import { getJsonFiles } from "helpers/files";
+import { consoleTable, convertFilenameDateToDate, getDateString, getUserInput, searchQueryInFilenames } from "helpers/inputs";
+import { scoreHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 
-
-/**
- * List all json files in a directory.
- * @param dirPath The path to the directory where to list the json files.
- * @param removeExtension If true, remove the '.json' extension from the file names.
- * @returns The list of json files.
- */
-function getJsonFiles(dirPath: string, removeExtension = true) {
-    const files = fs.readdirSync(dirPath);
-    const jsonFiles: string[] = [];
-
-    for (const file of files) {
-        if (file.endsWith(".json")) {
-            let filename = file;
-
-            if (removeExtension) {
-                filename = file.slice(0, -5);
-            }
-
-            jsonFiles.push(filename);
-        }
-    }
-
-    return jsonFiles;
-}
-
-/**
- * Search inside the name of all json files in a directory for a query.
- * @param dirPath The path to the directory to search.
- * @param query The query to search.
- * @param jsonFiles The list of json files (optional, if not provided, run the 'getJsonFiles' function).
- * @returns The files that match the query.
- */
-function searchInJsonFiles(
-    dirPath: string,
-    query: string,
-    jsonFiles?: string[]
-) {
-    const files = jsonFiles ?? getJsonFiles(dirPath);
-    const res: string[] = [];
-
-    for (const file of files) {
-        if (file.includes(query)) {
-            res.push(file);
-        }
-    }
-
-    return res;
-}
 
 /**
  * Parse the name of a data file to recover the info about the contained data.
@@ -97,27 +50,53 @@ function parseDataFilename(fileName: string) {
 export default async function main(
     args: NsGeneral.historicalScoringSystemOptions
 ) {
-    const availableData = getJsonFiles(args.dataPath);
-
-    if (args.show) {
-        const parsedData = [];
-
-        for (const data of availableData) {
-            parsedData.push(
-                parseDataFilename(data)
-            );
-        }
-
-        consoleTable(parsedData);
-
+    if (args.help) {
+        console.log(scoreHelpMsg);
         return;
     }
 
-    // TODO: if '--help' is passed, print the help message and exit
-    // TODO: if '--show' is passed, print the available data and exit
+    const availableDataFilenames = getJsonFiles(args.dataPath);
+    const parsedDataFilenames = [];
+    const parsedDataForQuery = [];
 
-    // TODO: Implement the HSS system
+    for (const availableDataFilename of availableDataFilenames) {
+        parsedDataFilenames.push(
+            parseDataFilename(availableDataFilename)
+        );
+    }
 
+    // Format data as strings for the query
+    for (const filename of parsedDataFilenames) {
+        parsedDataForQuery.push(
+            `${
+                filename.tradingPair
+            } ${
+                filename.timeframe
+            } ${
+                getDateString(filename.startDate)
+            } ${
+                getDateString(filename.endDate)
+            }`
+        );
+    }
+
+    if (args.show) {
+        consoleTable(parsedDataFilenames);
+        return;
+    }
+
+    const queryRes = searchQueryInFilenames(parsedDataForQuery, args.query);
+
+    // Check if the query is valid
+    if (queryRes.length === 0) {
+        console.log(args.query);
+
+        logger.error(`No data found for query '${args.query}'.`);
+        return;
+    }
+
+    // Get the original filenames from the query results
+    const queryResFilenames = queryRes.map((_, index) => availableDataFilenames[index]);
 
     // Generate the output directory if it doesn't exist (recursively)
     if (!fs.existsSync(args.scorePath)) {
