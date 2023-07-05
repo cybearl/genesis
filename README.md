@@ -37,6 +37,8 @@ All of this system is secured by a risk management system (RMS) that will preven
 making trades at lost if strategies are not performing well for some reason. This system acts
 as a fallback to prevent the bot from losing money in the worst case scenario.
 
+**NOTE:** The `core` package can be used alone as all the commands are available in the `package.json` file.
+
 From the initialization of the bot to the live trading, we have the following steps:
 
 #### Arguments:

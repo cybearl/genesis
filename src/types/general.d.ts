@@ -24,7 +24,10 @@ declare namespace NsGeneral {
         show: boolean;
         dataPath: string;
         scorePath: string;
-        query: string;
+        tradingPair?: string;
+        timeframe?: NsGeneral.IsTimeframe;
+        startDate?: number;
+        endDate?: number;
     }
 }
 

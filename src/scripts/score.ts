@@ -21,7 +21,10 @@ async function main(args: minimist.ParsedArgs) {
         show: false,
         dataPath: GENERAL_CONFIG.dataPath,
         scorePath: GENERAL_CONFIG.scorePath,
-        query: "ALL"
+        tradingPair: undefined,
+        timeframe: undefined,
+        startDate: undefined,
+        endDate: undefined
     };
 
     if (args.help) {
@@ -37,10 +40,28 @@ async function main(args: minimist.ParsedArgs) {
 
     // Disable parameters if '--help' / 'show' is passed
     if (!options.help && !options.show) {
-        if (args.query) {
-            options.query = args.query as string;
+        if (args.tradingPair) {
+            options.tradingPair = args.tradingPair as string;
         } else {
-            logger.warn(`No 'query' parameter provided, defaults to '${options.query}'.`);
+            logger.warn("No 'tradingPair' parameter provided, defaults to 'ALL'.");
+        }
+
+        if (args.timeframe) {
+            options.timeframe = args.timeframe as NsGeneral.IsTimeframe;
+        } else {
+            logger.warn("No 'timeframe' parameter provided, defaults to 'ALL'.");
+        }
+
+        if (args.startDate) {
+            options.startDate = args.startDate as number;
+        } else {
+            logger.warn("No 'startDate' parameter provided, defaults to 'ALL'.");
+        }
+
+        if (args.endDate) {
+            options.endDate = args.endDate as number;
+        } else {
+            logger.warn("No 'endDate' parameter provided, defaults to 'ALL'.");
         }
     }
 

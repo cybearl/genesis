@@ -1,7 +1,7 @@
 import fs from "fs";
 
 import { getJsonFiles } from "helpers/files";
-import { consoleTable, convertFilenameDateToDate, getDateString, getUserInput, searchQueryInFilenames } from "helpers/inputs";
+import { consoleTable, convertFilenameDateToDate, getDateString, searchQueryInFilenames } from "helpers/inputs";
 import { scoreHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -85,18 +85,12 @@ export default async function main(
         return;
     }
 
-    const queryRes = searchQueryInFilenames(parsedDataForQuery, args.query);
-
-    // Check if the query is valid
-    if (queryRes.length === 0) {
-        console.log(args.query);
-
-        logger.error(`No data found for query '${args.query}'.`);
-        return;
-    }
-
-    // Get the original filenames from the query results
-    const queryResFilenames = queryRes.map((_, index) => availableDataFilenames[index]);
+    // TODO:
+    // - Add support for multiple queries (trading pairs, timeframes, start & end dates, etc.)
+    // - Add support for multiple strategies (dynamic import with string)
+    // - Result should be a JSON file with the score for all or one strategy
+    // - The result should be shown in the console too, even if it's basic
+    // - The results will be later accessible from the UI
 
     // Generate the output directory if it doesn't exist (recursively)
     if (!fs.existsSync(args.scorePath)) {
