@@ -3,7 +3,7 @@ import "configs/env";
 import minimist from "minimist";
 
 import { GENERAL_CONFIG } from "configs/global.config";
-import generator from "systems/generators/GS";
+import generator from "systems/GS";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 

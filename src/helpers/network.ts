@@ -99,7 +99,7 @@ export async function checkNetwork(fatal = true): Promise<boolean> {
  * @returns The MongoDB database.
  */
 export async function connectToDB(fatal = true, databaseName = process.env.MONGODB_DB) {
-    const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`;
+    const uri = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}/?authMechanism=SCRAM-SHA-256&tls=true`;
     const mongoClient = new MongoClient(uri, {});
 
     try {

@@ -4,27 +4,27 @@ import path from "path";
  * General configuration.
  */
 export const GENERAL_CONFIG = {
-    verbose: false,                                                            // Set the winston logger to verbose mode
-    timeframeFactorForGeneralLoop: 4,                                          // Timeframe factor for the general loop (x4 by default)
-    dateFormat: "YYYY-MM-DD HH:mm:ss",                                         // Date format
-    fileDateFormat: "YYYY-MM-DD-HH-mm-ss",                                     // Date format for file names
-    dataPath: path.join(__dirname, "..", "systems", "generators", "data"),     // Path to the data directory
-    scorePath: path.join(__dirname, "..", "systems", "generators", "scores"),  // Path to the scores directory
+    verbose: false,                                             // Set the winston logger to verbose mode
+    timeframeFactorForGeneralLoop: 4,                           // Timeframe factor for the general loop (x4 by default)
+    dateFormat: "YYYY-MM-DD HH:mm:ss",                          // Date format
+    fileDateFormat: "YYYY-MM-DD-HH-mm-ss",                      // Date format for file names
+    dataPath: path.join(__dirname, "..", "pipes", "data"),      // Path to the data directory
+    scorePath: path.join(__dirname, "..", "pipes", "scores"),   // Path to the scores directory
 };
 
 /**
  * Network configuration.
  */
 export const NETWORK_CONFIG = {
-    checkNetwork: true,                             // Check network reliability
-    checkNetworkInterval: 1000 * 60 * 60 * 24,      // 1 day
-    jitterLimit: 5,                                 // ms
-    latencyLimit: 100,                              // ms
-    downloadLimit: 1,                               // Mo/s
-    uploadLimit: 1,                                 // Mo/s
+    checkNetwork: true,                         // Check network reliability
+    checkNetworkInterval: 1000 * 60 * 60 * 24,  // 1 day
+    jitterLimit: 5,                             // ms
+    latencyLimit: 100,                          // ms
+    downloadLimit: 1,                           // Mo/s
+    uploadLimit: 1,                             // Mo/s
 
     // List of MongoDB collections
-    botObjectsCollection: "bot_objects"             // Collection for the bot objects
+    botObjectsCollection: "bot_objects"         // Collection for the bot objects
 };
 
 /**

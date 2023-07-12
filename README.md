@@ -126,9 +126,9 @@ The command to run the generator is `yarn server:generate` and it supports the f
 
 `--help` can be used to display the help message.
 
-The default path for the generated data is `src/systems/generators/data/` & cannot be changed.
+The default path for the generated data is `src/pipes/data/` & cannot be changed.
 
-Can be found inside `src/systems/generators/GS.ts`.
+Can be found inside `src/systems/GS.ts`.
 
 #### Historical Scoring System (HSS):
 This system is used to calculate the score of a strategy based on its performance on historical data.
@@ -137,7 +137,7 @@ It generates a JSON file containing a result for each strategy, the result conta
 and other useful data.
 
 These result files are called scores, they are used by the SP to weight the strategies.
-Their default path is `src/systems/generators/scores/`.
+Their default path is `src/pipes/scores/`.
 
 - `--help` can be used to display the help message.
 - `--show` can be used to display the available data for scoring.
@@ -147,7 +147,11 @@ Their default path is `src/systems/generators/scores/`.
 From a filter on the available data, such as the trading pair, the timeframe, etc.
 the HSS will generate a score for each strategy, generating a JSON file per strategy.
 
-Can be found inside `src/systems/generators/HSS.ts`.
+Can be found inside `src/systems/HSS.ts`.
+
+#### Note about GS & HSS:
+The generated data for tests and strategy scores are stored in a directory called `pipes`
+as they are used to pipe the scoring system with the strategies themselves.
 
 #### Risk Management System (RMS):
 This fallback system used to prevent the SP from making stupid trades works on two basic systems:

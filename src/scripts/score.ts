@@ -3,7 +3,7 @@ import "configs/env";
 import minimist from "minimist";
 
 import { GENERAL_CONFIG } from "configs/global.config";
-import score from "systems/generators/HSS";
+import score from "systems/HSS";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 
