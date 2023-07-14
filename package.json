@@ -1,6 +1,6 @@
 {
     "name": "core",
-    "version": "1.0.0",
+    "version": "0.0.3",
     "description": "GENESIS::CORE",
     "repository": "https://github.com/cybearl/core",
     "author": "yoratoni <yoratoni.dev@gmail.com>",
@@ -8,6 +8,7 @@
     "private": true,
     "scripts": {
         "postinstall": "yarn install --cwd ./src/strategies",
+        "bump": "yarn version --patch",
         "main": "ts-node src/scripts/main.ts",
         "generate": "ts-node src/scripts/generate.ts",
         "score": "ts-node src/scripts/score.ts"
