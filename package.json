@@ -7,7 +7,7 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "postinstall": "yarn install --cwd ./src/strategies",
+        "install": "yarn install --cwd ./src/strategies",
         "v-bump": "yarn version --patch",
         "main": "ts-node src/scripts/main.ts",
         "generate": "ts-node src/scripts/generate.ts",
