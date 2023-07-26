@@ -23,7 +23,7 @@ module.exports = {
         "import/resolver": {
             "typescript": {
                 "alwaysTryTypes": true,
-                "project": "packages/**/tsconfig.json"
+                "project": "./tsconfig.json"
             }
         },
     },
@@ -52,6 +52,9 @@ module.exports = {
             "warn",
             "always"
         ],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
         "sort-imports": [
             "warn",
             {
@@ -79,6 +82,12 @@ module.exports = {
                     order: "asc",
                     caseInsensitive: true
                 }
+            }
+        ],
+        "import/no-useless-path-segments": [
+            "warn",
+            {
+                noUselessIndex: true
             }
         ],
         "arrow-body-style": [
