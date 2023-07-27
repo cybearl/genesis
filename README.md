@@ -37,41 +37,6 @@ All of this system is secured by a risk management system (RMS) that will preven
 making trades at lost if strategies are not performing well for some reason. This system acts
 as a fallback to prevent the bot from losing money in the worst case scenario.
 
-From the initialization of the bot to the live trading, we have the following steps:
-
-#### Arguments:
-1. Trading pair to trade on.
-2. Name of the bot, used to identify it in the DB, logs, etc.
-3. Sandbox mode (optional, default: true), using the sandbox mode will prevent the bot from making real trades
-   and will simulate the trades instead, using Binance's testnet.
-4. Timeframe (optional, default: 1m), the timeframe is the time interval between each candle,
-   the higher the timeframe, the less trades will be made but more reliable they will be.
-
-#### Initialization:
-1. Assigns the formatted values to the private variables of the bot class.
-2. Replace the trading pair if in sandbox mode, as most of them are not available on the testnet.
-2. Sets a warning message in the console if the bot is not in sandbox mode.
-3. Checks the network connection, ensures that the bot can connect to the internet
-   with a minimum speed and latency (skipped in sandbox mode).
-4. Connects to the database.
-5. Loads the CCXT exchange object (sandbox mode or not).
-6. Checks the status of the Binance exchange, ensures that it is not in maintenance.
-7. Loads the markets from CCXT.
-8. Calculates a time difference between the local time and the Binance server time.
-9. Load the balances of the account from Binance.
-10. Recovers the balances for the trading pair.
-11. Checks if these tokens are available for trading (balance != null).
-12. Loads the Cache class, used to recover market data in an optimized way.
-13. Creates the bot inside the database if it does not exist, else loads it to update the values.
-
-#### General Loop:
-This loop is the less important one, it is used to update the values of the bot in the database
-and do some basic checks, its interval is based on 4 times the timeframe of the main loop by default.
-
-#### Main Loop:
-This is the primary loop of the bot, this is where the magic happens.
-This loop contains the RMS, itself containing the SP, and the trading system.
-
 Systems Schematic
 -----------------
 ```
@@ -108,14 +73,11 @@ Systems
 -------
 More details about the systems used by the bot.
 
-#### Cache:
-This system is used to recover market data in an optimized way.
-
 #### Generator System (GS):
 This system is used to generate the data needed by the HSS to calculate the score of a strategy.
 It generates a JSON file containing the data of the market for each candle over a period of time.
 
-The command to run the generator is `yarn server:generate` and it supports the following arguments (all optional):
+The command to run the generator is `yarn generate` and it supports the following arguments (all optional):
 - `--pair` The trading pair to generate the data for.
 - `--timeframe` The timeframe to generate the data for.
 - `--since` Timestamp to start generating the data from,
@@ -134,16 +96,17 @@ This system is used to calculate the score of a strategy based on its performanc
 It generates a JSON file containing a result for each strategy, the result contains the score of the strategy
 and other useful data.
 
-These result files are called scores, they are used by the SP to weight the strategies.
-Their default path is `src/pipes/scores/`.
+The command to run the HSS is `yarn score` and it supports the following arguments (all optional):
+- `--show` can be used to display the available data for scoring.
+- `WORK IN PROGRESS..`
 
 - `--help` can be used to display the help message.
-- `--show` can be used to display the available data for scoring.
-
-`WORK IN PROGRESS..`
 
 From a filter on the available data, such as the trading pair, the timeframe, etc.
 the HSS will generate a score for each strategy, generating a JSON file per strategy.
+
+These result files are called scores, they are used by the SP to weight the strategies.
+Their default path is `src/pipes/scores/`.
 
 Can be found inside `src/systems/HSS.ts`.
 

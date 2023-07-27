@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "as-table": "^1.0.55",
+        "bip39": "^3.1.0",
         "ccxt": "^3.0.86",
         "date-and-time": "^3.0.0",
         "dotenv": "^16.0.3",

@@ -1,7 +1,7 @@
 import fs from "fs";
 
 import { getJsonFiles } from "helpers/files";
-import { consoleTable, convertFilenameDateToDate, getDateString, searchQueryInFilenames } from "helpers/inputs";
+import { consoleTable, getDateString, searchQueryInFilenames } from "helpers/inputs";
 import { scoreHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -9,26 +9,29 @@ import logger from "utils/logger";
 
 /**
  * Parse the name of a data file to recover the info about the contained data.
- * @param fileName The name of the file.
+ * @param filename The name of the file.
  * @returns The info about the data contained in the file.
  */
-function parseDataFilename(fileName: string) {
-    const sep = fileName.split(" ");
+function parseDataFilename(filename: string) {
+    const info = filename.split(" ");
 
-    // Format the trading pair as 'BASE/QUOTE'
-    const tradingPair = sep[0]
+    // Format the trading pair as 'BASE/QUOTE' (remove parenthesis and replace '-' with '/)
+    const tradingPair = info[0]
         .split("-")
         .join("/")
-        .substring(1, sep[0].length - 1);
+        .substring(1, info[0].length - 1);
+
+    const id = info[1];
 
     // Timeframe is already in the correct format
-    const timeframe = sep[1];
+    const timeframe = info[2];
 
-    // Convert start and end dates to Date objects (replace '_' with 'T')
-    const startDate = convertFilenameDateToDate(sep[2]);
-    const endDate = convertFilenameDateToDate(sep[3]);
+    // Convert start and end dates from file info to Date strings
+    const startDate = getDateString(new Date(parseInt(info[3])));
+    const endDate = getDateString(new Date(parseInt(info[4])));
 
     const res = {
+        id,
         tradingPair,
         timeframe,
         startDate,
@@ -73,9 +76,9 @@ export default async function main(
             } ${
                 filename.timeframe
             } ${
-                getDateString(filename.startDate)
+                filename.startDate
             } ${
-                getDateString(filename.endDate)
+                filename.endDate
             }`
         );
     }

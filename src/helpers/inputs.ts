@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import * as readline from "readline";
 
-import asTable, { configure } from "as-table";
+import { configure } from "as-table";
 import date from "date-and-time";
 import { ObjectId } from "mongodb";
 
@@ -120,42 +120,12 @@ export function removeDays(date: Date, days: number) {
 }
 
 /**
- * Converts a date inside a filename into a valid date object.
- * Format can be found in 'GENERAL_CONFIG.fileDateFormat'.
- * @param filename The filename to convert.
- * @returns The date object.
- */
-export function convertFilenameDateToDate(filename: string) {
-    const date = filename.split("-").map((e) => parseInt(e));
-
-    const result = new Date(
-        date[0],        // Year
-        date[1] - 1,    // Month (Javascript.. starts at 0 for some reason)
-        date[2],        // Day
-        date[3],        // Hour
-        date[4],        // Minute
-        date[5]         // Second
-    );
-
-    return result;
-}
-
-/**
  * Custom console table for printing object arrays.
  * Dates are converted to strings.
  * @param objs The objects to print.
  */
 export function consoleTable(objs: { [key: string]: unknown; }[]) {
     const formattedObjs = objs.map((obj) => {
-
-        if (obj.startDate) {
-            obj.startDate = getDateString(obj.startDate as Date);
-        }
-
-        if (obj.endDate) {
-            obj.endDate = getDateString(obj.endDate as Date);
-        }
-
         if (obj.date) {
             obj.date = getDateString(obj.date as Date);
         }

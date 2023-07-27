@@ -3,7 +3,7 @@ import path from "path";
 
 import { OHLCV } from "ccxt";
 
-import { GENERAL_CONFIG } from "configs/global.config";
+import { generateRandomName } from "helpers/crypto";
 import {
     checkExchangeStatus,
     fetchOHLCV,
@@ -12,7 +12,7 @@ import {
     loadMarkets,
     parseTradingPair
 } from "helpers/exchange";
-import { getCurrentDateString, getDateString, getTimeframe, removeDays } from "helpers/inputs";
+import { getTimeframe, removeDays } from "helpers/inputs";
 import { generateHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -95,14 +95,13 @@ export default async function main(
     }
 
     // Format the file name
-    const fileBaseName = `(${tokens.base}-${tokens.quote}) ${args.timeframe}`;
-    const formattedSinceDate = getDateString(sinceDate, GENERAL_CONFIG.fileDateFormat);
-    const formattedNowDate = getCurrentDateString(GENERAL_CONFIG.fileDateFormat);
-    const fileName = `${fileBaseName} ${formattedSinceDate} ${formattedNowDate}.json`;
+    const rndName = generateRandomName();
+    const fileBaseName = `(${tokens.base}-${tokens.quote}) ${rndName.toUpperCase()} ${args.timeframe}`;
+    const filename = `${fileBaseName} ${sinceDate.getTime()} ${Date.now()}.json`;
 
     // Save OHLCV data to JSON file
     fs.writeFileSync(
-        path.join(args.dataPath, fileName),
+        path.join(args.dataPath, filename),
         JSON.stringify(OHLCVs, null, 4)
     );
 }
