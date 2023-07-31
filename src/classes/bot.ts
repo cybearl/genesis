@@ -10,21 +10,21 @@ import {
     getObjectId,
     getTimeframe,
     getUserInput
-} from "helpers/IO";
+} from "helpers/local/IO";
 import {
     checkMarketStatus,
     loadMarket,
     loadMarkets,
     marketTimeDifference,
     parseTradingPair
-} from "helpers/market";
+} from "helpers/online/market";
 import {
     checkNetwork,
     closeDBConnection,
     connectToDB,
     sendBotObjectCategory,
     sendOrGetInitialBotObject
-} from "helpers/network";
+} from "helpers/online/network";
 import NsBotObject from "types/botObject";
 import NsGeneral from "types/general";
 import logger from "utils/logger";

@@ -1,8 +1,8 @@
 import { Exchange as Market, OHLCV } from "ccxt";
 
-import { getTimeframe } from "helpers/IO";
-import { fetchOHLCV } from "helpers/market";
-import { convertOHLCVsToPriceBars } from "helpers/strategy";
+import { getTimeframe } from "helpers/local/IO";
+import { fetchOHLCV } from "helpers/online/market";
+import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
 import NsGeneral from "types/general";
 import NsStrategy from "types/strategy";
 import logger from "utils/logger";
