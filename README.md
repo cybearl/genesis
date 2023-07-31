@@ -103,10 +103,10 @@ The command to run the HSS is `yarn score` and it supports the following argumen
 - `--help` can be used to display the help message.
 
 From a filter on the available data, such as the trading pair, the timeframe, etc.
-the HSS will generate a score for each strategy, generating a JSON file per strategy.
+the HSS will generate a score for each strategy, generating or reusing the `score` JSON file.
 
-These result files are called scores, they are used by the SP to weight the strategies.
-Their default path is `src/pipes/scores/`.
+These result file is called 'score', they are used by the SP to weight the strategies.
+Its default path is `src/pipes/score.json`.
 
 Can be found inside `src/systems/HSS.ts`.
 
