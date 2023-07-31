@@ -27,9 +27,9 @@ export const NETWORK_CONFIG = {
 };
 
 /**
- * Exchange configuration.
+ * Market configuration.
  */
-export const EXCHANGE_CONFIG = {
+export const MARKET_CONFIG = {
     sandboxTradingPair: "BNB/BUSD",                         // The trading pair to use in sandbox mode
     sandboxApiKey: process.env.BINANCE_SANDBOX_API_KEY,     // The API key to use in sandbox mode
     sandboxApiSecret: process.env.BINANCE_SANDBOX_API_SEC,  // The API secret to use in sandbox mode

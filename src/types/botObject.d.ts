@@ -1,7 +1,6 @@
 import {
     Balance,
-    Balances,
-    Exchange,
+    Exchange as Market
 } from "ccxt";
 import { Db } from "mongodb";
 
@@ -106,8 +105,7 @@ declare namespace NsBotObject {
         stringTimeframe: NsGeneral.IsTimeframe;
         running: boolean;
         networkCheck: boolean;
-        exchange: Exchange | null;
-        balances: Balances | null;
+        market: Market | null;
         cache: Cache | null;
     }
 

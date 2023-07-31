@@ -1,25 +1,23 @@
-import { Exchange } from "ccxt";
+import { Exchange as Market } from "ccxt";
 import lodash from "lodash";
 import { Db } from "mongodb";
 
 import Cache from "classes/cache";
 import { botObject } from "configs/botObject.config";
-import { EXCHANGE_CONFIG, GENERAL_CONFIG } from "configs/global.config";
-import {
-    checkExchangeStatus,
-    exchangeTimeDifference,
-    getBalance,
-    loadBalances,
-    loadExchange,
-    loadMarkets,
-    parseTradingPair
-} from "helpers/exchange";
+import { GENERAL_CONFIG, MARKET_CONFIG } from "configs/global.config";
 import {
     getCurrentDateString,
     getObjectId,
     getTimeframe,
     getUserInput
 } from "helpers/IO";
+import {
+    checkMarketStatus,
+    loadMarket,
+    loadMarkets,
+    marketTimeDifference,
+    parseTradingPair
+} from "helpers/market";
 import {
     checkNetwork,
     closeDBConnection,
@@ -65,7 +63,7 @@ export default class Bot {
         // Sandbox mode overrides the trading pair
         // As most of currencies are not available in sandbox mode
         if (sandbox) {
-            tradingPair = EXCHANGE_CONFIG.sandboxTradingPair;
+            tradingPair = MARKET_CONFIG.sandboxTradingPair;
         }
 
         // Bot static parameters
@@ -124,36 +122,36 @@ export default class Bot {
             // Connect to MongoDB (FATAL)
             this._mongoDB = await connectToDB();
 
-            // Load the exchange
-            this._botObject.local.exchange = loadExchange(this._botObject.start.sandbox);
+            // Load the market
+            this._botObject.local.market = loadMarket(this._botObject.start.sandbox);
 
-            // Check the exchange status (FATAL)
+            // Check the market status (FATAL)
             // Endpoint not available in sandbox mode
-            await checkExchangeStatus(this._botObject.local.exchange);
+            await checkMarketStatus(this._botObject.local.market);
 
             // Load the markets
-            await loadMarkets(this._botObject.local.exchange);
+            await loadMarkets(this._botObject.local.market);
 
-            // Local/Exchange time difference
-            this._botObject.specials.timeDifference = await exchangeTimeDifference(
-                this._botObject.local.exchange
+            // Local/Market time difference
+            this._botObject.specials.timeDifference = await marketTimeDifference(
+                this._botObject.local.market
             );
 
-            // Load the balances
-            this._botObject.local.balances = await loadBalances(
-                this._botObject.local.exchange
-            );
+            // Get the base balance from wallet
+            // TODO: Get balance from wallet
+            this._botObject.start.baseBalance = {
+                free: 0,
+                used: 0,
+                total: 0
+            };
 
-            // Get the balances
-            this._botObject.start.baseBalance = getBalance(
-                this._botObject.local.balances,
-                this._botObject.start.baseCurrency
-            );
-
-            this._botObject.start.quoteBalance = getBalance(
-                this._botObject.local.balances,
-                this._botObject.start.quoteCurrency
-            );
+            // Get the quote balance from wallet
+            // TODO: Get balance from wallet
+            this._botObject.start.quoteBalance = {
+                free: 0,
+                used: 0,
+                total: 0
+            };
 
             // Check the balances
             if (this._botObject.start.baseBalance === null) {
@@ -168,7 +166,7 @@ export default class Bot {
 
             // Get the cache (OHLCV & other data)
             this._botObject.local.cache = new Cache(
-                this._botObject.local.exchange,
+                this._botObject.local.market,
                 this._botObject.start.tradingPair,
                 this._botObject.local.stringTimeframe,
                 this._botObject.start.ohlcvLimit
@@ -197,8 +195,8 @@ export default class Bot {
             // Verifies if the bot is still running
             // Because the bot could be stopped during the loop
             if (this._botObject.local.running && this._mongoDB.mongoDB) {
-                this._botObject.specials.timeDifference = await exchangeTimeDifference(
-                    this._botObject.local.exchange as Exchange
+                this._botObject.specials.timeDifference = await marketTimeDifference(
+                    this._botObject.local.market as Market
                 );
 
                 // General shared object update

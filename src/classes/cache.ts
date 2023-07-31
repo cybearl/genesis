@@ -1,7 +1,7 @@
-import { Exchange, OHLCV } from "ccxt";
+import { Exchange as Market, OHLCV } from "ccxt";
 
-import { fetchOHLCV } from "helpers/exchange";
 import { getTimeframe } from "helpers/IO";
+import { fetchOHLCV } from "helpers/market";
 import { convertOHLCVsToPriceBars } from "helpers/strategy";
 import NsGeneral from "types/general";
 import NsStrategy from "types/strategy";
@@ -10,7 +10,7 @@ import logger from "utils/logger";
 
 export default class Cache {
     private _firstLoad = true;
-    private _exchange: Exchange;
+    private _market: Market;
     private _tradingPair: string;
     private _timeframe: NsGeneral.IsTimeframe;
     private _nbTimeframe: number;
@@ -21,13 +21,13 @@ export default class Cache {
 
     /**
      * Creates a new cache containing optimized market calls.
-     * @param exchange The initialized exchange.
+     * @param market The initialized market.
      * @param tradingPair The trading pair.
      * @param timeframe The timeframe.
      * @param ohlcvLimit The limit of OHLCV candles.
      */
     constructor(
-        exchange: Exchange,
+        market: Market,
         tradingPair: string,
         timeframe: NsGeneral.IsTimeframe,
 
@@ -35,7 +35,7 @@ export default class Cache {
         ohlcvLimit: number
     ) {
         // Static parameters
-        this._exchange = exchange;
+        this._market = market;
         this._tradingPair = tradingPair;
         this._timeframe = timeframe;
         this._nbTimeframe = getTimeframe(timeframe);
@@ -96,7 +96,7 @@ export default class Cache {
      */
     public async load(): Promise<void> {
         this._OHLCVs = await fetchOHLCV(
-            this._exchange,
+            this._market,
             this._tradingPair,
             this._timeframe,
             undefined,
@@ -114,7 +114,7 @@ export default class Cache {
         const lastCandleTime = this._OHLCVs[this._OHLCVs.length - 1][0];
 
         const newCandles = await fetchOHLCV(
-            this._exchange,
+            this._market,
             this._tradingPair,
             this._timeframe,
             lastCandleTime - this._nbTimeframe,

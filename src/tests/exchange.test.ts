@@ -1,10 +1,10 @@
 import "configs/env";
 
-import { Exchange } from "ccxt";
+import { Exchange as Market } from "ccxt";
 import { expect } from "chai";
 import { describe, it } from "mocha";
 
-import * as exchange from "helpers/exchange";
+import * as market from "helpers/market";
 import logger from "utils/logger";
 
 
@@ -12,111 +12,82 @@ import logger from "utils/logger";
 logger.transports.forEach((t) => (t.silent = true));
 
 
-describe("exchange.ts", () => {
-    let exchangeObj: Exchange;
-    let exchangeObjSandbox: Exchange;
+describe("market.ts", () => {
+    let marketObj: Market;
+    let marketObjSandbox: Market;
 
     beforeEach(() => {
-        exchangeObj = exchange.loadExchange(false);
-        exchangeObjSandbox = exchange.loadExchange(true);
+        marketObj = market.loadMarket(false);
+        marketObjSandbox = market.loadMarket(true);
     });
 
     describe("parseTradingPair", () => {
         it("Should give an object.", () => {
-            expect(exchange.parseTradingPair("BTC/USDT"))
+            expect(market.parseTradingPair("BTC/USDT"))
                 .is.an("object");
         });
 
         it("Should give the proper object.", () => {
-            expect(exchange.parseTradingPair("BTC/USDT"))
+            expect(market.parseTradingPair("BTC/USDT"))
                 .is.eql({ base: "BTC", quote: "USDT" });
         });
     });
 
-    describe("loadExchange()", () => {
+    describe("loadMarket()", () => {
         it("Should give an object.", () => {
-            expect(exchange.loadExchange(true))
+            expect(market.loadMarket(true))
                 .is.an("object");
         });
     });
 
-    describe("checkExchangeStatus()", () => {
+    describe("checkMarketStatus()", () => {
         it("Should give a boolean.", async () => {
-            expect(await exchange.checkExchangeStatus(exchangeObjSandbox))
+            expect(await market.checkMarketStatus(marketObjSandbox))
                 .is.a("boolean");
         });
 
         it("Should give the proper boolean in sandbox mode.", async () => {
-            expect(await exchange.checkExchangeStatus(exchangeObjSandbox))
+            expect(await market.checkMarketStatus(marketObjSandbox))
                 .is.eql(true);
         });
 
         it("Should give the proper boolean without sandbox mode on.", async () => {
-            expect(await exchange.checkExchangeStatus(exchangeObj))
+            expect(await market.checkMarketStatus(marketObj))
                 .is.eql(true);
-        });
-    });
-
-    describe("loadBalances()", () => {
-        it("Should give an object.", async () => {
-            expect(await exchange.loadBalances(exchangeObjSandbox))
-                .is.an("object");
-        });
-
-        it("Should return an object containing the information about the user account", async () => {
-            expect(await exchange.loadBalances(exchangeObjSandbox))
-                .is.an("object")
-                .with.property("info");
-        });
-    });
-
-    describe("getBalance()", () => {
-        it("Should return an object containing the information about the user balances", async () => {
-            const balances = await exchange.loadBalances(exchangeObjSandbox);
-            expect(await exchange.getBalance(balances, "BTC"))
-                .is.an("object")
-                .with.property("free");
         });
     });
 
     describe("fetchTicker()", async () => {
         it("Should give an object.", async () => {
-            expect(await exchange.fetchTicker(exchange.loadExchange(true), "BTC/USDT"))
+            expect(await market.fetchTicker(market.loadMarket(true), "BTC/USDT"))
                 .is.an("object");
         });
     });
 
     describe("fetchOrderBook()", () => {
         it("Should give an object.", async () => {
-            expect(await exchange.fetchOrderBook(exchange.loadExchange(true), "BTC/USDT"))
+            expect(await market.fetchOrderBook(market.loadMarket(true), "BTC/USDT"))
                 .is.an("object");
         });
     });
 
     describe("fetchTrades()", () => {
         it("Should give an array.", async () => {
-            expect(await exchange.fetchTrades(exchange.loadExchange(true), "BTC/USDT"))
+            expect(await market.fetchTrades(market.loadMarket(true), "BTC/USDT"))
                 .is.an("array");
         });
     });
 
     describe("fetchOHLCV()", () => {
         it("Should give an array.", async () => {
-            expect(await exchange.fetchOHLCV(exchange.loadExchange(true), "BTC/USDT"))
+            expect(await market.fetchOHLCV(market.loadMarket(true), "BTC/USDT"))
                 .is.an("array");
         });
     });
 
-    describe("precalculateFees()", () => {
-        it("Should give an object.", async () => {
-            expect(await exchange.precalculateFees(exchange.loadExchange(true), "BTC/USDT", "market", "buy", 0.001))
-                .is.an("object");
-        });
-    });
-
-    describe("exchangeTimeDifference()", () => {
+    describe("marketTimeDifference()", () => {
         it("Should give a number.", async () => {
-            expect(await exchange.exchangeTimeDifference(exchange.loadExchange(true)))
+            expect(await market.marketTimeDifference(market.loadMarket(true)))
                 .is.a("number");
         });
     });

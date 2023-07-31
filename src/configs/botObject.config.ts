@@ -104,8 +104,7 @@ export const botObject: NsBotObject.IsBotObject = {
         networkCheck: false,               // If the network check passed
 
         // Loaded from CCXT
-        exchange: null,                    // Exchange
-        balances: null,                    // Exchange balances
+        market: null,                      // Market
 
         // Cache
         cache: null,                       // Cache (OHLCV & other data)
@@ -118,6 +117,6 @@ export const botObject: NsBotObject.IsBotObject = {
 
         // Timings
         mainTimeframeCorrector: 0,         // Last timeframe corrector for main iterations (in ms)
-        timeDifference: 0,                 // Last time difference between the exchange and the bot
+        timeDifference: 0,                 // Last time difference between the market and the bot
     }
 };

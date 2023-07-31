@@ -37,9 +37,7 @@ const loggerFormat = format.combine(
     format.timestamp({
         format: GENERAL_CONFIG.dateFormat
     }),
-    format.printf((info) => {
-        return `[${info.timestamp}] [${info.level.toUpperCase()}] ${info.message}`;
-    }),
+    format.printf((info) => `[${info.timestamp}] [${info.level.toUpperCase()}] ${info.message}`),
     format.colorize({
         all: true,
     })
