@@ -2,7 +2,7 @@ import { Db, MongoClient, ObjectId } from "mongodb";
 import speedTest from "speedtest-net";
 
 import { NETWORK_CONFIG } from "configs/global.config";
-import { getCurrentDateString } from "helpers/inputs";
+import { getCurrentDateString } from "helpers/IO";
 import NsBotObject from "types/botObject";
 import logger from "utils/logger";
 

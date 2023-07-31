@@ -19,7 +19,7 @@ import {
     getObjectId,
     getTimeframe,
     getUserInput
-} from "helpers/inputs";
+} from "helpers/IO";
 import {
     checkNetwork,
     closeDBConnection,

@@ -5,10 +5,10 @@ import { Db, MongoClient } from "mongodb";
 
 import { botObject } from "configs/botObject.config";
 import { NETWORK_CONFIG } from "configs/global.config";
-import { getObjectId } from "helpers/inputs";
+import { getObjectId } from "helpers/IO";
 import * as network from "helpers/network";
+import { generateRandomBotName, generateRandomNumber } from "helpers/random";
 import logger from "utils/logger";
-import { generateRandomBotName, generateRandomNumber } from "utils/random";
 
 
 // Silencing the logger
@@ -19,7 +19,7 @@ describe("network.ts", () => {
 
     describe("checkNetwork()", () => {
         it("Should return a boolean, depending if the network test has successfully passed or not", async () => {
-            expect(await network.checkNetwork(false),"The returned value should be a boolean")
+            expect(await network.checkNetwork(false), "The returned value should be a boolean")
                 .is.a("boolean");
         });
     });
@@ -211,7 +211,7 @@ describe("network.ts", () => {
 
                 const sendOrGet = await network.sendOrGetInitialBotObject(mongoDB, testBotObject);
 
-                expect(sendOrGet.start.initialQuoteBalance,"The bot should exist in the DB")
+                expect(sendOrGet.start.initialQuoteBalance, "The bot should exist in the DB")
                     .is.greaterThan(0);
             }
 
@@ -229,7 +229,7 @@ describe("network.ts", () => {
 
                 const sendOrGet = network.sendOrGetInitialBotObject(mongoDB, testBotObject);
 
-                expect((await sendOrGet).start.initialQuoteBalance,"The bot should not exist in the DB")
+                expect((await sendOrGet).start.initialQuoteBalance, "The bot should not exist in the DB")
                     .is.equal(0);
             }
 

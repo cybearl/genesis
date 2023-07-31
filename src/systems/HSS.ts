@@ -1,7 +1,7 @@
 import fs from "fs";
 
 import { getJsonFiles } from "helpers/files";
-import { consoleTable, getDateString, searchQueryInFilenames } from "helpers/inputs";
+import { consoleTable, getDateString, searchQueryInFilenames } from "helpers/IO";
 import { scoreHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";

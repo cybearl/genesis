@@ -3,7 +3,6 @@ import path from "path";
 
 import { OHLCV } from "ccxt";
 
-import { generateRandomName } from "helpers/crypto";
 import {
     checkExchangeStatus,
     fetchOHLCV,
@@ -12,7 +11,8 @@ import {
     loadMarkets,
     parseTradingPair
 } from "helpers/exchange";
-import { getTimeframe, removeDays } from "helpers/inputs";
+import { getTimeframe, removeDays } from "helpers/IO";
+import { generateRandomName } from "helpers/random";
 import { generateHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";

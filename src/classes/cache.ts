@@ -1,7 +1,7 @@
 import { Exchange, OHLCV } from "ccxt";
 
 import { fetchOHLCV } from "helpers/exchange";
-import { getTimeframe } from "helpers/inputs";
+import { getTimeframe } from "helpers/IO";
 import { convertOHLCVsToPriceBars } from "helpers/strategy";
 import NsGeneral from "types/general";
 import NsStrategy from "types/strategy";

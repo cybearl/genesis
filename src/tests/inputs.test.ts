@@ -3,7 +3,7 @@ import date from "date-and-time";
 import { describe, it } from "mocha";
 
 import { GENERAL_CONFIG } from "configs/global.config";
-import * as inputs from "helpers/inputs";
+import * as inputs from "helpers/IO";
 import logger from "utils/logger";
 
 
