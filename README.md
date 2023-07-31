@@ -21,6 +21,14 @@
 
 ### WORK IN PROGRESS..
 
+Installation
+------------
+Note that this bot is currently in development, we're not really checking if a new version is compatible
+with the previous one, and bugs are to be expected.
+
+Note that to make this bot work locally, you need to have Python installed on your machine with
+an environment variable for it.
+
 Technical Summary
 -----------------
 The principle of the bot is based on a governance system with multiple trading strategies.
