@@ -29,6 +29,8 @@ with the previous one, and bugs are to be expected.
 Note that to make this bot work locally, you need to have Python installed on your machine with
 an environment variable for it.
 
+We're using Binance to get precise market data and EthersJS to make trades on the Ethereum blockchain.
+
 Technical Summary
 -----------------
 The principle of the bot is based on a governance system with multiple trading strategies.

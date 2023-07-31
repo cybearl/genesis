@@ -19,6 +19,7 @@
         "ccxt": "^3.0.86",
         "date-and-time": "^3.0.0",
         "dotenv": "^16.0.3",
+        "ethers": "^6.6.7",
         "lodash": "^4.17.21",
         "minimist": "^1.2.8",
         "mongodb": "^5.3.0",
