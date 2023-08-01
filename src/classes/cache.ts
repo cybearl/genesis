@@ -1,7 +1,7 @@
-import { Exchange as Market, OHLCV } from "ccxt";
+import { Exchange, OHLCV } from "ccxt";
 
 import { getTimeframe } from "helpers/local/IO";
-import { fetchOHLCV } from "helpers/online/market";
+import { fetchOHLCV } from "helpers/online/exchange";
 import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
 import NsGeneral from "types/general";
 import NsStrategy from "types/strategy";
@@ -10,7 +10,7 @@ import logger from "utils/logger";
 
 export default class Cache {
     private _firstLoad = true;
-    private _market: Market;
+    private _exchange: Exchange;
     private _tradingPair: string;
     private _timeframe: NsGeneral.IsTimeframe;
     private _nbTimeframe: number;
@@ -20,14 +20,14 @@ export default class Cache {
 
 
     /**
-     * Creates a new cache containing optimized market calls.
-     * @param market The initialized market.
+     * Creates a new cache containing optimized exchange calls.
+     * @param exchange The initialized exchange.
      * @param tradingPair The trading pair.
      * @param timeframe The timeframe.
      * @param ohlcvLimit The limit of OHLCV candles.
      */
     constructor(
-        market: Market,
+        exchange: Exchange,
         tradingPair: string,
         timeframe: NsGeneral.IsTimeframe,
 
@@ -35,7 +35,7 @@ export default class Cache {
         ohlcvLimit: number
     ) {
         // Static parameters
-        this._market = market;
+        this._exchange = exchange;
         this._tradingPair = tradingPair;
         this._timeframe = timeframe;
         this._nbTimeframe = getTimeframe(timeframe);
@@ -96,7 +96,7 @@ export default class Cache {
      */
     public async load(): Promise<void> {
         this._OHLCVs = await fetchOHLCV(
-            this._market,
+            this._exchange,
             this._tradingPair,
             this._timeframe,
             undefined,
@@ -114,7 +114,7 @@ export default class Cache {
         const lastCandleTime = this._OHLCVs[this._OHLCVs.length - 1][0];
 
         const newCandles = await fetchOHLCV(
-            this._market,
+            this._exchange,
             this._tradingPair,
             this._timeframe,
             lastCandleTime - this._nbTimeframe,

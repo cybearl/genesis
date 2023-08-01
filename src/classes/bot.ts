@@ -1,10 +1,10 @@
-import { Exchange as Market } from "ccxt";
+import { Exchange } from "ccxt";
 import lodash from "lodash";
 import { Db } from "mongodb";
 
 import Cache from "classes/cache";
 import { botObject } from "configs/botObject.config";
-import { GENERAL_CONFIG, MARKET_CONFIG } from "configs/global.config";
+import { EXCHANGE_CONFIG, GENERAL_CONFIG } from "configs/global.config";
 import {
     getCurrentDateString,
     getObjectId,
@@ -12,12 +12,13 @@ import {
     getUserInput
 } from "helpers/local/IO";
 import {
-    checkMarketStatus,
-    loadMarket,
+    checkExchangeStatus,
+    exchangeTimeDifference,
+    loadBalances,
+    loadExchange,
     loadMarkets,
-    marketTimeDifference,
     parseTradingPair
-} from "helpers/online/market";
+} from "helpers/online/exchange";
 import {
     checkNetwork,
     closeDBConnection,
@@ -63,7 +64,7 @@ export default class Bot {
         // Sandbox mode overrides the trading pair
         // As most of currencies are not available in sandbox mode
         if (sandbox) {
-            tradingPair = MARKET_CONFIG.sandboxTradingPair;
+            tradingPair = EXCHANGE_CONFIG.sandboxTradingPair;
         }
 
         // Bot static parameters
@@ -122,19 +123,24 @@ export default class Bot {
             // Connect to MongoDB (FATAL)
             this._mongoDB = await connectToDB();
 
-            // Load the market
-            this._botObject.local.market = loadMarket(this._botObject.start.sandbox);
+            // Load the exchange
+            this._botObject.local.exchange = loadExchange(this._botObject.start.sandbox);
 
-            // Check the market status (FATAL)
+            // Check the exchange status (FATAL)
             // Endpoint not available in sandbox mode
-            await checkMarketStatus(this._botObject.local.market);
+            await checkExchangeStatus(this._botObject.local.exchange);
 
             // Load the markets
-            await loadMarkets(this._botObject.local.market);
+            await loadMarkets(this._botObject.local.exchange);
 
-            // Local/Market time difference
-            this._botObject.specials.timeDifference = await marketTimeDifference(
-                this._botObject.local.market
+            // Local/Exchange time difference
+            this._botObject.specials.timeDifference = await exchangeTimeDifference(
+                this._botObject.local.exchange
+            );
+
+            // Loads the balances for the specified account
+            this._botObject.local.balances = await loadBalances(
+                this._botObject.local.exchange
             );
 
             // Get the base balance from wallet
@@ -166,7 +172,7 @@ export default class Bot {
 
             // Get the cache (OHLCV & other data)
             this._botObject.local.cache = new Cache(
-                this._botObject.local.market,
+                this._botObject.local.exchange,
                 this._botObject.start.tradingPair,
                 this._botObject.local.stringTimeframe,
                 this._botObject.start.ohlcvLimit
@@ -195,8 +201,8 @@ export default class Bot {
             // Verifies if the bot is still running
             // Because the bot could be stopped during the loop
             if (this._botObject.local.running && this._mongoDB.mongoDB) {
-                this._botObject.specials.timeDifference = await marketTimeDifference(
-                    this._botObject.local.market as Market
+                this._botObject.specials.timeDifference = await exchangeTimeDifference(
+                    this._botObject.local.exchange as Exchange
                 );
 
                 // General shared object update

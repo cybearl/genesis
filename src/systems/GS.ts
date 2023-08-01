@@ -6,12 +6,12 @@ import { OHLCV } from "ccxt";
 import { getTimeframe, removeDays } from "helpers/local/IO";
 import { generateRandomName } from "helpers/local/random";
 import {
-    checkMarketStatus,
+    checkExchangeStatus,
     fetchOHLCV,
-    loadMarket,
+    loadExchange,
     loadMarkets,
     parseTradingPair
-} from "helpers/online/market";
+} from "helpers/online/exchange";
 import { generateHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -50,9 +50,9 @@ export default async function main(
     const pagination = timeframes > args.entriesPerPage ? Math.ceil(timeframes / args.entriesPerPage) : 1;
 
     // Connect to API
-    const market = loadMarket(true);
-    await checkMarketStatus(market);
-    await loadMarkets(market);
+    const exchange = loadExchange(true);
+    await checkExchangeStatus(exchange);
+    await loadMarkets(exchange);
 
     // Get OHLCV data
     const OHLCVs: OHLCV[] = [];
@@ -63,7 +63,7 @@ export default async function main(
         logger.info(`Fetching page No.${i + 1}...`);
 
         const OHLCV = await fetchOHLCV(
-            market,
+            exchange,
             args.pair,
             args.timeframe,
             since,
