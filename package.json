@@ -29,7 +29,6 @@
         "winston": "^3.8.2"
     },
     "devDependencies": {
-        "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@total-typescript/ts-reset": "^0.4.2",
         "@types/chai": "^4.3.5",
         "@types/lodash": "^4.14.194",
@@ -45,31 +44,8 @@
         "eslint-import-resolver-typescript": "^3.5.5",
         "eslint-plugin-import": "^2.27.5",
         "mocha": "^10.2.0",
-        "nyc": "^15.1.0",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.2.0",
         "typescript": "^5.0.4"
-    },
-    "nyc": {
-        "extends": "@istanbuljs/nyc-config-typescript",
-        "all": true,
-        "check-coverage": true,
-        "branches": 0,
-        "lines": 0,
-        "functions": 0,
-        "statements": 0,
-        "include": [
-            "src/**/!(*.test.*).[tj]s?(x)"
-        ],
-        "exclude": [
-            "src/**/*.test.ts"
-        ],
-        "reporter": [
-            "html",
-            "lcov",
-            "text",
-            "text-summary"
-        ],
-        "report-dir": "coverage"
     }
 }

@@ -3,15 +3,15 @@ import path from "path";
 
 import { OHLCV } from "ccxt";
 
-import { getTimeframe, removeDays } from "helpers/IO";
+import { getTimeframe, removeDays } from "helpers/local/IO";
+import { generateRandomName } from "helpers/local/random";
 import {
     checkMarketStatus,
     fetchOHLCV,
     loadMarket,
     loadMarkets,
     parseTradingPair
-} from "helpers/market";
-import { generateRandomName } from "helpers/random";
+} from "helpers/online/market";
 import { generateHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
