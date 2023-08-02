@@ -77,8 +77,7 @@ BOT
 |
 |-> Main Loop
     |
-    |-> Strategy Pool (SP) (HSS Weighted Governance)
-        |
+    |-> Strategy Pool (SP) (HSS Weighted Governance & strategy data storage)
         |
         |-> Strategy (S)
         |-> Strategy (S)
