@@ -10,7 +10,21 @@ declare namespace NsStrategy {
         close: number;
         volume: number;
         pctChange: number | null;
-        price: number;
+        forwardLookingBias: number | null;
+    }
+
+    /**
+     * Standard strategy input.
+     */
+    interface input {
+        symbol: string;
+    }
+
+    /**
+     * Standard strategy output.
+     */
+    interface output {
+        symbol: string;
     }
 }
 

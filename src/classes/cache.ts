@@ -129,7 +129,7 @@ export default class Cache {
 
         // If the candles are not correct, reload the cache (except for the first load)
         if (!areCandlesCorrect && !this._firstLoad) {
-            logger.warn("The OHLCV candles are not correct, reloading the cache...");
+            logger.warn("Invalid OHLCV candles, reloading the cache...");
 
             await this.load();
         }
