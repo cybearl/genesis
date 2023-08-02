@@ -104,7 +104,7 @@ The command to run the generator is `yarn generate` and it supports the followin
 
 `--help` can be used to display the help message.
 
-The default path for the generated data is `src/pipes/data/` & cannot be changed.
+The default path for the generated data is `src/pipes/data/` & cannot be changed via arguments, as data are later accessed by the `HSS`.
 
 Can be found inside `src/systems/GS.ts`.
 
