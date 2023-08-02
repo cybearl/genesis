@@ -145,9 +145,7 @@ This fallback system used to prevent the SP from making unwanted trades (governa
   meaning that the RMS is the only system that can, in fact, make the bot lose money.
 - As said at the beginning of this README, better systems will be later implemented, depending on how the first version of the bot performs on the market.
 
-The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of the code, acting as a middleware between the trading decision and the actual trade.
-
-The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of the code, acting as a middleware between the trading decision and the actual trade.
+The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of the code, acting as a middleware between the trading decision and the actual trade. We recently changed the way it works in the schematic, it was, previously, acting like a middleware between the bot the and the SP, we found it more logical to make it a part of the SP itself, as it is the one making the decision, easier to stop there than returning the data everywhere.
 
 Can be found inside `src/systems/RMS.ts`.
 
