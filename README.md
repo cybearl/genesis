@@ -26,9 +26,11 @@ This bot is still in development, so multiple features will be added once we kno
 it is working properly.
 
 First, we're using Binance Spot for the tradings, which need to be later changed to
-an external wallet, basically, a wallet will be generated at the creation of a bot instance, where only the user and the bot will have access to it.
+an external wallet, basically, a wallet will be generated at the creation of a bot instance,
+where only the user and the bot will have access to it.
 
 Binance will still be used to get the market data, but the tradings will be made from the external wallet.
+Yeah, pasting a Binance account API key in a bot is generally not safe and I wouldn't do that too lol.
 
 The strategies system needs to implement more methods to allow the strategies to be more complex, including deep learning, better decision making, etc.
 
