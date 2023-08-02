@@ -25,14 +25,18 @@ Work in progress..
 This bot is still in development, so multiple features will be added once we know
 it is working properly, a bit like a MVP.
 
-First, we're using Binance Spot for the tradings, which need to be later changed to
-an external wallet, basically, a wallet will be generated at the creation of a bot instance,
-where only the user and the bot will have access to it.
+First, we're using Binance Spot for the tradings, which needs to be later changed to
+an external wallet. Basically, a wallet will be generated at the creation of a bot instance,
+showing the address and the private key, the user will then have to send the funds,
+and configure the bot to use a certain amount of funds, secure a percentage of the funds on
+a personal wallet, etc.
 
-Binance will still be used to get the market data, but the tradings will be made from the external wallet.
-Yeah, pasting a Binance account API key in a bot is generally not safe and I wouldn't do that too lol.
+Binance will still be used to get the market data, probably backed by another service,
+but the tradings will be made from the external wallet. Pasting a Binance account API key
+in a bot is generally not safe and I wouldn't do that too lol.
 
-The strategies system needs to implement more methods to allow the strategies to be more complex, including deep learning, better decision making, etc.
+The strategies system needs to implement more methods to allow the strategies to be more complex,
+including deep learning, better decision making, etc.
 
 Installation
 ------------
@@ -50,7 +54,7 @@ to determine if a trade should be made or not.
 This governance system (Strategy pool or SP) works with a scoring system. The score for each strategy is based
 on the performance of the strategy on historical data.
 The best strategies are then selected to be used in the live market.
-Now, for each strategy to cohabit with the others, a weight is assigned to it based on its score.
+Now, for each strategy to cohabit with the others, a weight is assigned to it, based on its score.
 The higher the score, the higher the weight, and the more the strategy choice will be taken into account.
 
 All of this system is secured by a risk management system (RMS) that will prevent the bot from
@@ -59,27 +63,30 @@ as a fallback to prevent the bot from losing money in the worst case scenario.
 
 Systems Schematic
 -----------------
+It would take too much time to explain the link of each system with the others, so here is a schematic that
+shows the link between the systems.
+
 ```
-BOT
+GENESIS
 |
-|-> Generator System (generator)
+|-> Scoring & Governance System (Pipelines linking to the SP)
 |   |
-|   |-> Generates data for the Historical Scoring System (HSS)
+|   |-> Generator System (generator)
+|   |   |
+|   |   |-> Generates data for the Historical Scoring System (HSS -> data pipe)
 |   |
 |   |-> Historical Scoring System (HSS)
 |       |
-|       |-> Gives a score for a strategy (called a pipe which is a JSON result)
-|           |
-|           |-> Accessible by Strategy Pool (SP)
+|       |-> Gives a score for a strategy (JSON result -> score pipe)
 |
 |-> General Loop
 |   |
 |   |-> Measures time diff between local and server time
-|   |-> Updates the values of the bot in the database
+|   |-> Updates the values of the bot in the database (statistics, etc.)
 |
 |-> Main Loop
     |
-    |-> Strategy Pool (SP) (HSS Weighted Governance & strategy data storage)
+    |-> Strategy Pool (SP) (HSS Governance & strategy storage)
         |
         |-> Strategy (S)
         |-> Strategy (S)
@@ -117,7 +124,7 @@ Can be found inside `src/systems/GS.ts`.
 #### Historical Scoring System (HSS):
 This system is used to calculate the score of a strategy based on its performance on historical data.
 
-It generates a JSON file containing a result for each strategy, the result contains the score of the strategy
+It generates a JSON result for each strategy, the result contains the score of the strategy
 and other useful data.
 
 The command to run the HSS is `yarn score` and it supports the following arguments (all optional):
@@ -164,10 +171,8 @@ This is the basic system of the bot, it is used to decide whether a trade should
 The bot implements multiple strategies, each one is a set of rules that are applied to the market.
 
 Notes:
-- The strategy name should be in the format `strategy_<name>.ts`.
+- The strategy name should be in the format `<unique_name>.ts`.
 - The strategy should be implemented inside `src/classes/strategies/`.
-- The strategy should be extended from the `Strategy` class (see `src/classes/strategies/strategy.ts`).
-- The strategy should be imported & exported inside `src/classes/strategies/index.ts`.
 
 Communication System
 --------------------
