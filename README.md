@@ -23,7 +23,7 @@
 Work in progress..
 ------------------
 This bot is still in development, so multiple features will be added once we know
-it is working properly.
+it is working properly (MVP..).
 
 First, we're using Binance Spot for the tradings, which need to be later changed to
 an external wallet, basically, a wallet will be generated at the creation of a bot instance,
