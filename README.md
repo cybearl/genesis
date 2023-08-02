@@ -133,7 +133,7 @@ The generated data for tests and strategy scores are stored in a directory calle
 as they are used to pipe the scoring system with the strategies themselves.
 
 #### Risk Management System (RMS):
-This fallback system used to prevent the SP from making stupid trades works on two basic systems:
+This fallback system used to prevent the SP from making unwanted trades (governance reduces that risk but it's never 100% safe, no matter what tech is used) works on two basic systems:
 - The profit calculator: This system is used to calculate the profit including fees of a trade,
   ensuring that only profitable trades are made by the SP.
 - The stop loss: This system is used to prevent the bot from losing money if the SP is not performing well,
