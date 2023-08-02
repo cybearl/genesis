@@ -62,9 +62,11 @@ BOT
 |
 |-> Generator System (generator)
 |   |
+|   |-> Generates data for the Historical Scoring System (HSS)
+|   |
 |   |-> Historical Scoring System (HSS)
 |       |
-|       |-> Gives a score for each strategy (called a pipe which a JSON result file)
+|       |-> Gives a score for a strategy (called a pipe which is a JSON result)
 |           |
 |           |-> Accessible by Strategy Pool (SP)
 |
@@ -75,16 +77,19 @@ BOT
 |
 |-> Main Loop
     |
-    |-> Risk Management System (RMS)
+    |-> Strategy Pool (SP) (HSS Weighted Governance)
         |
-        |-> Profit Calculator
-        |-> Stop Loss
         |
-        |-> Strategy Pool (SP) (HSS Weighted Governance)
+        |-> Strategy (S)
+        |-> Strategy (S)
+        |-> ...
+        |
+        |-> Risk Management System (RMS)
             |
-            |-> Strategy (S)
-            |-> Strategy (S)
-            |-> ...
+            |-> Profit Calculator
+            |-> Stop Loss
+            |
+            |-> FINAL DECISION TO TRADE OR NOT
 ```
 
 Systems
@@ -138,6 +143,8 @@ This fallback system used to prevent the SP from making stupid trades works on t
   ensuring that only profitable trades are made by the SP.
 - The stop loss: This system is used to prevent the bot from losing money if the SP is not performing well,
   meaning that the RMS is the only system that can, in fact, make the bot lose money.
+
+The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of the code, acting as a middleware between the trading decision and the actual trade.
 
 Can be found inside `src/systems/RMS.ts`.
 
