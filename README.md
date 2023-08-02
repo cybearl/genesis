@@ -64,7 +64,7 @@ BOT
 |   |
 |   |-> Historical Scoring System (HSS)
 |       |
-|       |-> Gives a score for each strategy (called a pipe which a JSON result file)
+|       |-> Gives a score for each strategy (called a pipe, a result in stored as JSON)
 |           |
 |           |-> Accessible by Strategy Pool (SP)
 |
