@@ -14,6 +14,7 @@ import {
 import {
     checkExchangeStatus,
     exchangeTimeDifference,
+    getBalance,
     loadBalances,
     loadExchange,
     loadMarkets,
@@ -144,20 +145,16 @@ export default class Bot {
             );
 
             // Get the base balance from wallet
-            // TODO: Get balance from wallet
-            this._botObject.start.baseBalance = {
-                free: 0,
-                used: 0,
-                total: 0
-            };
+            this._botObject.start.baseBalance = getBalance(
+                this._botObject.local.balances,
+                this._botObject.start.baseCurrency
+            );
 
             // Get the quote balance from wallet
-            // TODO: Get balance from wallet
-            this._botObject.start.quoteBalance = {
-                free: 0,
-                used: 0,
-                total: 0
-            };
+            this._botObject.start.quoteBalance = getBalance(
+                this._botObject.local.balances,
+                this._botObject.start.quoteCurrency
+            );
 
             // Check the balances
             if (this._botObject.start.baseBalance === null) {
@@ -234,17 +231,9 @@ export default class Bot {
             const priceBars = this._botObject.local.cache?.priceBars;
             console.log(priceBars);
 
-            // Calls the strategy pool, which will call the strategies
-            // Should decide if the data are recovered here or in the strategy pool
-            // Note that a part of the data are necessary at this level for trailing stop loos
-            // and profit calculation
-
-            // Mostly, not that much data is needed, as most of the data used by strategies
-            // are averages from the OHLCV data
-
-            // The OHLCV should not be called at every iteration as it is not necessary
-            // for last data, the best thing to do is to create a cache with an unix timestamp for
-            // each value, at the next iteration, just recover X missing values.
+            // This class does not call the SP directly, it calls the RMS which will call the SP*
+            // As a reminder, the SP is the strategy pool & the RMS is the risk management system
+            // which serves as a bridge between the SP and the bot.
 
             timeframeCorrector = performance.now() - timeframeCorrector;
 

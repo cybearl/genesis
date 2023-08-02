@@ -109,7 +109,7 @@ The command to run the generator is `yarn generate` and it supports the followin
 
 `--help` can be used to display the help message.
 
-The default path for the generated data is `src/pipes/data/` & cannot be changed.
+The default path for the generated data is `src/pipes/data/` & cannot be changed via arguments, as data are later accessed by the `HSS`.
 
 Can be found inside `src/systems/GS.ts`.
 
@@ -138,11 +138,14 @@ The generated data for tests and strategy scores are stored in a directory calle
 as they are used to pipe the scoring system with the strategies themselves.
 
 #### Risk Management System (RMS):
-This fallback system used to prevent the SP from making stupid trades works on two basic systems:
-- The profit calculator: This system is used to calculate the profit including fees of a trade,
+This fallback system used to prevent the SP from making unwanted trades (governance reduces that risk but it's never 100% safe, no matter what tech is used) works on two basic systems:
+- The profit calculator: This system is used to calculate the profit including the fees of each trade,
   ensuring that only profitable trades are made by the SP.
 - The stop loss: This system is used to prevent the bot from losing money if the SP is not performing well,
   meaning that the RMS is the only system that can, in fact, make the bot lose money.
+- As said at the beginning of this README, better systems will be later implemented, depending on how the first version of the bot performs on the market.
+
+The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of the code, acting as a middleware between the trading decision and the actual trade.
 
 The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of the code, acting as a middleware between the trading decision and the actual trade.
 
