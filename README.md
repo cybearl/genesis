@@ -134,10 +134,11 @@ as they are used to pipe the scoring system with the strategies themselves.
 
 #### Risk Management System (RMS):
 This fallback system used to prevent the SP from making unwanted trades (governance reduces that risk but it's never 100% safe, no matter what tech is used) works on two basic systems:
-- The profit calculator: This system is used to calculate the profit including fees of a trade,
+- The profit calculator: This system is used to calculate the profit including the fees of each trade,
   ensuring that only profitable trades are made by the SP.
 - The stop loss: This system is used to prevent the bot from losing money if the SP is not performing well,
   meaning that the RMS is the only system that can, in fact, make the bot lose money.
+- As said at the beginning of this README, better systems will be later implemented, depending on how the first version of the bot performs on the market.
 
 Can be found inside `src/systems/RMS.ts`.
 
