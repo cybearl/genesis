@@ -14,17 +14,11 @@ declare namespace NsStrategy {
     }
 
     /**
-     * Standard strategy input.
+     * Standard strategy I/O storage.
      */
-    interface input {
-        symbol: string;
-    }
-
-    /**
-     * Standard strategy output.
-     */
-    interface output {
-        symbol: string;
+    interface storage {
+        inPosition: boolean;
+        simpleProfits: number[];
     }
 }
 

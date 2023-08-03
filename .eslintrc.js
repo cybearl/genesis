@@ -16,6 +16,7 @@ module.exports = {
         ecmaVersion: "latest",
         sourceType: "module"
     },
+    root: true,
     settings: {
         "import/parsers": {
             "@typescript-eslint/parser": [".ts", ".tsx"]
