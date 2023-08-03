@@ -8,6 +8,10 @@ import NsStrategy from "types/strategy";
 import logger from "utils/logger";
 
 
+/**
+ * A cache containing optimized exchange calls,
+ * and calculated data such as averages.
+ */
 export default class Cache {
     private _firstLoad = true;
     private _exchange: Exchange;
@@ -52,10 +56,10 @@ export default class Cache {
         const savedTimes = this._OHLCVs.map((candle) => candle[0]);
         const uniqueTimes = [...new Set(savedTimes)];
 
-        // Sorts the unique times by security
+        // Sorts the unique times by security (prevent duplicates)
         uniqueTimes.sort((a, b) => a - b);
 
-        // Change the OHLCV array to match the unique times
+        // New OHLCV array containing only verified unique times
         const tempOHLCV: OHLCV[] = [];
 
         for (let i = 0; i < uniqueTimes.length; i++) {
@@ -125,10 +129,11 @@ export default class Cache {
         this._OHLCVs.push(...newCandles);
 
         // Sort the OHLCV candles by time
-        const areCandlesCorrect = await this._sortOHLCV();
+        const candlesValidated = await this._sortOHLCV();
 
-        // If the candles are not correct, reload the cache (except for the first load)
-        if (!areCandlesCorrect && !this._firstLoad) {
+        // If the candles are not correct, reload the cache
+        // Except for the first load (the cache is empty)
+        if (!candlesValidated && !this._firstLoad) {
             logger.warn("Invalid OHLCV candles, reloading the cache...");
 
             await this.load();

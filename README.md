@@ -84,7 +84,7 @@ GENESIS
 |   |-> Measures time diff between local and server time
 |   |-> Updates the values of the bot in the database (statistics, etc.)
 |
-|-> Main Loop
+|-> Main Loop + Cache (market data)
     |
     |-> Strategy Pool (SP) (HSS Governance & strategy storage)
         |
@@ -117,7 +117,8 @@ The command to run the generator is `yarn generate` and it supports the followin
 
 `--help` can be used to display the help message.
 
-The default path for the generated data is `src/pipes/data/` & cannot be changed via arguments, as data are later accessed by the `HSS`.
+The default path for the generated data is `src/pipes/data/`. Note that it cannot be changed
+via arguments, as data are later accessed by the `HSS`.
 
 Can be found inside `src/systems/GS.ts`.
 
@@ -130,13 +131,12 @@ and other useful data.
 The command to run the HSS is `yarn score` and it supports the following arguments (all optional):
 - `--show` can be used to display the available data for scoring.
 - `WORK IN PROGRESS..`
-
 - `--help` can be used to display the help message.
 
 From a filter on the available data, such as the trading pair, the timeframe, etc.
-the HSS will generate a score for each strategy, generating or reusing the `score` JSON file.
+the HSS will generate a score for each strategy, generating or reusing an unique `score` JSON file.
 
-These result file is called 'score', they are used by the SP to weight the strategies.
+The result file is called 'score', it is used by the SP to weight the strategies.
 Its default path is `src/pipes/score.json`.
 
 Can be found inside `src/systems/HSS.ts`.
