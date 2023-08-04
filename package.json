@@ -9,6 +9,7 @@
     "scripts": {
         "install": "yarn install --cwd ./src/strategies",
         "v-bump": "yarn version --patch",
+        "dev": "ts-node src/scripts/dev.ts",
         "main": "ts-node src/scripts/main.ts",
         "generate": "ts-node src/scripts/generate.ts",
         "score": "ts-node src/scripts/score.ts"

@@ -2,26 +2,35 @@ import fs from "fs";
 
 
 /**
- * List all json files in a directory.
- * @param dirPath The path to the directory where to list the json files.
- * @param removeExtension If true, remove the '.json' extension from the file names.
- * @returns The list of json files.
+ * List all files with a specific extension, in a directory.
+ * @param dirPath The path to the directory where to list the files.
+ * @param extension The extension of the files to list.
+ * @param removeExtension If true, removes the extension (optional, defaults to true).
+ * @returns The list of files.
  */
-export function getJsonFiles(dirPath: string, removeExtension = true) {
-    const files = fs.readdirSync(dirPath);
-    const jsonFiles: string[] = [];
+export function getFiles(
+    dirPath: string,
+    extension: string,
+    removeExtension = true
+) {
+    if (!fs.existsSync(dirPath)) {
+        return [];
+    }
 
-    for (const file of files) {
-        if (file.endsWith(".json")) {
+    const allFiles = fs.readdirSync(dirPath);
+    const filteredFiles: string[] = [];
+
+    for (const file of allFiles) {
+        if (file.endsWith(extension)) {
             let filename = file;
 
             if (removeExtension) {
-                filename = file.slice(0, -5);
+                filename = file.slice(0, -extension.length);
             }
 
-            jsonFiles.push(filename);
+            filteredFiles.push(filename);
         }
     }
 
-    return jsonFiles;
+    return filteredFiles;
 }

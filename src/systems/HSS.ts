@@ -1,7 +1,7 @@
 import fs from "fs";
 
-import { getJsonFiles } from "helpers/local/files";
-import { consoleTable, getDateString, searchQueryInFilenames } from "helpers/local/IO";
+import { getFiles } from "helpers/local/files";
+import { consoleTable, getDateString } from "helpers/local/IO";
 import { scoreHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -58,7 +58,7 @@ export default async function main(
         return;
     }
 
-    const availableDataFilenames = getJsonFiles(args.dataPath);
+    const availableDataFilenames = getFiles(args.dataPath, ".json");
     const parsedDataFilenames = [];
     const parsedDataForQuery = [];
 
