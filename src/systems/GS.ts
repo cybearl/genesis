@@ -7,7 +7,7 @@ import { getTimeframe, removeDays } from "helpers/local/IO";
 import { generateRandomName } from "helpers/local/random";
 import {
     checkExchangeStatus,
-    fetchOHLCV,
+    fetchOHLCVs,
     loadExchange,
     loadMarkets,
     parseTradingPair
@@ -62,7 +62,7 @@ export default async function main(
 
         logger.info(`Fetching page No.${i + 1}...`);
 
-        const OHLCV = await fetchOHLCV(
+        const OHLCVs = await fetchOHLCVs(
             exchange,
             args.pair,
             args.timeframe,
@@ -70,7 +70,7 @@ export default async function main(
             args.entriesPerPage
         );
 
-        OHLCVs.push(...OHLCV);
+        OHLCVs.push(...OHLCVs);
     }
 
     // Generate the output directory if it doesn't exist (recursively)

@@ -34,5 +34,6 @@ export const EXCHANGE_CONFIG = {
     sandboxApiKey: process.env.BINANCE_SANDBOX_API_KEY,     // The API key to use in sandbox mode
     sandboxApiSecret: process.env.BINANCE_SANDBOX_API_SEC,  // The API secret to use in sandbox mode
     apiKey: process.env.BINANCE_API_KEY,                    // The API key to use in production mode
-    apiSecret: process.env.BINANCE_API_SEC                  // The API secret to use in production mode
+    apiSecret: process.env.BINANCE_API_SEC,                 // The API secret to use in production mode
+    maxOHLCVLimit: 512,                                     // The maximum OHLCV limit (512 by default)
 };

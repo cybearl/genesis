@@ -18,7 +18,7 @@ declare namespace NsStrategy {
      */
     interface storage {
         inPosition: boolean;
-        simpleProfits: number[];
+        rawProfits: number[];
     }
 }
 

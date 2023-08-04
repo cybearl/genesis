@@ -153,15 +153,15 @@ export async function fetchTrades(exchange: Exchange, symbol: string): Promise<T
 }
 
 /**
- * Fetch the OHLCV (Open, High, Low, Close, and Volume) candles for a symbol.
+ * Fetch the OHLCVs (Open, High, Low, Close, and Volume) for a symbol.
  * @param exchange The exchange.
  * @param symbol The symbol.
  * @param timeframe The timeframe.
  * @param since The since (in ms).
  * @param limit The limit.
- * @returns The OHLCV candles.
+ * @returns The OHLCVs.
  */
-export async function fetchOHLCV(
+export async function fetchOHLCVs(
     exchange: Exchange,
     symbol: string,
     timeframe = "1m",
@@ -171,6 +171,14 @@ export async function fetchOHLCV(
     let OHLCVs: OHLCV[] = [];
 
     try {
+        if (limit > EXCHANGE_CONFIG.maxOHLCVLimit) {
+            logger.warn(
+                `The limit of OHLCV candles is too high (${limit} > ${EXCHANGE_CONFIG.maxOHLCVLimit})!`
+            );
+
+            limit = EXCHANGE_CONFIG.maxOHLCVLimit;
+        }
+
         OHLCVs = await exchange.fetchOHLCV(symbol, timeframe, since, limit);
     } catch {
         logger.error("Invalid parameter(s) for the OHLCV request.");

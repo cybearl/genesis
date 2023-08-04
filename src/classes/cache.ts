@@ -1,7 +1,7 @@
 import { Exchange, OHLCV } from "ccxt";
 
 import { getTimeframe } from "helpers/local/IO";
-import { fetchOHLCV } from "helpers/online/exchange";
+import { fetchOHLCVs } from "helpers/online/exchange";
 import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
 import NsGeneral from "types/general";
 import NsStrategy from "types/strategy";
@@ -99,7 +99,7 @@ export default class Cache {
      * Loads the cache.
      */
     public async load(): Promise<void> {
-        this._OHLCVs = await fetchOHLCV(
+        this._OHLCVs = await fetchOHLCVs(
             this._exchange,
             this._tradingPair,
             this._timeframe,
@@ -117,7 +117,7 @@ export default class Cache {
     public async update(): Promise<void> {
         const lastCandleTime = this._OHLCVs[this._OHLCVs.length - 1][0];
 
-        const newCandles = await fetchOHLCV(
+        const newCandles = await fetchOHLCVs(
             this._exchange,
             this._tradingPair,
             this._timeframe,
@@ -133,8 +133,8 @@ export default class Cache {
 
         // If the candles are not correct, reload the cache
         // Except for the first load (the cache is empty)
-        if (!candlesValidated && !this._firstLoad) {
-            logger.warn("Invalid OHLCV candles, reloading the cache...");
+        if (!this._firstLoad && !candlesValidated) {
+            logger.warn("Invalid OHLCVs, reloading the cache...");
 
             await this.load();
         }
