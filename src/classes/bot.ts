@@ -3,7 +3,6 @@ import lodash from "lodash";
 import { Db } from "mongodb";
 
 import Cache from "classes/cache";
-import { botObject } from "configs/botObject.config";
 import { EXCHANGE_CONFIG, GENERAL_CONFIG } from "configs/global.config";
 import {
     getCurrentDateString,
@@ -27,6 +26,7 @@ import {
     sendBotObjectCategory,
     sendOrGetInitialBotObject
 } from "helpers/online/network";
+import { botObject } from "objects/botObject";
 import NsBotObject from "types/botObject";
 import NsGeneral from "types/general";
 import logger from "utils/logger";

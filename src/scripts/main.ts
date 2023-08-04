@@ -1,4 +1,4 @@
-import "configs/env";
+import "configs/env.config";
 
 import Bot from "classes/bot";
 
