@@ -27,6 +27,7 @@ import {
     sendOrGetInitialBotObject
 } from "helpers/online/network";
 import { botObject } from "objects/botObject";
+import StrategyPool from "systems/SP";
 import NsBotObject from "types/botObject";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -178,6 +179,9 @@ export default class Bot {
             // Load the initial cache
             await this._botObject.local.cache.load();
 
+            // Load the strategy pool
+            this._botObject.local.strategyPool = new StrategyPool();
+
             // Send or get the initial bot object
             this._botObject = await sendOrGetInitialBotObject(
                 this._mongoDB.mongoDB as Db,
@@ -228,12 +232,23 @@ export default class Bot {
                 await this._botObject.local.cache.update();
             }
 
+            // Get the price bars
             const priceBars = this._botObject.local.cache?.priceBars;
-            console.log(priceBars);
 
-            // This class does not call the SP directly, it calls the RMS which will call the SP*
-            // As a reminder, the SP is the strategy pool & the RMS is the risk management system
-            // which serves as a bridge between the SP and the bot.
+            // Run the strategy pool
+            if (
+                this._botObject.local.cache?.OHLCVs &&
+                this._botObject.local.strategyPool &&
+                priceBars
+            ) {
+                this._botObject.local.strategyPool.run(
+                    this._botObject.local.cache.OHLCVs,
+                    priceBars
+                );
+            } else {
+                logger.error("Problem while running the strategy pool!");
+                process.exit(1);
+            }
 
             timeframeCorrector = performance.now() - timeframeCorrector;
 

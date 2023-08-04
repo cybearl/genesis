@@ -109,6 +109,9 @@ export const botObject: NsBotObject.IsBotObject = {
 
         // Cache
         cache: null,                       // Cache (OHLCV & other data)
+
+        // Strategy pool
+        strategyPool: null,                // Strategy pool (SP)
     },
 
     specials: {

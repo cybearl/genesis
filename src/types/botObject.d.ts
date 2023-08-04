@@ -6,6 +6,7 @@ import {
 import { Db } from "mongodb";
 
 import Cache from "classes/cache";
+import StrategyPool from "systems/SP";
 import NsGeneral from "types/general";
 
 
@@ -109,6 +110,7 @@ declare namespace NsBotObject {
         exchange: Exchange | null;
         balances: Balances | null;
         cache: Cache | null;
+        strategyPool: StrategyPool | null;
     }
 
     /**

@@ -8,7 +8,7 @@ const bot = new Bot(
     "R&D",
     true,
     20,
-    "1m",
+    "1s",
     4
 );
 

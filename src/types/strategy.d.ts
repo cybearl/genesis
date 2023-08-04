@@ -1,3 +1,6 @@
+import { OHLCV } from "ccxt";
+
+
 declare namespace NsStrategy {
     /**
      * Interface for a price bar (converted from OHLCV data array).
@@ -17,17 +20,24 @@ declare namespace NsStrategy {
      * Standard strategy I/O storage.
      */
     interface storage {
+        OHLCVs: OHLCV[];
+        priceBars: priceBar[];
         inPosition: boolean;
         rawProfits: number[];
     }
 
     /**
-     * Interface containing strategy function types.
+     * Storages for the strategies.
+     * One storage assigned per strategy.
      */
-    interface strategy {
-        // The main "run" function of a strategy
-        run: (storage: storage) => storage;
+    interface storages {
+        [key: string]: storage;
     }
+
+    /**
+     * Type containing strategy function.
+     */
+    type strategy = (storage: storage) => storage;
 
     /**
      * Interface for a "* as" strategies import.
