@@ -164,6 +164,11 @@ It is using the scoring system to weight the strategies, creating a basic govern
 It is also used to control each strategy by sending it the data it needs to work and
 receiving the data it produces.
 
+Now, I'm using a sweet trick to import and use the strategies automatically,
+importing all strategies as a single object, iterating over it, recovering the
+run() function for each and storing it. Remember that a strategy is standardized,
+so we always know what to expect from it.
+
 Can be found inside `src/systems/SP.ts`.
 
 #### Strategy (S):
