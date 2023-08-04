@@ -10,26 +10,22 @@ import NsStrategy from "types/strategy";
 // Strategy Pool (SP) (HSS Weighted Governance)
 export default class StrategyPool {
     private _storage = lodash.cloneDeep(storageObject);
-    private _availableStrategyNames: string[] = [];
-    private _allStrategyFunctions: NsStrategy.strategy[] = [];
+    private _strategies: NsStrategy.strategy[] = [];
 
 
     /**
      * Constructor.
      */
     constructor() {
-        // Get the list of available strategies
-        this._availableStrategyNames = Object.keys(strategies);
+        //
     }
 
     public run() {
-        for (const strategyName of this._availableStrategyNames) {
+        for (const strategyName of Object.keys(strategies)) {
             // Linking the strategy interface to the strategy function
-            const strategy = (strategies as unknown as NsStrategy.strategies)[
-                strategyName
-            ];
-
-            this._allStrategyFunctions.push(strategy);
+            this._strategies.push(
+                (strategies as unknown as NsStrategy.strategies)[strategyName]
+            );
         }
     }
 }
