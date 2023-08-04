@@ -20,6 +20,21 @@ declare namespace NsStrategy {
         inPosition: boolean;
         rawProfits: number[];
     }
+
+    /**
+     * Interface containing strategy function types.
+     */
+    interface strategy {
+        // The main "run" function of a strategy
+        run: (storage: storage) => storage;
+    }
+
+    /**
+     * Interface for a "* as" strategies import.
+     */
+    interface strategies {
+        [key: string]: strategy;
+    }
 }
 
 

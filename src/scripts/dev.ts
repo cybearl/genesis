@@ -7,3 +7,5 @@ import StrategyPool from "systems/SP";
 
 
 const SP = new StrategyPool();
+
+SP.run();

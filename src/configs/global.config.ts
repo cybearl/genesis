@@ -9,6 +9,13 @@ export const GENERAL_CONFIG = {
     dateFormat: "YYYY-MM-DD HH:mm:ss",                          // Date format
     dataPath: path.join(__dirname, "..", "pipes", "data"),      // Path to the data directory
     scorePath: path.join(__dirname, "..", "pipes", "scores"),   // Path to the scores directory
+    strategiesPath: path.join(                                  // Path to the strategies directory
+        __dirname,
+        "..",
+        "strategies",
+        "src",
+        "strategies"
+    ),
 };
 
 /**
