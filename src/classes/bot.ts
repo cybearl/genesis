@@ -245,8 +245,8 @@ export default class Bot {
 
             // Run the strategy pool
             if (
-                this._botObject.local.cache?.OHLCVs &&
                 this._botObject.local.strategyPool &&
+                this._botObject.local.cache?.OHLCVs &&
                 priceBars
             ) {
                 this._botObject.local.strategyPool.run(
