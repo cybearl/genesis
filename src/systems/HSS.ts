@@ -21,7 +21,7 @@ function parseDataFilename(filename: string) {
         .join("/")
         .substring(1, info[0].length - 1);
 
-    const id = info[1];
+    const name = info[1];
 
     // Timeframe is already in the correct format
     const timeframe = info[2];
@@ -31,7 +31,7 @@ function parseDataFilename(filename: string) {
     const endDate = getDateString(new Date(parseInt(info[4])));
 
     const res = {
-        id,
+        name,
         tradingPair,
         timeframe,
         startDate,
@@ -68,20 +68,55 @@ export default async function main(
         );
     }
 
-    // Format data as strings for the query
+
+
+
+    let index = -1;
+
     for (const filename of parsedDataFilenames) {
+        index++; // tentative infructueuse de pas garder ceux qui correspondent pas au queries
+        if (args.startDate != undefined) {
+            if (filename.startDate != args.startDate.toString()) {
+                logger.info(index);
+                parsedDataFilenames.splice(index, 1);
+
+                continue;
+            }
+        }
+
+        if (args.endDate != undefined) {
+            if (filename.endDate != args.endDate.toString()) {
+                logger.info(index);
+                parsedDataFilenames.splice(index, 1);
+                continue;
+            }
+        }
+
+        if (args.timeframe != undefined) {
+            if (filename.timeframe != args.timeframe) {
+                logger.info(index);
+                parsedDataFilenames.splice(index, 1);
+                continue;
+            }
+        }
+
+        if (args.tradingPair != undefined) {
+            if (filename.tradingPair != args.tradingPair) {
+                logger.info(index);
+                parsedDataFilenames.splice(index, 1);
+                continue;
+            }
+        }
+
         parsedDataForQuery.push(
-            `${
-                filename.tradingPair
-            } ${
-                filename.timeframe
-            } ${
-                filename.startDate
-            } ${
-                filename.endDate
-            }`
+            `${filename.tradingPair}
+                ${filename.timeframe}
+                ${filename.startDate}
+                ${filename.endDate}`
         );
     }
+
+
 
     if (args.show) {
         consoleTable(parsedDataFilenames);

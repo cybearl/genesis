@@ -39,7 +39,7 @@ async function main(args: minimist.ParsedArgs) {
     //  Skipping paths -> fixed value to 'GENERAL_CONFIG.scorePath' & 'GENERAL_CONFIG.dataPath'
 
     // Disable parameters if '--help' / 'show' is passed
-    if (!options.help && !options.show) {
+    if (!options.help) {
         if (args.tradingPair) {
             options.tradingPair = args.tradingPair as string;
         } else {
