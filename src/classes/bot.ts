@@ -3,7 +3,7 @@ import lodash from "lodash";
 import { Db } from "mongodb";
 
 import Cache from "classes/cache";
-import { EXCHANGE_CONFIG, GENERAL_CONFIG } from "configs/global.config";
+import { EXCHANGE_CONFIG, GENERAL_CONFIG, NETWORK_CONFIG } from "configs/global.config";
 import {
     getCurrentDateString,
     getObjectId,
@@ -114,11 +114,19 @@ export default class Bot {
         }
 
         // Check the network (FATAL)
-        if (!this._botObject.start.sandbox) {
+        if (!this._botObject.start.sandbox && NETWORK_CONFIG.checkNetwork) {
             this._botObject.local.networkCheck = await checkNetwork();
-        } else {
-            logger.info("Skipping network check in sandbox mode...");
+        }
+
+        if (this._botObject.start.sandbox) {
             this._botObject.local.networkCheck = true;
+
+            logger.info("Skipping network check in sandbox mode...");
+        }
+
+        if (!NETWORK_CONFIG.checkNetwork) {
+            this._botObject.local.networkCheck = true;
+            logger.warn("Bypassing network check (NETWORK_CONFIG parameter)...");
         }
 
         if (this._botObject.local.networkCheck) {

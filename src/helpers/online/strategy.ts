@@ -35,16 +35,16 @@ export function convertOHLCVsToPriceBars(OHLCVs: tOHLCV[]): NsStrategy.priceBar[
         const nextOHLCV = OHLCVs[index + 1];
 
         // Additional values
-        let pctChange: number | null = null;    // Equivalent to Pandas pct_change() method.
-        let forwardLookingBias: number | null = null;    // Open price of the next candle.
+        let pctChange: number | null = null;  // Equivalent to Pandas pct_change() method.
+        let forwardLookingBias: number | null = null;  // Open price of the next candle.
 
         // Calculate the percentage change between the current and previous close prices
         if (prevOHLCV) {
             const prevPriceBar = convertOHLCVToPriceBar(prevOHLCV);
             pctChange = ((priceBar.close - prevPriceBar.close) / prevPriceBar.close);
 
-            // Round to 4 decimal places
-            pctChange = Math.round(pctChange * 1e4) / 1e4;
+            // Round to 8 decimal places
+            pctChange = Math.round(pctChange * 1e8) / 1e8;
         }
 
         // Calculate the forward looking bias

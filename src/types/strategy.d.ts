@@ -22,8 +22,14 @@ declare namespace NsStrategy {
     interface storage {
         OHLCVs: OHLCV[];
         priceBars: priceBar[];
+
         inPosition: boolean;
         rawProfits: number[];
+        targetProfit: number;
+        stopLoss: number;
+        lastBuyPrice: number;
+
+        index: number;
     }
 
     /**
