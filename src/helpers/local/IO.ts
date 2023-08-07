@@ -83,9 +83,6 @@ export function getTimeframe(
     }
 }
 
-// Duration global var (print error msg once)
-let durationError = false;
-
 /**
  * Get the duration in ms from a time string.
  * @param timeString The time string.
@@ -112,14 +109,8 @@ export function getDuration(
                     return 1 * 60 * 60 * 1000;
             }
         } catch (err) {
-            if (!durationError) {
-                logger.error(`Invalid duration: ${timeString}`);
-                logger.error("Available durations: _s (seconds), _m (minutes), _h (hours), _d (days)");
-                logger.error("Replace underscores by the duration value (e.g. 1m, 30m, 1h, 1d)");
-                logger.warn("Defaulting duration to '1h'.");
-
-                durationError = true;
-            }
+            logger.error(`Invalid duration: ${timeString}`);
+            logger.warn("Defaulting duration to '1h'.");
 
             return 1 * 60 * 60 * 1000;
         }

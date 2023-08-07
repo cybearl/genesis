@@ -17,9 +17,25 @@ import logger from "utils/logger";
 function getFilteredFiles(
     args: NsGeneral.historicalScoringSystemOptions
 ) {
+    let minDuration: number = 1 * 60 * 60 * 1000;
+
+    // Get the minDuration in milliseconds from available timeframes
+    if (args.minDuration) {
+        const durationFromArg = getDuration(args.minDuration as unknown as NsGeneral.IsTimeframe);
+
+        if (durationFromArg) {
+            minDuration = durationFromArg;
+        } else {
+            logger.error(`Invalid duration: ${args.minDuration}`);
+            logger.warn("Defaulting duration to '1h'.");
+        }
+    }
+
     const availableFiles = getFiles(args.dataPath, ".json");
     const parsedFilenames = [];
     const parsedDataForQuery: NsGeneral.historicalScoringSystemParsedFilename[] = [];
+    // logger.error("Available durations: _s (seconds), _m (minutes), _h (hours), _d (days)");
+    // logger.error("Replace underscores by the duration value (e.g. 1m, 30m, 1h, 1d)");
 
     for (const availableDataFilename of availableFiles) {
         parsedFilenames.push(
@@ -56,9 +72,6 @@ function getFilteredFiles(
             if (!(key in typedArgs)) {
                 // Apply custom logic to duration key (minDuration)
                 if (key === "duration") {
-                    // Get the minDuration in milliseconds from available timeframes
-                    const minDuration = getDuration(typedArgs.minDuration as NsGeneral.IsTimeframe);
-
                     if (minDuration && fileInfo.duration < minDuration) {
                         valid = false;
                         break;
