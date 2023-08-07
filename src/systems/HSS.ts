@@ -12,10 +12,12 @@ import logger from "utils/logger";
  * Get the files, recover their info (filename)
  * and filter them, returning the filtered files.
  * @param args The command line arguments.
+ * @param availableFiles The available files.
  * @returns The filtered files.
  */
 function getFilteredFiles(
-    args: NsGeneral.historicalScoringSystemOptions
+    args: NsGeneral.historicalScoringSystemOptions,
+    availableFiles: string[]
 ) {
     let minDuration: number = 1 * 60 * 60 * 1000;
 
@@ -31,7 +33,6 @@ function getFilteredFiles(
         }
     }
 
-    const availableFiles = getFiles(args.dataPath, ".json");
     const parsedFilenames = [];
     const parsedDataForQuery: NsGeneral.historicalScoringSystemParsedFilename[] = [];
     // logger.error("Available durations: _s (seconds), _m (minutes), _h (hours), _d (days)");
@@ -93,7 +94,6 @@ function getFilteredFiles(
     }
 
     return {
-        availableFiles,
         parsedFilenames,
         filteredFiles
     };
@@ -115,13 +115,8 @@ export default async function main(
         return;
     }
 
-    const {
-        availableFiles,
-        parsedFilenames,
-        filteredFiles
-    } = getFilteredFiles(args);
-
-    console.log(availableFiles);
+    const availableFiles = getFiles(args.dataPath, ".json");
+    const { parsedFilenames, filteredFiles } = getFilteredFiles(args, availableFiles);
 
     if (args.showFiltered) {
         // Show the filtered files
@@ -136,7 +131,6 @@ export default async function main(
     }
 
     // TODO: Link the file paths to the output file info (filteredFiles)
-
     // Generate the output directory if it doesn't exist (recursively)
     if (!fs.existsSync(args.scorePath)) {
         fs.mkdirSync(args.scorePath, { recursive: true });
