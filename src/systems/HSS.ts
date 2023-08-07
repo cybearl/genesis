@@ -1,7 +1,7 @@
 import fs from "fs";
 
 import { getFiles } from "helpers/local/files";
-import { consoleTable, parseDataFilename } from "helpers/local/IO";
+import { consoleTable, getDuration, parseDataFilename } from "helpers/local/IO";
 import { parseTradingPair } from "helpers/online/exchange";
 import { scoreHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
@@ -9,22 +9,14 @@ import logger from "utils/logger";
 
 
 /**
- * Main function for the HSS system,
- * generates a score for a strategy based on
- * the historical data of a trading pair.
- *
- * Note: The score is saved as a JSON file
- * inside the 'generators/score' directory.
+ * Get the files, recover their info (filename)
+ * and filter them, returning the filtered files.
  * @param args The command line arguments.
+ * @returns The filtered files.
  */
-export default async function main(
+function getFilteredFiles(
     args: NsGeneral.historicalScoringSystemOptions
 ) {
-    if (args.help) {
-        console.log(scoreHelpMsg);
-        return;
-    }
-
     const availableDataFilenames = getFiles(args.dataPath, ".json");
     const parsedDataFilenames = [];
     const parsedDataForQuery: NsGeneral.historicalScoringSystemParsedFilename[] = [];
@@ -49,48 +41,93 @@ export default async function main(
         });
     }
 
-    console.log(args);
-    console.log(parsedDataForQuery);
-
-    if (args.show) {
-        consoleTable(parsedDataFilenames);
-        return;
-    }
-
-    const filteredFiles = [];
+    const filteredFiles: NsGeneral.historicalScoringSystemParsedFilename[] = [];
 
     for (const fileInfo of parsedDataForQuery) {
         const typedArgs = args as unknown as { [key: string]: string; };
         const typedFileInfo = fileInfo as unknown as { [key: string]: string; };
         const keys = Object.keys(fileInfo);
 
-
         let valid = true;
-        
-        for (const key of keys) {
-            if (!(key in typedArgs)) {
-                if (key === "duration") {
-                    const minDuration = parseInt(typedArgs.minDuration);
 
-                    if (fileInfo.duration < minDuration) {
+        // For each key in the fileInfo object
+        for (const key of keys) {
+            // If the key is not in the typedArgs object
+            if (!(key in typedArgs)) {
+                // Apply custom logic to duration key (minDuration)
+                if (key === "duration") {
+                    // Get the minDuration in milliseconds from available timeframes
+                    const minDuration = getDuration(typedArgs.minDuration as NsGeneral.IsTimeframe);
+
+                    if (minDuration && fileInfo.duration < minDuration) {
                         valid = false;
                         break;
                     }
                 }
             } else {
+                // If the key is in the typedArgs object
                 if (typedArgs[key] && typedArgs[key] !== typedFileInfo[key]) {
                     valid = false;
                     break;
-
                 }
             }
         }
 
-        // Generate the output directory if it doesn't exist (recursively)
-        if (!fs.existsSync(args.scorePath)) {
-            fs.mkdirSync(args.scorePath, { recursive: true });
-
-            logger.info(`Directory '${args.scorePath}' created.`);
+        // Pushing validated files to the filteredFiles array
+        if (valid) {
+            filteredFiles.push(fileInfo);
         }
+    }
+
+    return {
+        availableDataFilenames,
+        parsedDataFilenames,
+        filteredFiles
+    };
+}
+
+
+/**
+ * Main function for the HSS system,
+ * generates a score for a strategy based on
+ * the historical data of a trading pair.
+ *
+ * @param args The command line arguments.
+ */
+export default async function main(
+    args: NsGeneral.historicalScoringSystemOptions
+) {
+    if (args.help) {
+        console.log(scoreHelpMsg);
+        return;
+    }
+
+    const {
+        availableDataFilenames,
+        parsedDataFilenames,
+        filteredFiles
+    } = getFilteredFiles(args);
+
+    console.log(availableDataFilenames);
+
+    if (args.showFiltered) {
+        // Show the filtered files
+        consoleTable(filteredFiles as unknown as { [key: string]: string; }[]);
+
+        return;
+    } else if (args.show) {
+        // Show all files
+        consoleTable(parsedDataFilenames);
+
+        return;
+    }
+
+    // TODO: Link the file paths to the output file info (filteredFiles)
+
+    // Generate the output directory if it doesn't exist (recursively)
+    if (!fs.existsSync(args.scorePath)) {
+        fs.mkdirSync(args.scorePath, { recursive: true });
+
+        logger.info(`Directory '${args.scorePath}' created.`);
     }
 }

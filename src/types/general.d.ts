@@ -22,6 +22,7 @@ declare namespace NsGeneral {
     interface historicalScoringSystemOptions {
         help: boolean;
         show: boolean;
+        showFiltered: boolean;
         dataPath: string;
         scorePath: string;
         name?: string;

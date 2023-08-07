@@ -19,6 +19,7 @@ async function main(args: minimist.ParsedArgs) {
     const options: NsGeneral.historicalScoringSystemOptions = {
         help: false,
         show: false,
+        showFiltered: false,
         dataPath: GENERAL_CONFIG.dataPath,
         scorePath: GENERAL_CONFIG.scorePath,
         name: undefined,
@@ -37,6 +38,16 @@ async function main(args: minimist.ParsedArgs) {
         options.show = true;
     }
 
+    if (args.showFiltered) {
+        options.showFiltered = true;
+    }
+
+    const log = (keyName: string) => {
+        if (!options.show && !options.showFiltered) {
+            logger.warn(`No '${keyName}' parameter provided, defaults to 'ALL'.`);
+        }
+    };
+
     // NOTE:
     //  Skipping paths -> fixed value to 'GENERAL_CONFIG.scorePath' & 'GENERAL_CONFIG.dataPath'
 
@@ -45,37 +56,37 @@ async function main(args: minimist.ParsedArgs) {
         if (args.name) {
             options.name = args.name as string;
         } else {
-            logger.warn("No 'name' parameter provided, defaults to 'ALL'.");
+            log("name");
         }
 
         if (args.tradingPair) {
             options.tradingPair = args.tradingPair as string;
         } else {
-            logger.warn("No 'tradingPair' parameter provided, defaults to 'ALL'.");
+            log("tradingPair");
         }
 
         if (args.base) {
             options.base = args.base as string;
         } else {
-            logger.warn("No 'base' parameter provided, defaults to 'ALL'.");
+            log("base");
         }
 
         if (args.quote) {
             options.quote = args.quote as string;
         } else {
-            logger.warn("No 'quote' parameter provided, defaults to 'ALL'.");
+            log("quote");
         }
 
         if (args.timeframe) {
             options.timeframe = args.timeframe as NsGeneral.IsTimeframe;
         } else {
-            logger.warn("No 'timeframe' parameter provided, defaults to 'ALL'.");
+            log("timeframe");
         }
 
         if (args.minDuration) {
             options.minDuration = args.minDuration as number;
         } else {
-            logger.warn("No 'minDuration' parameter provided, defaults to 'ALL'.");
+            log("minDuration");
         }
     }
 

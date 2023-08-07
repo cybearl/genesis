@@ -83,6 +83,51 @@ export function getTimeframe(
     }
 }
 
+// Duration global var (print error msg once)
+let durationError = false;
+
+/**
+ * Get the duration in ms from a time string.
+ * @param timeString The time string.
+ * @returns The time in ms.
+ */
+export function getDuration(
+    timeString: NsGeneral.IsTimeframe
+) {
+    if (timeString) {
+        try {
+            const duration = parseInt(timeString.slice(0, -1));
+            const timeframe = timeString.slice(-1);
+
+            switch (timeframe) {
+                case "s":
+                    return duration * 1000;
+                case "m":
+                    return duration * 60 * 1000;
+                case "h":
+                    return duration * 60 * 60 * 1000;
+                case "d":
+                    return duration * 24 * 60 * 60 * 1000;
+                default:
+                    return 1 * 60 * 60 * 1000;
+            }
+        } catch (err) {
+            if (!durationError) {
+                logger.error(`Invalid duration: ${timeString}`);
+                logger.error("Available durations: _s (seconds), _m (minutes), _h (hours), _d (days)");
+                logger.error("Replace underscores by the duration value (e.g. 1m, 30m, 1h, 1d)");
+                logger.warn("Defaulting duration to '1h'.");
+
+                durationError = true;
+            }
+
+            return 1 * 60 * 60 * 1000;
+        }
+    }
+
+    return undefined;
+}
+
 /**
  * Get the current date string.
  * @param format The date format (optional, defaults to general config dateFormat).

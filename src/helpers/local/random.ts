@@ -8,9 +8,10 @@ import { generateMnemonic } from "bip39";
 export function generateRandomName() {
     const mnemonic = generateMnemonic();
     const words = mnemonic.split(" ");
-    const randomIndex = Math.floor(Math.random() * (words.length - 1));
+    const randomIndex1 = Math.floor(Math.random() * (words.length - 1));
+    const randomIndex2 = Math.floor(Math.random() * (words.length - 1));
 
-    return words[randomIndex];
+    return words[randomIndex1] + "-" + words[randomIndex2];
 }
 
 /**
