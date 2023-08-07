@@ -17,17 +17,17 @@ import logger from "utils/logger";
 function getFilteredFiles(
     args: NsGeneral.historicalScoringSystemOptions
 ) {
-    const availableDataFilenames = getFiles(args.dataPath, ".json");
-    const parsedDataFilenames = [];
+    const availableFiles = getFiles(args.dataPath, ".json");
+    const parsedFilenames = [];
     const parsedDataForQuery: NsGeneral.historicalScoringSystemParsedFilename[] = [];
 
-    for (const availableDataFilename of availableDataFilenames) {
-        parsedDataFilenames.push(
+    for (const availableDataFilename of availableFiles) {
+        parsedFilenames.push(
             parseDataFilename(availableDataFilename)
         );
     }
 
-    for (const filename of parsedDataFilenames) {
+    for (const filename of parsedFilenames) {
         const tradingPair = parseTradingPair(filename.tradingPair);
         const duration = parseInt(filename.endDate) - parseInt(filename.startDate);
 
@@ -80,8 +80,8 @@ function getFilteredFiles(
     }
 
     return {
-        availableDataFilenames,
-        parsedDataFilenames,
+        availableFiles,
+        parsedFilenames,
         filteredFiles
     };
 }
@@ -103,12 +103,12 @@ export default async function main(
     }
 
     const {
-        availableDataFilenames,
-        parsedDataFilenames,
+        availableFiles,
+        parsedFilenames,
         filteredFiles
     } = getFilteredFiles(args);
 
-    console.log(availableDataFilenames);
+    console.log(availableFiles);
 
     if (args.showFiltered) {
         // Show the filtered files
@@ -117,7 +117,7 @@ export default async function main(
         return;
     } else if (args.show) {
         // Show all files
-        consoleTable(parsedDataFilenames);
+        consoleTable(parsedFilenames);
 
         return;
     }
