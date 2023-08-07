@@ -24,10 +24,24 @@ declare namespace NsGeneral {
         show: boolean;
         dataPath: string;
         scorePath: string;
+        name?: string;
         tradingPair?: string;
+        base?: string;
+        quote?: string;
         timeframe?: NsGeneral.IsTimeframe;
-        startDate?: number;
-        endDate?: number;
+        minDuration?: number;
+    }
+
+    /**
+     * Historical scoring system (HSS) parsed filename interface.
+     */
+    interface historicalScoringSystemParsedFilename {
+        name: string;
+        tradingPair: string;
+        base: string;
+        quote: string;
+        timeframe: NsGeneral.IsTimeframe;
+        duration: number;
     }
 }
 

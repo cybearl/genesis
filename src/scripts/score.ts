@@ -21,10 +21,12 @@ async function main(args: minimist.ParsedArgs) {
         show: false,
         dataPath: GENERAL_CONFIG.dataPath,
         scorePath: GENERAL_CONFIG.scorePath,
+        name: undefined,
         tradingPair: undefined,
+        base: undefined,
+        quote: undefined,
         timeframe: undefined,
-        startDate: undefined,
-        endDate: undefined
+        minDuration: undefined
     };
 
     if (args.help) {
@@ -40,10 +42,28 @@ async function main(args: minimist.ParsedArgs) {
 
     // Disable parameters if '--help' / 'show' is passed
     if (!options.help) {
+        if (args.name) {
+            options.name = args.name as string;
+        } else {
+            logger.warn("No 'name' parameter provided, defaults to 'ALL'.");
+        }
+
         if (args.tradingPair) {
             options.tradingPair = args.tradingPair as string;
         } else {
             logger.warn("No 'tradingPair' parameter provided, defaults to 'ALL'.");
+        }
+
+        if (args.base) {
+            options.base = args.base as string;
+        } else {
+            logger.warn("No 'base' parameter provided, defaults to 'ALL'.");
+        }
+
+        if (args.quote) {
+            options.quote = args.quote as string;
+        } else {
+            logger.warn("No 'quote' parameter provided, defaults to 'ALL'.");
         }
 
         if (args.timeframe) {
@@ -52,16 +72,10 @@ async function main(args: minimist.ParsedArgs) {
             logger.warn("No 'timeframe' parameter provided, defaults to 'ALL'.");
         }
 
-        if (args.startDate) {
-            options.startDate = args.startDate as number;
+        if (args.minDuration) {
+            options.minDuration = args.minDuration as number;
         } else {
-            logger.warn("No 'startDate' parameter provided, defaults to 'ALL'.");
-        }
-
-        if (args.endDate) {
-            options.endDate = args.endDate as number;
-        } else {
-            logger.warn("No 'endDate' parameter provided, defaults to 'ALL'.");
+            logger.warn("No 'minDuration' parameter provided, defaults to 'ALL'.");
         }
     }
 

@@ -109,6 +109,40 @@ export function getDateString(dateInput: Date, format?: string) {
 }
 
 /**
+ * Parse the name of a data file to recover the info about the contained data.
+ * @param filename The name of the file.
+ * @returns The info about the data contained in the file.
+ */
+export function parseDataFilename(filename: string) {
+    const info = filename.split(" ");
+
+    // Format the trading pair as 'BASE/QUOTE' (remove parenthesis and replace '-' with '/)
+    const tradingPair = info[0]
+        .split("-")
+        .join("/")
+        .substring(1, info[0].length - 1);
+
+    const name = info[1];
+
+    // Timeframe is already in the correct format
+    const timeframe = info[2];
+
+    // Get start and end date in the correct format
+    const startDate = info[3];
+    const endDate = info[4];
+
+    const res = {
+        name,
+        tradingPair,
+        timeframe,
+        startDate,
+        endDate
+    };
+
+    return res;
+}
+
+/**
  * Returns a date with the specified number of days removed.
  * @param date The date to remove days from.
  * @param days The number of days to remove.
