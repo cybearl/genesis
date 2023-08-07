@@ -1,9 +1,12 @@
 import fs from "fs";
+import path from "path";
 
 import { getFiles } from "helpers/local/files";
 import { consoleTable, getDuration, parseDataFilename } from "helpers/local/IO";
 import { parseTradingPair } from "helpers/online/exchange";
+import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
 import { scoreHelpMsg } from "scripts/messages/messages";
+import StrategyPool from "systems/SP";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 
@@ -101,6 +104,66 @@ function getFilteredFiles(
 
 
 /**
+ * Runs the strategy pool.
+ */
+function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
+    const strategyPool = new StrategyPool();
+
+    for (const testFilePath of testFilePaths) {
+        if (!fs.existsSync(testFilePath)) {
+            logger.error(`File '${testFilePath}' does not exist.`);
+            continue;
+        }
+
+        const testFile = fs.readFileSync(testFilePath, "utf8");
+
+        const OHLCVs = JSON.parse(testFile);
+        const priceBars = convertOHLCVsToPriceBars(OHLCVs);
+
+        if (OHLCVs.length !== priceBars.length) {
+            logger.error(`Error while converting OHLCVs to priceBars for file '${testFilePath}'.`);
+            continue;
+        }
+
+        if (priceBars.length < sampleSize) {
+            logger.error(`File '${testFilePath}' has less than ${sampleSize} price bars.`);
+            continue;
+        }
+
+        let index = sampleSize;
+        const currentOHLCVs = OHLCVs.slice(0, index);
+        const currentPriceBars = priceBars.slice(0, index);
+
+        while (index < priceBars.length) {
+            // Remove the first element of the arrays
+            currentOHLCVs.shift();
+            currentPriceBars.shift();
+
+            // Add the next element to the arrays
+            currentOHLCVs.push(OHLCVs[index]);
+            currentPriceBars.push(priceBars[index]);
+
+            // Run the strategy pool
+            strategyPool.run(currentOHLCVs, currentPriceBars);
+
+            index++;
+        }
+
+        strategyPool.deleteMarketData();
+    }
+
+    const rawProfits = strategyPool.getRawProfits();
+
+    console.log(rawProfits);
+
+    console.log(
+        "Final profit:",
+        rawProfits["intraday"].reduce((a, b) => a + b, 0) / rawProfits["intraday"].length
+    );
+}
+
+
+/**
  * Main function for the HSS system,
  * generates a score for a strategy based on
  * the historical data of a trading pair.
@@ -115,8 +178,13 @@ export default async function main(
         return;
     }
 
+    // Recover the list of available files (filenames without extension)
     const availableFiles = getFiles(args.dataPath, ".json");
-    const { parsedFilenames, filteredFiles } = getFilteredFiles(args, availableFiles);
+
+    const {
+        parsedFilenames,
+        filteredFiles
+    } = getFilteredFiles(args, availableFiles);
 
     if (args.showFiltered) {
         // Show the filtered files
@@ -130,7 +198,25 @@ export default async function main(
         return;
     }
 
-    // TODO: Link the file paths to the output file info (filteredFiles)
+    // Links the filtered files to their respective paths
+    const filteredFilesWithPaths = filteredFiles.map((file) => {
+        for (const availableFile of availableFiles) {
+            if (availableFile.includes(file.name)) {
+                // Return normalized path
+                return path.join(args.dataPath, `${availableFile}.json`);
+            }
+        }
+    });
+
+    if (filteredFilesWithPaths.length === 0) {
+        logger.error("No matching test file found, please verify your filters.");
+
+        return;
+    }
+
+    // Runs the strategy pool
+    runStrategyPool(filteredFilesWithPaths as string[]);
+
     // Generate the output directory if it doesn't exist (recursively)
     if (!fs.existsSync(args.scorePath)) {
         fs.mkdirSync(args.scorePath, { recursive: true });

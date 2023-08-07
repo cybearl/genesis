@@ -62,7 +62,7 @@ export default async function main(
 
         logger.info(`Fetching page No.${i + 1}...`);
 
-        const OHLCVs = await fetchOHLCVs(
+        const fetchedOHLCVs = await fetchOHLCVs(
             exchange,
             args.pair,
             args.timeframe,
@@ -70,7 +70,7 @@ export default async function main(
             args.entriesPerPage
         );
 
-        OHLCVs.push(...OHLCVs);
+        OHLCVs.push(...fetchedOHLCVs);
     }
 
     // Generate the output directory if it doesn't exist (recursively)

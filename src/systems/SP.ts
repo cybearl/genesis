@@ -31,6 +31,30 @@ export default class StrategyPool {
     }
 
     /**
+     * Returns the raw profits of all strategies.
+     * @returns Raw profits of all strategies.
+     */
+    public getRawProfits() {
+        const profits: { [key: string]: number[] } = {};
+
+        for (const strategyName of this._strategyNames) {
+            profits[strategyName] = this._storages[strategyName].rawProfits;
+        }
+
+        return profits;
+    }
+
+    /**
+     * Deletes all market data from storages.
+     */
+    public deleteMarketData() {
+        for (const strategyName of this._strategyNames) {
+            this._storages[strategyName].OHLCVs = [];
+            this._storages[strategyName].priceBars = [];
+        }
+    }
+
+    /**
      * Main function of the strategy pool.
      * Updates storages with last data and
      * runs all strategy functions.
