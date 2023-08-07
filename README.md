@@ -109,13 +109,12 @@ This system is used to generate the data needed by the HSS to calculate the scor
 It generates a JSON file containing the data of the market for each candle over a period of time.
 
 The command to run the generator is `yarn generate` and it supports the following arguments (all optional):
+- `--help` can be used to display the help message.
 - `--pair` The trading pair to generate the data for.
 - `--timeframe` The timeframe to generate the data for.
 - `--since` Timestamp to start generating the data from,
     represented as the amount of days before the current time (> 0).
 - `--entriesPerPage` The amount of entries per page (0 < entriesPerPage <= 512).
-
-`--help` can be used to display the help message.
 
 The default path for the generated data is `src/pipes/data/`. Note that it cannot be changed
 via arguments, as data are later accessed by the `HSS`.
@@ -129,12 +128,18 @@ It generates a JSON result for each strategy, the result contains the score of t
 and other useful data.
 
 The command to run the HSS is `yarn score` and it supports the following arguments (all optional):
-- `--show` can be used to display the available data for scoring.
-- `WORK IN PROGRESS..`
 - `--help` can be used to display the help message.
+- `--show` can be used to display the available data for scoring.
+- `--showFiltered` can be used to display the available data for scoring after filtering.
+- `--tradingPair` The trading pair to generate the data for.
+- `--base` The base currency to generate the data for.
+- `--quote` The quote currency to generate the data for.
+- `--timeframe` The timeframe to generate the data for.
+- `--minDuration` The minimum duration of the data to generate.
 
 From a filter on the available data, such as the trading pair, the timeframe, etc.
-the HSS will generate a score for each strategy, inside a folder called `report` also containing graphics.
+the HSS will generate a score for each strategy, inside a folder called `strategyName_report` also containing graphics,
+note that one report folder is generated per strategy.
 
 Can be found inside `src/systems/HSS.ts`.
 
