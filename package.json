@@ -19,8 +19,6 @@
         "as-table": "^1.0.55",
         "bip39": "^3.1.0",
         "ccxt": "^3.0.86",
-        "chart.js": "^4.3.3",
-        "chartjs-node-canvas": "^4.1.6",
         "date-and-time": "^3.0.0",
         "dotenv": "^16.0.3",
         "ethers": "^6.6.7",
