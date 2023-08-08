@@ -10,9 +10,9 @@ declare namespace NsGeneral {
     interface generatorSystemOptions {
         help: boolean;
         dataPath: string;
-        pair: string;
+        tradingPair: string;
         timeframe: NsGeneral.IsTimeframe;
-        since: number;
+        duration: number;
         entriesPerPage: number;
     }
 
@@ -21,8 +21,8 @@ declare namespace NsGeneral {
      */
     interface historicalScoringSystemOptions {
         help: boolean;
+        showAll: boolean;
         show: boolean;
-        showFiltered: boolean;
         dataPath: string;
         scorePath: string;
         name?: string;
@@ -30,7 +30,7 @@ declare namespace NsGeneral {
         base?: string;
         quote?: string;
         timeframe?: NsGeneral.IsTimeframe;
-        minDuration?: number;
+        minDuration: number;
     }
 
     /**

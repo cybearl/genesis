@@ -104,16 +104,16 @@ Systems
 -------
 More details about the systems used by the bot.
 
-#### Generator System (GS):
+### Generator System (GS):
 This system is used to generate the data needed by the HSS to calculate the score of a strategy.
 It generates a JSON file containing the data of the market for each candle over a period of time.
 
 The command to run the generator is `yarn generate` and it supports the following arguments (all optional):
 - `--help` can be used to display the help message.
-- `--pair` The trading pair to generate the data for.
+- `--tradingPair` The trading pair to generate the data for.
 - `--timeframe` The timeframe to generate the data for.
-- `--since` Timestamp to start generating the data from,
-    represented as the amount of days before the current time (> 0).
+- `--duration` The duration of the data to generate, represented as a timeframe,
+  such as 30s, 1m, 1h, 4d, etc.
 - `--entriesPerPage` The amount of entries per page (0 < entriesPerPage <= 512).
 
 The default path for the generated data is `src/pipes/data/`. Note that it cannot be changed
@@ -121,33 +121,31 @@ via arguments, as data are later accessed by the `HSS`.
 
 Can be found inside `src/systems/GS.ts`.
 
-#### Historical Scoring System (HSS):
+### Historical Scoring System (HSS):
 This system is used to calculate the score of a strategy based on its performance on historical data.
-
-It generates a JSON result for each strategy, the result contains the score of the strategy
-and other useful data.
 
 The command to run the HSS is `yarn score` and it supports the following arguments (all optional):
 - `--help` can be used to display the help message.
-- `--show` can be used to display the available data for scoring.
-- `--showFiltered` can be used to display the available data for scoring after filtering.
+- `--show` displays the data currently available with the filters applied.
+- `--showAll` can be used to display the available data for scoring.
 - `--tradingPair` The trading pair to generate the data for.
 - `--base` The base currency to generate the data for.
 - `--quote` The quote currency to generate the data for.
 - `--timeframe` The timeframe to generate the data for.
-- `--minDuration` The minimum duration of the data to generate.
+- `--minDuration` The minimum duration of the data to use, represented as a timeframe,
+  such as 30s, 1m, 1h, 4d, etc.
 
 From a filter on the available data, such as the trading pair, the timeframe, etc.
-the HSS will generate a score for each strategy, inside a folder called `strategyName_report` also containing graphics,
+the HSS will generate a score for each strategy, inside a folder called `report_strategyName` also containing graphics,
 note that one report folder is generated per strategy.
 
 Can be found inside `src/systems/HSS.ts`.
 
-#### Note about GS & HSS:
+### Note about GS & HSS:
 The generated data for tests and strategy scores are stored in a directory called `pipes`
 as they are used to pipe the scoring system with the strategies themselves.
 
-#### Risk Management System (RMS):
+### Risk Management System (RMS):
 This fallback system used to prevent the SP from making unwanted trades (governance reduces that risk but it's never 100% safe, no matter what tech is used) works on two basic systems:
 - The profit calculator: This system is used to calculate the profit including the fees of each trade,
   ensuring that only profitable trades are made by the SP.
@@ -159,7 +157,7 @@ The RMS works inside the Strategy Pool (SP) system, it wraps the trading part of
 
 Can be found inside `src/systems/RMS.ts`.
 
-#### Strategy Pool (SP):
+### Strategy Pool (SP):
 This system contains all the strategies used to decide whether a trade should be made or not.
 It is using the scoring system to weight the strategies, creating a basic governance system.
 
@@ -173,7 +171,7 @@ so we always know what to expect from it.
 
 Can be found inside `src/systems/SP.ts`.
 
-#### Strategy (S):
+### Strategy (S):
 This is the basic system of the bot, it is used to decide whether a trade should be made or not.
 The bot implements multiple strategies, each one is a set of rules that are applied to the market.
 

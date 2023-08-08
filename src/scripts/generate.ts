@@ -3,6 +3,7 @@ import "configs/env.config";
 import minimist from "minimist";
 
 import { GENERAL_CONFIG } from "configs/global.config";
+import { getDuration } from "helpers/local/IO";
 import generator from "systems/GS";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -10,12 +11,7 @@ import logger from "utils/logger";
 
 /**
  * Runs the GS main function with the command line arguments parsed.
- * @param --help Shows the help message.
- * @param --pair The trading pair to generate the data for.
- * @param --timeframe The timeframe to generate the data for.
- * @param --since Timestamp to start generating the data from,
- * represented as the amount of days before the current time.
- * @param --entriesPerPage The amount of entries per page.
+ * @param args Arguments passed from the command line.
  */
 async function main(args: minimist.ParsedArgs) {
     logger.info("Generator System (GS) - Main function");
@@ -23,9 +19,9 @@ async function main(args: minimist.ParsedArgs) {
     const options: NsGeneral.generatorSystemOptions = {
         help: false,
         dataPath: GENERAL_CONFIG.dataPath,
-        pair: "BNB/USDT",
+        tradingPair: "BNB/USDT",
         timeframe: "1m",
-        since: 1,
+        duration: 1 * 60 * 60 * 1000,
         entriesPerPage: 512
     };
 
@@ -34,24 +30,27 @@ async function main(args: minimist.ParsedArgs) {
         options.help = true;
     }
 
+    const log = (keyName: string, defaultValue: unknown) => {
+        logger.warn(`No '${keyName}' parameter provided, defaulting to '${defaultValue}'.`);
+    };
+
     // NOTE:
     //  Skipping path -> fixed value to 'GENERAL_CONFIG.dataPath'
 
     // Disable parameters if '--help' is passed
     if (!options.help) {
-        // Pair
-        if (args.pair) {
-            if (!args.pair.includes("/")) {
-                logger.error(`Invalid trading pair '${args.pair}'.`);
+        if (args.tradingPair) {
+            if (!args.tradingPair.includes("/")) {
+                logger.error(`Invalid trading pair '${args.tradingPair}'.`);
+                logger.error("The trading pair must be in the format of 'BASE/QUOTE'.");
                 return;
             }
 
-            options.pair = args.pair as string;
+            options.tradingPair = args.tradingPair as string;
         } else {
-            logger.warn(`No 'pair' parameter provided, defaults to ${options.pair}.`);
+            log("trading pair", options.tradingPair);
         }
 
-        // Timeframe
         if (args.timeframe) {
             const validTimeframes = [
                 "1s", "30s", "1m", "3m",
@@ -60,31 +59,37 @@ async function main(args: minimist.ParsedArgs) {
             ];
 
             if (!validTimeframes.includes(args.timeframe as string)) {
-                logger.error(`Invalid timeframe '${args.timeframe}'.`);
+                logger.error(`Invalid timeframe format '${args.timeframe}'.`);
+                logger.error(`Valid timeframes: ${validTimeframes.join(", ")}.`);
                 return;
             }
 
             options.timeframe = args.timeframe as NsGeneral.IsTimeframe;
         } else {
-            logger.warn(`No 'timeframe' parameter provided, defaults to '${options.timeframe}'`);
+            log("timeframe", options.timeframe);
         }
 
-        // Since
-        if (args.since) {
-            if (!Number.isInteger(args.since as number) && args.since <= 0) {
-                logger.error(`Invalid 'since' parameter '${args.since}'.`);
-                return;
-            }
+        if (args.duration) {
+            const durationFromArg = getDuration(args.duration);
 
-            options.since = args.since as number;
+            if (durationFromArg) {
+                options.duration = durationFromArg;
+            } else {
+                logger.error(`Invalid duration: ${args.duration}`);
+                logger.warn("Defaulting duration to '1h'.");
+            }
         } else {
-            logger.warn(`No 'since' parameter provided, defaults to ${options.since} days.`);
+            log("duration", "1h");
         }
 
         // Entries per page
         if (args.entriesPerPage) {
-            if (!Number.isInteger(args.entriesPerPage as number) && args.entriesPerPage <= 0) {
+            if (
+                !Number.isInteger(args.entriesPerPage as number) ||
+                (Number.isInteger(args.entriesPerPage as number) && args.entriesPerPage <= 0)
+            ) {
                 logger.error(`Invalid 'entriesPerPage' parameter '${args.entriesPerPage}'.`);
+                logger.error("The 'entriesPerPage' parameter must be an integer greater than 0.");
                 return;
             }
 
@@ -95,7 +100,7 @@ async function main(args: minimist.ParsedArgs) {
 
             options.entriesPerPage = args.entriesPerPage as number;
         } else {
-            logger.warn(`No 'entriesPerPage' parameter provided, defaults to '${options.entriesPerPage}'.`);
+            log("entriesPerPage", options.entriesPerPage);
         }
     }
 

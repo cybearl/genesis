@@ -89,7 +89,7 @@ export function getTimeframe(
  * @returns The time in ms.
  */
 export function getDuration(
-    timeString: NsGeneral.IsTimeframe
+    timeString: string
 ) {
     if (timeString) {
         try {
