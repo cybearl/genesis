@@ -20,7 +20,6 @@ import {
     parseTradingPair
 } from "helpers/online/exchange";
 import {
-    checkNetwork,
     closeDBConnection,
     connectToDB,
     sendBotObjectCategory,
@@ -115,7 +114,10 @@ export default class Bot {
 
         // Check the network (FATAL)
         if (!this._botObject.start.sandbox && NETWORK_CONFIG.checkNetwork) {
-            this._botObject.local.networkCheck = await checkNetwork();
+            // TODO: Find a way to implement the network check (without 'speedtest-net', deprecated)
+            this._botObject.local.networkCheck = true;
+
+            logger.warn("Network check is not available at the moment! Skipping...");
         }
 
         if (this._botObject.start.sandbox) {

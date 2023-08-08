@@ -22,7 +22,7 @@ export const GENERAL_CONFIG = {
  * Network configuration.
  */
 export const NETWORK_CONFIG = {
-    checkNetwork: false,                        // Check network reliability
+    checkNetwork: true,                         // Check network reliability
     checkNetworkInterval: 1000 * 60 * 60 * 24,  // 1 day
     jitterLimit: 5,                             // ms
     latencyLimit: 100,                          // ms
