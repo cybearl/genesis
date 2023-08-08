@@ -3,7 +3,7 @@ import path from "path";
 
 import { OHLCV } from "ccxt";
 
-import { getTimeframe, removeDays } from "helpers/local/IO";
+import { getTimeframe } from "helpers/local/IO";
 import { generateRandomName } from "helpers/local/random";
 import {
     checkExchangeStatus,
@@ -22,32 +22,32 @@ import logger from "utils/logger";
  * generates a JSON file with OHLCV data.
  *
  * Note: applies pagination to the data if the
- * amount of data is too large (> 'args.entriesPerPage' entries).
- * @param args The command line arguments.
+ * amount of data is too large (> 'options.entriesPerPage' entries).
+ * @param options The parsed command line arguments.
  */
 export default async function main(
-    args: NsGeneral.generatorSystemOptions
+    options: NsGeneral.generatorSystemOptions
 ) {
-    if (args.help) {
+    if (options.help) {
         console.log(generateHelpMsg);
         return;
     }
 
-    const tokens = parseTradingPair(args.pair);
-    const timeframe = getTimeframe(args.timeframe);
+    const tokens = parseTradingPair(options.tradingPair);
+    const timeframe = getTimeframe(options.timeframe);
     const now = Date.now();
 
-    // Get the 'since' timestamp in milliseconds
-    const sinceDate = removeDays(new Date(), args.since);
-    const sinceMs = sinceDate.getTime();
+    // // Get the 'duration' timestamp in milliseconds
+    const durationDate = new Date(now - options.duration);
+    const durationMs = durationDate.getTime();
 
-    // Measures number of timeframes with 'since' as the start
+    // Measures number of timeframes with 'duration' as the start
     // and the current time as the end
-    const timeframes = Math.floor((now - sinceMs) / timeframe);
+    const timeframes = Math.floor((now - durationMs) / timeframe);
 
-    // If the amount of timeframes is too large (> 'args.entriesPerPage' entries),
+    // If the amount of timeframes is too large (> 'options.entriesPerPage' entries),
     // apply pagination to the data
-    const pagination = timeframes > args.entriesPerPage ? Math.ceil(timeframes / args.entriesPerPage) : 1;
+    const pagination = timeframes > options.entriesPerPage ? Math.ceil(timeframes / options.entriesPerPage) : 1;
 
     // Connect to API
     const exchange = loadExchange(true);
@@ -58,36 +58,36 @@ export default async function main(
     const OHLCVs: OHLCV[] = [];
 
     for (let i = 0; i < pagination; i++) {
-        const since = sinceMs + (i * timeframe * args.entriesPerPage);
+        const duration = durationMs + (i * timeframe * options.entriesPerPage);
 
         logger.info(`Fetching page No.${i + 1}...`);
 
         const fetchedOHLCVs = await fetchOHLCVs(
             exchange,
-            args.pair,
-            args.timeframe,
-            since,
-            args.entriesPerPage
+            options.tradingPair,
+            options.timeframe,
+            duration,
+            options.entriesPerPage
         );
 
         OHLCVs.push(...fetchedOHLCVs);
     }
 
     // Generate the output directory if it doesn't exist (recursively)
-    if (!fs.existsSync(args.dataPath)) {
-        fs.mkdirSync(args.dataPath, { recursive: true });
+    if (!fs.existsSync(options.dataPath)) {
+        fs.mkdirSync(options.dataPath, { recursive: true });
 
-        logger.info(`Directory '${args.dataPath}' created.`);
+        logger.info(`Directory '${options.dataPath}' created.`);
     }
 
     // Format the file name
     const rndName = generateRandomName();
-    const fileBaseName = `(${tokens.base}-${tokens.quote}) ${rndName.toUpperCase()} ${args.timeframe}`;
-    const filename = `${fileBaseName} ${sinceDate.getTime()} ${Date.now()}.json`;
+    const fileBaseName = `(${tokens.base}-${tokens.quote}) ${rndName.toUpperCase()} ${options.timeframe}`;
+    const filename = `${fileBaseName} ${durationMs} ${Date.now()}.json`;
 
     // Save OHLCV data to JSON file
     fs.writeFileSync(
-        path.join(args.dataPath, filename),
+        path.join(options.dataPath, filename),
         JSON.stringify(OHLCVs, null, 4)
     );
 }

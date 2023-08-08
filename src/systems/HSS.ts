@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { getFiles } from "helpers/local/files";
-import { consoleTable, getDuration, parseDataFilename } from "helpers/local/IO";
+import { consoleTable, parseDataFilename } from "helpers/local/IO";
 import { parseTradingPair } from "helpers/online/exchange";
 import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
 import { scoreHelpMsg } from "scripts/messages/messages";
@@ -14,28 +14,14 @@ import logger from "utils/logger";
 /**
  * Get the files, recover their info (filename)
  * and filter them, returning the filtered files.
- * @param args The command line arguments.
+ * @param options The parsed command line arguments.
  * @param availableFiles The available files.
  * @returns The filtered files.
  */
 function getFilteredFiles(
-    args: NsGeneral.historicalScoringSystemOptions,
+    options: NsGeneral.historicalScoringSystemOptions,
     availableFiles: string[]
 ) {
-    let minDuration: number = 1 * 60 * 60 * 1000;
-
-    // Get the minDuration in milliseconds from available timeframes
-    if (args.minDuration) {
-        const durationFromArg = getDuration(args.minDuration as unknown as NsGeneral.IsTimeframe);
-
-        if (durationFromArg) {
-            minDuration = durationFromArg;
-        } else {
-            logger.error(`Invalid duration: ${args.minDuration}`);
-            logger.warn("Defaulting duration to '1h'.");
-        }
-    }
-
     const parsedFilenames = [];
     const parsedDataForQuery: NsGeneral.historicalScoringSystemParsedFilename[] = [];
     // logger.error("Available durations: _s (seconds), _m (minutes), _h (hours), _d (days)");
@@ -64,7 +50,7 @@ function getFilteredFiles(
     const filteredFiles: NsGeneral.historicalScoringSystemParsedFilename[] = [];
 
     for (const fileInfo of parsedDataForQuery) {
-        const typedArgs = args as unknown as { [key: string]: string; };
+        const typedOptions = options as unknown as { [key: string]: string; };
         const typedFileInfo = fileInfo as unknown as { [key: string]: string; };
         const keys = Object.keys(fileInfo);
 
@@ -72,18 +58,18 @@ function getFilteredFiles(
 
         // For each key in the fileInfo object
         for (const key of keys) {
-            // If the key is not in the typedArgs object
-            if (!(key in typedArgs)) {
+            // If the key is not in the typedOptions object
+            if (!(key in typedOptions)) {
                 // Apply custom logic to duration key (minDuration)
                 if (key === "duration") {
-                    if (minDuration && fileInfo.duration < minDuration) {
+                    if (options.minDuration && fileInfo.duration < options.minDuration) {
                         valid = false;
                         break;
                     }
                 }
             } else {
-                // If the key is in the typedArgs object
-                if (typedArgs[key] && typedArgs[key] !== typedFileInfo[key]) {
+                // If the key is in the typedOptions object
+                if (typedOptions[key] && typedOptions[key] !== typedFileInfo[key]) {
                     valid = false;
                     break;
                 }
@@ -167,31 +153,30 @@ function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
  * Main function for the HSS system,
  * generates a score for a strategy based on
  * the historical data of a trading pair.
- *
- * @param args The command line arguments.
+ * @param options The parsed command line arguments.
  */
 export default async function main(
-    args: NsGeneral.historicalScoringSystemOptions
+    options: NsGeneral.historicalScoringSystemOptions
 ) {
-    if (args.help) {
+    if (options.help) {
         console.log(scoreHelpMsg);
         return;
     }
 
     // Recover the list of available files (filenames without extension)
-    const availableFiles = getFiles(args.dataPath, ".json");
+    const availableFiles = getFiles(options.dataPath, ".json");
 
     const {
         parsedFilenames,
         filteredFiles
-    } = getFilteredFiles(args, availableFiles);
+    } = getFilteredFiles(options, availableFiles);
 
-    if (args.showFiltered) {
+    if (options.show) {
         // Show the filtered files
         consoleTable(filteredFiles as unknown as { [key: string]: string; }[]);
 
         return;
-    } else if (args.show) {
+    } else if (options.showAll) {
         // Show all files
         consoleTable(parsedFilenames);
 
@@ -203,7 +188,7 @@ export default async function main(
         for (const availableFile of availableFiles) {
             if (availableFile.includes(file.name)) {
                 // Return normalized path
-                return path.join(args.dataPath, `${availableFile}.json`);
+                return path.join(options.dataPath, `${availableFile}.json`);
             }
         }
     });
@@ -218,9 +203,9 @@ export default async function main(
     runStrategyPool(filteredFilesWithPaths as string[]);
 
     // Generate the output directory if it doesn't exist (recursively)
-    if (!fs.existsSync(args.scorePath)) {
-        fs.mkdirSync(args.scorePath, { recursive: true });
+    if (!fs.existsSync(options.scorePath)) {
+        fs.mkdirSync(options.scorePath, { recursive: true });
 
-        logger.info(`Directory '${args.scorePath}' created.`);
+        logger.info(`Directory '${options.scorePath}' created.`);
     }
 }

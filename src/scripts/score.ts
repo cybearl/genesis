@@ -3,6 +3,7 @@ import "configs/env.config";
 import minimist from "minimist";
 
 import { GENERAL_CONFIG } from "configs/global.config";
+import { getDuration } from "helpers/local/IO";
 import score from "systems/HSS";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -10,16 +11,15 @@ import logger from "utils/logger";
 
 /**
  * Runs the HSS main function with the command line arguments parsed.
- * @param --help Shows the help message.
- * @param --show Shows the available data for the HSS with a query.
+ * @param args Arguments passed from the command line.
  */
 async function main(args: minimist.ParsedArgs) {
     logger.info("Historical Scoring System (HSS) - Main function");
 
     const options: NsGeneral.historicalScoringSystemOptions = {
         help: false,
+        showAll: false,
         show: false,
-        showFiltered: false,
         dataPath: GENERAL_CONFIG.dataPath,
         scorePath: GENERAL_CONFIG.scorePath,
         name: undefined,
@@ -27,31 +27,31 @@ async function main(args: minimist.ParsedArgs) {
         base: undefined,
         quote: undefined,
         timeframe: undefined,
-        minDuration: undefined
+        minDuration: 1 * 60 * 60 * 1000
     };
 
     if (args.help) {
         options.help = true;
     }
 
+    if (args.showAll) {
+        options.show = true;
+    }
+
     if (args.show) {
         options.show = true;
     }
 
-    if (args.showFiltered) {
-        options.showFiltered = true;
-    }
-
     const log = (keyName: string) => {
-        if (!options.show && !options.showFiltered) {
-            logger.warn(`No '${keyName}' parameter provided, defaults to 'ALL'.`);
+        if (!options.show && !options.show) {
+            logger.warn(`No '${keyName}' parameter provided, defaulting to 'ALL'.`);
         }
     };
 
     // NOTE:
     //  Skipping paths -> fixed value to 'GENERAL_CONFIG.scorePath' & 'GENERAL_CONFIG.dataPath'
 
-    // Disable parameters if '--help' / 'show' is passed
+    // Disable parameters if '--help' is passed
     if (!options.help) {
         if (args.name) {
             options.name = args.name as string;
@@ -84,7 +84,14 @@ async function main(args: minimist.ParsedArgs) {
         }
 
         if (args.minDuration) {
-            options.minDuration = args.minDuration as number;
+            const durationFromArg = getDuration(args.minDuration);
+
+            if (durationFromArg) {
+                options.minDuration = durationFromArg;
+            } else {
+                logger.error(`Invalid duration: ${args.minDuration}`);
+                logger.warn("Defaulting duration to '1h'.");
+            }
         } else {
             log("minDuration");
         }
