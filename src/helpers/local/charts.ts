@@ -26,15 +26,22 @@ function getChartTemplateFromName(
  * Generate a simple line chart from number array and export it as a PNG image.
  * @param filename The name of the file.
  * @param data The data to use for the chart, one array per line.
+ * @param widthPerPoint The width for each point in the chart (optional, defaults to 32).
+ * @param height The height of the chart (optional, defaults to 512).
  */
 export default async function generateLineChart(
     filename: string,
-    data: number[][]
+    data: number[][],
+    widthPerPoint = 32,
+    height = 512
 ) {
     const rawTemplate = getChartTemplateFromName("line-chart");
 
     // Calculate width based on data length
-    rawTemplate.width = 64 + (data.length * 32);
+    rawTemplate.width = 64 + (data[0].length * widthPerPoint);
+
+    // Apply height
+    rawTemplate.height = height;
 
     // Default object
     const obj: {
@@ -69,9 +76,19 @@ export default async function generateLineChart(
 
     // Vega view
     const view = new vega.View(vega.parse(LineChart as Spec), {
-        renderer: "none"
+        renderer: "none",
+        background: "#ffffff"
     });
 
     const svgString = await view.toSVG();
     await convertVegaSvgToPng(svgString, __dirname, filename);
 }
+
+
+generateLineChart(
+    "test",
+    [
+        [...Array(40)].map(_ => Math.ceil(Math.random() * 40)),
+        [...Array(40)].map(_ => Math.ceil(Math.random() * 40)),
+    ]
+);

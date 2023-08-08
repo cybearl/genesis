@@ -48,7 +48,7 @@ async function main(args: minimist.ParsedArgs) {
 
             options.tradingPair = args.tradingPair as string;
         } else {
-            log("trading pair", options.tradingPair);
+            log("tradingPair", options.tradingPair);
         }
 
         if (args.timeframe) {

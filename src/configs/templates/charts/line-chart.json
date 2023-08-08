@@ -1,9 +1,10 @@
 {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
-    "description": "A basic line chart example.",
-    "width": 500,
-    "height": 200,
-    "padding": 5,
+    "description": "LINE CHART",
+    "width": 0,
+    "height": 0,
+    "background": "white",
+    "padding": 10,
     "signals": [
         {
             "name": "interpolate",
