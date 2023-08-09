@@ -1,5 +1,9 @@
+import fs from "fs";
+import path from "path";
+
 import vega, { Spec } from "vega";
 
+import { GENERAL_CONFIG } from "configs/global.config";
 import LineChart from "configs/templates/charts/line-chart.json";
 import { convertVegaSvgToPng } from "helpers/local/files";
 import NsCharts from "types/charts";
@@ -24,12 +28,14 @@ function getChartTemplateFromName(
 
 /**
  * Generate a simple line chart from number array and export it as a PNG image.
+ * @param reportFolderName The name of the report folder.
  * @param filename The name of the file.
  * @param data The data to use for the chart, one array per line.
  * @param widthPerPoint The width for each point in the chart (optional, defaults to 32).
  * @param height The height of the chart (optional, defaults to 512).
  */
 export default async function generateLineChart(
+    reportFolderName: string,
     filename: string,
     data: number[][],
     widthPerPoint = 32,
@@ -81,11 +87,22 @@ export default async function generateLineChart(
     });
 
     const svgString = await view.toSVG();
-    await convertVegaSvgToPng(svgString, __dirname, filename);
+
+    const exportPath = path.join(GENERAL_CONFIG.scorePath, reportFolderName);
+
+    if (!fs.existsSync(exportPath)) {
+        fs.mkdirSync(exportPath, { recursive: true });
+    }
+
+    await convertVegaSvgToPng(
+        svgString,
+        exportPath,
+        filename
+    );
 }
 
-
 generateLineChart(
+    "report_intraday",
     "test",
     [
         [...Array(40)].map(_ => Math.ceil(Math.random() * 40)),
