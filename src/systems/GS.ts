@@ -3,6 +3,7 @@ import path from "path";
 
 import { OHLCV } from "ccxt";
 
+import { generateHelpMsg } from "configs/messages.config";
 import { getTimeframe } from "helpers/local/IO";
 import { generateRandomName } from "helpers/local/random";
 import {
@@ -12,7 +13,6 @@ import {
     loadMarkets,
     parseTradingPair
 } from "helpers/online/exchange";
-import { generateHelpMsg } from "scripts/messages/messages";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
 

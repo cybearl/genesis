@@ -116,8 +116,8 @@ The command to run the generator is `yarn generate` and it supports the followin
   such as 30s, 1m, 1h, 4d, etc.
 - `--entriesPerPage` The amount of entries per page (0 < entriesPerPage <= 512).
 
-The default path for the generated data is `src/pipes/data/`. Note that it cannot be changed
-via arguments, as data are later accessed by the `HSS`.
+The default path for the generated data is `pipes/data/`. Note that it cannot be changed
+via arguments, as data are later accessed by the HSS.
 
 Can be found inside `src/systems/GS.ts`.
 
@@ -135,9 +135,9 @@ The command to run the HSS is `yarn score` and it supports the following argumen
 - `--minDuration` The minimum duration of the data to use, represented as a timeframe,
   such as 30s, 1m, 1h, 4d, etc.
 
-From a filter on the available data, such as the trading pair, the timeframe, etc.
-the HSS will generate a score for each strategy, inside a folder called `report_strategyName` also containing graphics,
-note that one report folder is generated per strategy.
+The HSS will generate, under `pipes/scores`, a folder for each strategy (named by the strategy name), containing a `score.json`
+file for the latest score, and a `reports` subdirectory containing the reports for each run (named by date)
+containing graphics and data for analysis.
 
 Can be found inside `src/systems/HSS.ts`.
 

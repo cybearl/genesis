@@ -1,11 +1,11 @@
 import fs from "fs";
 import path from "path";
 
+import { scoreHelpMsg } from "configs/messages.config";
 import { getFiles } from "helpers/local/files";
-import { consoleTable, parseDataFilename } from "helpers/local/IO";
+import { consoleTable, getCurrentDateString, parseDataFilename } from "helpers/local/IO";
 import { parseTradingPair } from "helpers/online/exchange";
 import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
-import { scoreHelpMsg } from "scripts/messages/messages";
 import StrategyPool from "systems/SP";
 import NsGeneral from "types/general";
 import logger from "utils/logger";
@@ -88,12 +88,44 @@ function getFilteredFiles(
     };
 }
 
+/**
+ * Generates the output strategy directories and their last report subdirectories.
+ * @param scorePath The path to the output directory.
+ * @param strategyNames The names of the strategies.
+ */
+function generateStrategyAndReportDirs(scorePath: string, strategyNames: string[]) {
+    const currentDate = getCurrentDateString("YYYY-MM-DD HH.mm.ss");
+
+    for (const strategyName of strategyNames) {
+        const strategyPath = path.join(scorePath, strategyName);
+
+        if (!fs.existsSync(strategyPath)) {
+            fs.mkdirSync(strategyPath, { recursive: true });
+
+            logger.info(`Strategy score directory '${strategyPath}' created.`);
+        }
+
+        const reportPath = path.join(strategyPath, "reports", currentDate);
+
+        if (!fs.existsSync(reportPath)) {
+            fs.mkdirSync(reportPath, { recursive: true });
+
+            logger.info(`Strategy score report directory '${reportPath}' created.`);
+        }
+    }
+}
 
 /**
  * Runs the strategy pool.
+ * @param scorePath The path to the output directory.
+ * @param testFilePaths The paths to the test files.
+ * @param sampleSize The sample size (optional, defaults to 16).
  */
-function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
+function runStrategyPool(scorePath: string, testFilePaths: string[], sampleSize = 16) {
     const strategyPool = new StrategyPool();
+    const strategyNames = strategyPool.getStrategyNames();
+
+    generateStrategyAndReportDirs(scorePath, strategyNames);
 
     for (const testFilePath of testFilePaths) {
         if (!fs.existsSync(testFilePath)) {
@@ -136,17 +168,14 @@ function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
             index++;
         }
 
+        // Recovering data from SP storage and using it to generate graphs (for each strategy)
+        // TODO
+
         strategyPool.deleteMarketData();
     }
 
-    const rawProfits = strategyPool.getRawProfits();
-
-    console.log(rawProfits);
-
-    console.log(
-        "Final profit:",
-        rawProfits["intraday"].reduce((a, b) => a + b, 0)
-    );
+    // Recovering data from SP storage and using it to generate graphs
+    // TODO
 }
 
 
@@ -159,6 +188,13 @@ function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
 export default async function main(
     options: NsGeneral.historicalScoringSystemOptions
 ) {
+    // Generate the output directory if it doesn't exist (recursively)
+    if (!fs.existsSync(options.scorePath)) {
+        fs.mkdirSync(options.scorePath, { recursive: true });
+
+        logger.info(`Directory '${options.scorePath}' created.`);
+    }
+
     if (options.help) {
         console.log(scoreHelpMsg);
         return;
@@ -204,12 +240,5 @@ export default async function main(
     }
 
     // Runs the strategy pool
-    runStrategyPool(filteredFilesWithPaths as string[]);
-
-    // Generate the output directory if it doesn't exist (recursively)
-    if (!fs.existsSync(options.scorePath)) {
-        fs.mkdirSync(options.scorePath, { recursive: true });
-
-        logger.info(`Directory '${options.scorePath}' created.`);
-    }
+    runStrategyPool(options.scorePath, filteredFilesWithPaths as string[]);
 }

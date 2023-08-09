@@ -34,6 +34,14 @@ export default class StrategyPool {
     }
 
     /**
+     * Get a list of all strategy names.
+     * @returns List of all strategy names.
+     */
+    public getStrategyNames() {
+        return this._strategyNames;
+    }
+
+    /**
      * Returns the raw profits of all strategies.
      * @returns Raw profits of all strategies.
      */
