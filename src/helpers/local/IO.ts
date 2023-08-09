@@ -210,7 +210,7 @@ export function getRemainingTime(date: Date) {
         days: days > 0 ? `${days}d ` : "",
         hours: hours > 0 ? `${hours}h ` : "",
         minutes: minutes > 0 ? `${minutes}m ` : "",
-        seconds: seconds > 0 ? `${seconds}s` : ""
+        seconds: `${seconds}s`
     };
 }
 
