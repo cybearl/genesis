@@ -112,7 +112,8 @@ function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
         }
 
         if (priceBars.length < sampleSize) {
-            logger.error(`File '${testFilePath}' has less than ${sampleSize} price bars.`);
+            logger.warn(`File '${path.basename(testFilePath)}' has less than ${sampleSize} price bars (< sample size).`);
+            logger.warn("Skipping...");
             continue;
         }
 
@@ -144,7 +145,7 @@ function runStrategyPool(testFilePaths: string[], sampleSize = 16) {
 
     console.log(
         "Final profit:",
-        rawProfits["intraday"].reduce((a, b) => a + b, 0) / rawProfits["intraday"].length
+        rawProfits["intraday"].reduce((a, b) => a + b, 0)
     );
 }
 
@@ -176,7 +177,6 @@ export default async function main(
         // Show the filtered files
         consoleTable(filteredFiles as unknown as { [key: string]: string; }[]);
 
-
         return;
     }
 
@@ -198,7 +198,7 @@ export default async function main(
     });
 
     if (filteredFilesWithPaths.length === 0) {
-        logger.error("No matching test file found, please verify your filters.");
+        logger.error("No matching test file found, please, ensure that you ran the 'generate' command at least once, or verify your filters.");
 
         return;
     }

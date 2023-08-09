@@ -4,6 +4,7 @@ import lodash from "lodash";
 import storageObject from "objects/storageObject";
 import * as strategies from "strategies/src/utils/exports";
 import NsStrategy from "types/strategy";
+import logger from "utils/logger";
 
 
 // Strategy Pool (SP) (HSS Weighted Governance)
@@ -28,6 +29,8 @@ export default class StrategyPool {
         for (const strategyName of Object.keys(strategies)) {
             this._storages[strategyName] = lodash.cloneDeep(storageObject);
         }
+
+        logger.verbose(`Strategy pool initialized with ${this._strategyNames.length} ${this._strategyNames.length > 1 ? "strategies" : "strategy"}.`);
     }
 
     /**
@@ -35,7 +38,7 @@ export default class StrategyPool {
      * @returns Raw profits of all strategies.
      */
     public getRawProfits() {
-        const profits: { [key: string]: number[] } = {};
+        const profits: { [key: string]: number[]; } = {};
 
         for (const strategyName of this._strategyNames) {
             profits[strategyName] = this._storages[strategyName].rawProfits;

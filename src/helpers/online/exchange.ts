@@ -185,7 +185,7 @@ export async function fetchOHLCVs(
     }
 
     // Log the OHLCV information
-    logger.verbose(`${exchange.name} OHLCV fetched for ${symbol} (${limit} x ${timeframe}).`);
+    logger.verbose(`${exchange.name} OHLCV fetched for ${symbol} (LIMIT_${limit} x ${timeframe}).`);
 
     return OHLCVs;
 }
