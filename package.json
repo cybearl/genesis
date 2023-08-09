@@ -16,7 +16,6 @@
         "chart": "ts-node src/helpers/local/charts.ts"
     },
     "dependencies": {
-        "as-table": "^1.0.55",
         "bip39": "^3.1.0",
         "ccxt": "^3.0.86",
         "date-and-time": "^3.0.0",

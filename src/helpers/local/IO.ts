@@ -1,7 +1,6 @@
 import crypto from "crypto";
 import * as readline from "readline";
 
-import { configure } from "as-table";
 import date from "date-and-time";
 import { ObjectId } from "mongodb";
 
@@ -189,9 +188,37 @@ export function removeDays(date: Date, days: number) {
     return result;
 }
 
+
+/**
+ * Get remaining time from a date, in days, hours, minutes and seconds.
+ * @param date The date to get the remaining time from.
+ */
+export function getRemainingTime(date: Date) {
+    // Get the ms of the date
+    const dateTime = date.getTime();
+
+    let seconds = Math.floor(dateTime / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    hours = hours - (days * 24);
+    minutes = minutes - (days * 24 * 60) - (hours * 60);
+    seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+    return {
+        days: days > 0 ? `${days}d ` : "",
+        hours: hours > 0 ? `${hours}h ` : "",
+        minutes: minutes > 0 ? `${minutes}m ` : "",
+        seconds: seconds > 0 ? `${seconds}s` : ""
+    };
+}
+
+
 /**
  * Custom console table for printing object arrays.
  * Dates are converted to strings.
+ * Ms are converted to date strings.
  * @param objs The objects to print.
  */
 export function consoleTable(objs: { [key: string]: unknown; }[]) {
@@ -200,15 +227,27 @@ export function consoleTable(objs: { [key: string]: unknown; }[]) {
             obj.date = getDateString(obj.date as Date);
         }
 
+        if (obj.startDate) {
+            obj.startDate = getDateString(
+                new Date(parseInt(obj.startDate as string))
+            );
+        }
+
+        if (obj.endDate) {
+            obj.endDate = getDateString(
+                new Date(parseInt(obj.endDate as string))
+            );
+        }
+
+        if (obj.duration) {
+            const formattedDuration = getRemainingTime(new Date(obj.duration as number));
+            obj.duration = `${formattedDuration.days}${formattedDuration.hours}${formattedDuration.minutes}${formattedDuration.seconds}`;
+        }
+
         return obj;
     });
 
-    const table = configure({
-        delimiter: " | ",
-        dash: "-",
-    })(formattedObjs);
-
-    console.log(`\n${table}\n`);
+    console.table(formattedObjs);
 }
 
 /**

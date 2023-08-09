@@ -171,12 +171,16 @@ export default async function main(
         filteredFiles
     } = getFilteredFiles(options, availableFiles);
 
+
     if (options.show) {
         // Show the filtered files
         consoleTable(filteredFiles as unknown as { [key: string]: string; }[]);
 
+
         return;
-    } else if (options.showAll) {
+    }
+
+    if (options.showAll) {
         // Show all files
         consoleTable(parsedFilenames);
 

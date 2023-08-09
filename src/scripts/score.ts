@@ -35,7 +35,7 @@ async function main(args: minimist.ParsedArgs) {
     }
 
     if (args.showAll) {
-        options.show = true;
+        options.showAll = true;
     }
 
     if (args.show) {
@@ -43,7 +43,7 @@ async function main(args: minimist.ParsedArgs) {
     }
 
     const log = (keyName: string) => {
-        if (!options.show && !options.show) {
+        if (!options.showAll && !options.show) {
             logger.warn(`No '${keyName}' parameter provided, defaulting to 'ALL'.`);
         }
     };
