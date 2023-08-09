@@ -25,7 +25,6 @@ function getChartTemplateFromName(
     }
 }
 
-
 /**
  * Generate a simple line chart from number array and export it as a PNG image.
  * @param reportFolderName The name of the report folder.
@@ -100,12 +99,3 @@ export default async function generateLineChart(
         filename
     );
 }
-
-generateLineChart(
-    "report_intraday",
-    "test",
-    [
-        [...Array(40)].map(_ => Math.ceil(Math.random() * 40)),
-        [...Array(40)].map(_ => Math.ceil(Math.random() * 40)),
-    ]
-);
