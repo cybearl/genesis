@@ -168,14 +168,13 @@ function runStrategyPool(scorePath: string, testFilePaths: string[], sampleSize 
             index++;
         }
 
-        // Recovering data from SP storage and using it to generate graphs (for each strategy)
-        // TODO
-
         strategyPool.deleteMarketData();
     }
 
     // Recovering data from SP storage and using it to generate graphs
-    // TODO
+    const allStrategyStats = strategyPool.getStats();
+
+    console.log(allStrategyStats);
 }
 
 

@@ -2,7 +2,27 @@ import NsStrategy from "types/strategy";
 
 
 /**
- * Empty I/O storage for initial strategy run.
+ * Empty I/O storage for HSS strategy run.
+ */
+const storageStatsObject: NsStrategy.storageStats = {
+    // Indexes
+    buyIndexes: [],
+    sellIndexes: [],
+
+    // Profits
+    profitsInBaseCurrency: [],
+    profitsInQuoteCurrency: [],
+
+    // Trades
+    trades: 0,
+    tradesWon: 0,
+    tradesLost: 0,
+    tradesWonPct: 0,
+    tradesLostPct: 0,
+};
+
+/**
+ * Empty I/O storage for HSS strategy run.
  */
 const storageObject: NsStrategy.storage = {
     // Market data
@@ -11,13 +31,15 @@ const storageObject: NsStrategy.storage = {
 
     // Trade & profits
     inPosition: false,          // In or out of position
-    rawProfits: [],             // Raw profit numbers
     targetProfit: 0,            // Target profit
     stopLoss: 0,                // Stop loss
     lastBuyPrice: 0,            // Last buy price
 
     // Indexes
-    index: 0                    // Index of current price bar
+    index: 0,                   // Index of current price bar
+
+    // Statistics
+    stats: storageStatsObject,  // Statistics
 };
 
 

@@ -17,6 +17,23 @@ declare namespace NsStrategy {
     }
 
     /**
+     * Storage statistics.
+     */
+    interface storageStats {
+        buyIndexes: number[];
+        sellIndexes: number[];
+
+        profitsInBaseCurrency: number[];
+        profitsInQuoteCurrency: number[];
+
+        trades: number;
+        tradesWon: number;
+        tradesLost: number;
+        tradesWonPct: number;
+        tradesLostPct: number;
+    }
+
+    /**
      * Standard strategy I/O storage.
      */
     interface storage {
@@ -24,12 +41,13 @@ declare namespace NsStrategy {
         priceBars: priceBar[];
 
         inPosition: boolean;
-        rawProfits: number[];
         targetProfit: number;
         stopLoss: number;
         lastBuyPrice: number;
 
         index: number;
+
+        stats: storageStats;
     }
 
     /**

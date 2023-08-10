@@ -12,6 +12,7 @@ export default class StrategyPool {
     private _strategyNames: string[] = [];
     private _strategies: NsStrategy.strategies = {};
     private _storages: NsStrategy.storages = {};
+    private _indexes: { [key: string]: number } = {};
 
 
     /**
@@ -42,17 +43,17 @@ export default class StrategyPool {
     }
 
     /**
-     * Returns the raw profits of all strategies.
-     * @returns Raw profits of all strategies.
+     * Returns the stats of all strategies.
+     * @returns Stats of all strategies.
      */
-    public getRawProfits() {
-        const profits: { [key: string]: number[]; } = {};
+    public getStats() {
+        const stats: { [key: string]: NsStrategy.storageStats } = {};
 
         for (const strategyName of this._strategyNames) {
-            profits[strategyName] = this._storages[strategyName].rawProfits;
+            stats[strategyName] = this._storages[strategyName].stats;
         }
 
-        return profits;
+        return stats;
     }
 
     /**
@@ -75,16 +76,28 @@ export default class StrategyPool {
         priceBars: NsStrategy.priceBar[],
     ) {
         for (const strategyName of this._strategyNames) {
+            // Check if index exists for strategy
+            if (!this._indexes[strategyName]) {
+                this._indexes[strategyName] = 0;
+            }
+
             // Update storages
             this._storages[strategyName].OHLCVs = OHLCVs;
             this._storages[strategyName].priceBars = priceBars;
 
-            // Run strategy
+            // Apply index to storage
+            this._storages[strategyName].index = this._indexes[strategyName];
+
+            // Get strategy function
             const strategyFunction = this._strategies[strategyName];
 
+            // Run strategy function
             this._storages[strategyName] = strategyFunction(
                 this._storages[strategyName]
             );
+
+            // Update indexes
+            this._indexes[strategyName]++;
         }
     }
 }
