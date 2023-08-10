@@ -67,6 +67,15 @@ export default class StrategyPool {
     }
 
     /**
+     * Resets all storages.
+     */
+    public resetStorages() {
+        for (const strategyName of this._strategyNames) {
+            this._storages[strategyName] = lodash.cloneDeep(storageObject);
+        }
+    }
+
+    /**
      * Main function of the strategy pool.
      * Updates storages with last data and
      * runs all strategy functions.

@@ -8,6 +8,7 @@ import { parseTradingPair } from "helpers/online/exchange";
 import { convertOHLCVsToPriceBars } from "helpers/online/strategy";
 import StrategyPool from "systems/SP";
 import NsGeneral from "types/general";
+import NsStrategy from "types/strategy";
 import logger from "utils/logger";
 
 
@@ -118,23 +119,37 @@ function generateStrategyAndReportDirs(scorePath: string, strategyNames: string[
 /**
  * Runs the strategy pool.
  * @param scorePath The path to the output directory.
+ * @param filteredFiles The filtered files.
  * @param testFilePaths The paths to the test files.
  * @param sampleSize The sample size (optional, defaults to 16).
  */
-function runStrategyPool(scorePath: string, testFilePaths: string[], sampleSize = 16) {
+function runStrategyPool(
+    scorePath: string,
+    filteredFiles: NsGeneral.historicalScoringSystemParsedFilename[],
+    testFilePaths: string[],
+    sampleSize = 16
+) {
     const strategyPool = new StrategyPool();
     const strategyNames = strategyPool.getStrategyNames();
 
+    // The strategy pool returns an object with the stats of each strategy,
+    // We separate them by test file and store them in this object.
+    const allStats: {
+        [key: string]: {
+            [key: string]: NsStrategy.storageStats;
+        };
+    } = {};
+
     generateStrategyAndReportDirs(scorePath, strategyNames);
 
-    for (const testFilePath of testFilePaths) {
+    for (const [testFileIndex, testFilePath] of testFilePaths.entries()) {
         if (!fs.existsSync(testFilePath)) {
             logger.error(`File '${testFilePath}' does not exist.`);
             continue;
         }
 
+        const filename = filteredFiles[testFileIndex].name;
         const testFile = fs.readFileSync(testFilePath, "utf8");
-
         const OHLCVs = JSON.parse(testFile);
         const priceBars = convertOHLCVsToPriceBars(OHLCVs);
 
@@ -168,13 +183,14 @@ function runStrategyPool(scorePath: string, testFilePaths: string[], sampleSize 
             index++;
         }
 
-        strategyPool.deleteMarketData();
+        // Add to all stats for this test file
+        allStats[filename] = strategyPool.getStats();
+
+        // Reset the strategy pool storages
+        strategyPool.resetStorages();
     }
 
-    // Recovering data from SP storage and using it to generate graphs
-    const allStrategyStats = strategyPool.getStats();
-
-    console.log(allStrategyStats);
+    console.log(allStats);
 }
 
 
@@ -239,5 +255,9 @@ export default async function main(
     }
 
     // Runs the strategy pool
-    runStrategyPool(options.scorePath, filteredFilesWithPaths as string[]);
+    runStrategyPool(
+        options.scorePath,
+        filteredFiles,
+        filteredFilesWithPaths as string[]
+    );
 }
