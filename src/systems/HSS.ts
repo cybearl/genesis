@@ -140,6 +140,7 @@ function runStrategyPool(
         };
     } = {};
 
+    // Generate the output strategy directories and their last report subdirectories
     generateStrategyAndReportDirs(scorePath, strategyNames);
 
     for (const [testFileIndex, testFilePath] of testFilePaths.entries()) {
