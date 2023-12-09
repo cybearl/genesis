@@ -145,7 +145,7 @@ function runStrategyPool(
 
     for (const [testFileIndex, testFilePath] of testFilePaths.entries()) {
         if (!fs.existsSync(testFilePath)) {
-            logger.error(`File '${testFilePath}' does not exist.`);
+            logger.error(`File '${testFilePath}' does not exist. Skipping...`);
             continue;
         }
 
@@ -155,13 +155,12 @@ function runStrategyPool(
         const priceBars = convertOHLCVsToPriceBars(OHLCVs);
 
         if (OHLCVs.length !== priceBars.length) {
-            logger.error(`Error while converting OHLCVs to priceBars for file '${testFilePath}'.`);
+            logger.error(`Error while converting OHLCVs to priceBars for file '${testFilePath}'. Skipping...`);
             continue;
         }
 
         if (priceBars.length < sampleSize) {
-            logger.warn(`File '${path.basename(testFilePath)}' has less than ${sampleSize} price bars (< sample size).`);
-            logger.warn("Skipping...");
+            logger.warn(`File '${path.basename(testFilePath)}' has less than ${sampleSize} price bars (< sample size). Skipping...`);
             continue;
         }
 

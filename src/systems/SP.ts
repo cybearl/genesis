@@ -7,7 +7,7 @@ import NsStrategy from "types/strategy";
 import logger from "utils/logger";
 
 
-// Strategy Pool (SP) (HSS Weighted Governance)
+// Strategy Pool (SP)
 export default class StrategyPool {
     private _strategyNames: string[] = [];
     private _strategies: NsStrategy.strategies = {};
@@ -80,10 +80,7 @@ export default class StrategyPool {
      * Updates storages with last data and
      * runs all strategy functions.
      */
-    public run(
-        OHLCVs: OHLCV[],
-        priceBars: NsStrategy.priceBar[],
-    ) {
+    public run(OHLCVs: OHLCV[], priceBars: NsStrategy.priceBar[]) {
         for (const strategyName of this._strategyNames) {
             // Check if index exists for strategy
             if (!this._indexes[strategyName]) {
