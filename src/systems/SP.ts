@@ -31,7 +31,7 @@ export default class StrategyPool {
             this._storages[strategyName] = lodash.cloneDeep(storageObject);
         }
 
-        logger.verbose(`Strategy pool initialized with ${this._strategyNames.length} ${this._strategyNames.length > 1 ? "strategies" : "strategy"}.`);
+        logger.info(`Strategy pool initialized with ${this._strategyNames.length} ${this._strategyNames.length > 1 ? "strategies" : "strategy"}.`);
     }
 
     /**

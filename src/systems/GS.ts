@@ -82,7 +82,7 @@ export default async function main(
 
     // Format the file name
     const rndName = generateRandomName();
-    const fileBaseName = `(${tokens.base}-${tokens.quote}) ${rndName.toUpperCase()} ${options.timeframe}`;
+    const fileBaseName = `(${tokens.base}-${tokens.quote}) ${rndName} ${options.timeframe}`;
     const filename = `${fileBaseName} ${durationMs} ${Date.now()}.json`;
 
     // Save OHLCV data to JSON file

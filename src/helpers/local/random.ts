@@ -1,26 +1,10 @@
-import { generateMnemonic } from "bip39";
-
-
 /**
- * Generates a random name using BIT39 mnemonic.
+ * Generates a random name for.
+ * @param length The length of the bot name (defaults to 16).
  * @returns The random name.
  */
-export function generateRandomName() {
-    const mnemonic = generateMnemonic();
-    const words = mnemonic.split(" ");
-    const randomIndex1 = Math.floor(Math.random() * (words.length - 1));
-    const randomIndex2 = Math.floor(Math.random() * (words.length - 1));
-
-    return words[randomIndex1] + "-" + words[randomIndex2];
-}
-
-/**
- * Generates a random bot name for the tests/development.
- * @param length The length of the bot name (defaults to 16).
- * @returns The random bot name.
- */
-export function generateRandomBotName(length = 16) {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+export function generateRandomName(length = 16) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const charactersLength = characters.length;
     let result = "";
 

@@ -12,8 +12,17 @@ declare namespace NsStrategy {
         low: number;
         close: number;
         volume: number;
+        up: number | null;
+        down: number | null;
+
+        SMA: number | null;
+        EMA: number | null;
+        WMA: number | null;
+        SMMA: number | null;
+
         pctChange: number | null;
-        forwardLookingBias: number | null;
+        lookAheadBias: number | null;
+        relativeStrengthIndex: number | null;
     }
 
     /**

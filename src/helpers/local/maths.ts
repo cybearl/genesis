@@ -18,3 +18,12 @@ export function calculateAverageFromArray(nbArray: number[]) {
 export function calculatePercentageDifference(nb1: number, nb2: number) {
     return ((nb2 - nb1) / nb1) * 100;
 }
+
+/**
+ * Round to 8 decimals.
+ * @param nb The number to round.
+ * @returns The rounded number.
+ */
+export function roundTo8(nb: number) {
+    return Math.round(nb * 1e8) / 1e8;
+}

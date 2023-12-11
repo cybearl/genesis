@@ -42,9 +42,9 @@ async function main(args: minimist.ParsedArgs) {
         options.show = true;
     }
 
-    const log = (keyName: string) => {
+    const log = (entry: string) => {
         if (!options.showAll && !options.show) {
-            logger.warn(`No '${keyName}' parameter provided, defaulting to 'ALL'.`);
+            logger.warn(`No '${entry}' parameter provided, defaulting to 'ALL'.`);
         }
     };
 

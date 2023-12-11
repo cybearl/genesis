@@ -25,13 +25,9 @@ function getFilteredFiles(
 ) {
     const parsedFilenames = [];
     const parsedDataForQuery: NsGeneral.historicalScoringSystemParsedFilename[] = [];
-    // logger.error("Available durations: _s (seconds), _m (minutes), _h (hours), _d (days)");
-    // logger.error("Replace underscores by the duration value (e.g. 1m, 30m, 1h, 1d)");
 
-    for (const availableDataFilename of availableFiles) {
-        parsedFilenames.push(
-            parseDataFilename(availableDataFilename)
-        );
+    for (const rawFilename of availableFiles) {
+        parsedFilenames.push(parseDataFilename(rawFilename));
     }
 
     for (const filename of parsedFilenames) {
@@ -154,6 +150,8 @@ function runStrategyPool(
         const OHLCVs = JSON.parse(testFile);
         const priceBars = convertOHLCVsToPriceBars(OHLCVs);
 
+        console.log(priceBars);
+
         if (OHLCVs.length !== priceBars.length) {
             logger.error(`Error while converting OHLCVs to priceBars for file '${testFilePath}'. Skipping...`);
             continue;
@@ -200,9 +198,7 @@ function runStrategyPool(
  * the historical data of a trading pair.
  * @param options The parsed command line arguments.
  */
-export default async function main(
-    options: NsGeneral.historicalScoringSystemOptions
-) {
+export default async function main(options: NsGeneral.historicalScoringSystemOptions) {
     // Generate the output directory if it doesn't exist (recursively)
     if (!fs.existsSync(options.scorePath)) {
         fs.mkdirSync(options.scorePath, { recursive: true });
@@ -222,7 +218,6 @@ export default async function main(
         parsedFilenames,
         filteredFiles
     } = getFilteredFiles(options, availableFiles);
-
 
     if (options.show) {
         // Show the filtered files
