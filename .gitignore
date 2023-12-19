@@ -1,0 +1,42 @@
+# archives
+/archives
+
+# IDE
+settings.json
+.vscode
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# next.js
+**/.next/
+/out/
+
+# production
+/build
+/dist
+/app
+
+# misc
+.DS_Store
+*.pem
+
+*.bak
+
+# debug
+*.log
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# env
+.env
+
+# local env files
+.env*.local

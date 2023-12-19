@@ -1,0 +1,44 @@
+{
+    "name": "nextron-boilerplate",
+    "version": "1.0.0",
+    "description": "Nextron Boilerplate",
+    "repository": "https://github.com/yoratoni/ts-node-boilerplate",
+    "author": "yoratoni <yoratoni.dev@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "main": "app/background.js",
+    "scripts": {
+        "v-bump": "yarn version --patch",
+        "dev": "nextron",
+        "build": "nextron build --config ./configs/electron-builder.yml",
+        "postinstall": "electron-builder install-app-deps"
+    },
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "electron-serve": "^1.1.0",
+        "electron-store": "^8.1.0",
+        "webpack": "^5.89.0"
+    },
+    "devDependencies": {
+        "@total-typescript/ts-reset": "^0.5.1",
+        "@types/node": "^18.11.18",
+        "@types/react": "^18.0.26",
+        "@typescript-eslint/eslint-plugin": "^6.14.0",
+        "@typescript-eslint/parser": "^6.14.0",
+        "autoprefixer": "^10.4.16",
+        "electron": "^26.2.2",
+        "electron-builder": "^24.6.4",
+        "eslint": "^8.55.0",
+        "eslint-config-next": "^14.0.4",
+        "eslint-import-resolver-typescript": "^3.6.1",
+        "eslint-plugin-import": "^2.29.0",
+        "next": "^12.3.4",
+        "nextron": "^8.12.0",
+        "postcss": "^8.4.32",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "tailwindcss": "^3.3.6",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.2.2"
+    }
+}
