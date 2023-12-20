@@ -1,7 +1,10 @@
-export default function Home() {
+import Layout from "@/components/structure/Layout";
+
+
+export default function Index() {
     return (
-        <div className="text-3xl">
-            Hello, world!
-        </div>
+        <Layout>
+            <p>Index</p>
+        </Layout>
     );
 }
