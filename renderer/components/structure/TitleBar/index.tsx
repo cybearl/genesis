@@ -1,7 +1,7 @@
 export default function TitleBar() {
     return (
-        <div>
-            <p>TitleBar</p>
+        <div className="w-full h-8 bg-red-500 flex items-center justify-start px-4">
+
         </div>
     );
 }

@@ -1,5 +1,6 @@
-import CloseIcon from "@mui/icons-material/Close";
 import { ReactNode } from "react";
+
+import TitleBar from "@/components/structure/TitleBar";
 
 
 type LayoutProps = {
@@ -10,11 +11,10 @@ export default function Layout({
     children
 }: LayoutProps) {
     return (
-        <div className="w-full h-screen min-h-screen select-none">
-            <p>Layout</p>
-            <CloseIcon />
+        <div className="relative w-full h-screen min-h-screen overflow-hidden select-none">
+            <TitleBar />
 
-            <main>
+            <main className="w-full h-full">
                 {children}
             </main>
         </div>
