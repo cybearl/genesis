@@ -11,7 +11,7 @@ export default function Layout({
     children
 }: LayoutProps) {
     return (
-        <div className="relative w-full h-screen min-h-screen overflow-hidden select-none">
+        <div className="relative w-full h-screen min-h-screen overflow-hidden">
             <TitleBar />
 
             <main className="w-full h-full">
