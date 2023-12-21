@@ -34,6 +34,9 @@ if (isProd) {
         }
     });
 
+    // Disable the default menu bar
+    mainWindow.setMenuBarVisibility(false);
+
     if (isProd) {
         await mainWindow.loadURL("app://./home");
     } else {

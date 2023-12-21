@@ -28,8 +28,6 @@ module.exports = {
                 ...existingEnv,
                 ...sharedEnv
             };
-
-            console.log("Environment variables from .env file loaded");
         }
 
         return config;
