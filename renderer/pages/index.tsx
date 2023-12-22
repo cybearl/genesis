@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import Layout from "@/components/structure/Layout";
 
 

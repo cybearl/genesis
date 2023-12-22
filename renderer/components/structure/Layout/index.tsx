@@ -16,7 +16,7 @@ export default function Layout({
     return (
         <div className={`${Inconsolata.className} relative w-full h-screen min-h-screen overflow-hidden bg-primary-900`}>
             {appStatus === "loading" && (
-                <div className="absolute inset-0 h-full items-center flex justify-center">
+                <div className="absolute inset-0 h-full items-center flex justify-center text-4xl font-black">
 
                 </div>
             )}
