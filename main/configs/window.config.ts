@@ -7,7 +7,7 @@ export type IsWindowConfig = {
 };
 
 const defaultWindowConfig: IsWindowConfig = {
-    title: "Nextron Boilerplate",
+    title: "Genesis",
     initialWidth: 1024,
     initialHeight: 768,
     minWidth: 800,

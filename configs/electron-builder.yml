@@ -1,6 +1,6 @@
-appId: com.boilerplate.nextron
-productName: Nextron Boilerplate
-copyright: Copyright © 2023 Yoratoni
+appId: com.cybearl.genesis
+productName: Genesis
+copyright: Copyright © 2023 Cybearl
 directories:
   output: dist
   buildResources: resources

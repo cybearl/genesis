@@ -116,6 +116,7 @@ export const createWindow = (
         title: options.title,
         minWidth: options.minWidth,
         minHeight: options.minHeight,
+        icon: options.icon,
         ...state,
         webPreferences: {
             nodeIntegration: false,

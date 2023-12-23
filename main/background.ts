@@ -29,6 +29,7 @@ if (isProd) {
         height: defaultWindowConfig.initialHeight,
         minWidth: defaultWindowConfig.minWidth,
         minHeight: defaultWindowConfig.minHeight,
+        icon: path.join(__dirname, "..", "assets", "favicon.ico"),
         webPreferences: {
             preload: path.join(__dirname, "preload.js")
         }
