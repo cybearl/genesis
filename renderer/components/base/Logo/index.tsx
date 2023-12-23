@@ -43,6 +43,7 @@ export default function Logo({
                     fill
                     objectFit="contain"
                     className=""
+                    quality={100}
                 />
             </div>
         </div>
