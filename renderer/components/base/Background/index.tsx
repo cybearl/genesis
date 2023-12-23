@@ -7,20 +7,20 @@ export default function Background() {
             <div className="absolute min-w-[200vw] aspect-square">
                 <Image
                     src="/static/images/background/cybearl.webp"
-                    alt="Genesis"
+                    alt="Cybearl background"
                     fill
                     objectFit="cover"
-                    className="opacity-30 overflow-visible"
+                    className="opacity-30 overflow-visible blur-sm"
                 />
             </div>
 
             <div className="relative w-full h-full">
                 <Image
                     src="/static/images/background/cybearl.webp"
-                    alt="Genesis"
+                    alt="Cybearl background"
                     fill
                     objectFit="contain"
-                    className="opacity-40"
+                    className="opacity-50 drop-shadow-2xl"
                 />
             </div>
         </div>
