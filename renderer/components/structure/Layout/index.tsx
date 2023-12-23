@@ -27,7 +27,7 @@ export default function Layout({
                 </div>
             )}
 
-            <main className="w-full h-full z-0">
+            <main className="w-full h-full z-0 p-4 flex items-start justify-start flex-col">
                 {children}
             </main>
         </div>
