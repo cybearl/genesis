@@ -10,7 +10,7 @@ export default function Background() {
                     alt="Cybearl background"
                     fill
                     objectFit="cover"
-                    className="opacity-20 overflow-visible"
+                    className="opacity-20 overflow-visible  blur-xl"
                 />
             </div>
         </div>
