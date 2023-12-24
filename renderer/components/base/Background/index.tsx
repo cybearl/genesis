@@ -9,8 +9,7 @@ export default function Background() {
                     src="/static/images/background/cybearl.webp"
                     alt="Cybearl background"
                     fill
-                    objectFit="cover"
-                    className="opacity-20 overflow-visible blur-xl"
+                    className="opacity-20 overflow-visible blur-xl object-cover"
                 />
             </div>
         </div>

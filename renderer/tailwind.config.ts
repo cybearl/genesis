@@ -8,8 +8,20 @@ module.exports = {
         extend: {
             colors: {
 
+            },
+            keyframes: {
+                "opacity-pulse": {
+                    "0%": { opacity: 1 },
+                    "50%": { opacity: 0 },
+                    "100%": { opacity: 1 }
+                }
+            },
+            animation: {
+                "opacity-pulse": "opacity-pulse 2.5s ease-in-out infinite"
             }
         }
     },
-    plugins: []
+    plugins: [
+        require("tailwindcss-animate")
+    ]
 };

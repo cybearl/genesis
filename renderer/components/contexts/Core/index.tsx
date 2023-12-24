@@ -11,7 +11,7 @@ type IsCoreContext = {
 export const CoreContext = createContext({} as IsCoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
-    const [appStatus, setAppStatus] = useState<IsAppStatus>("loading");
+    const [appStatus, setAppStatus] = useState<IsAppStatus>("ready");
 
     const context = {
         appStatus,

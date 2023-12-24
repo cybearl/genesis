@@ -1,8 +1,8 @@
 import { ReactNode, useContext } from "react";
 
 import Background from "@/components/base/Background";
-import LoadingScreen from "@/components/base/LoadingScreen";
 import { CoreContext } from "@/components/contexts/Core";
+import LoadingScreen from "@/components/general/LoadingScreen";
 import Nav from "@/components/structure/Nav";
 import { Inconsolata } from "@/lib/fonts";
 
@@ -18,21 +18,15 @@ export default function Layout({
 
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
+            <LoadingScreen hidden={appStatus === "ready"} />
+
             <Background />
 
-            {appStatus === "loading" ? (
-                <LoadingScreen />
-            ) : (
-                <>
-                    <main className="w-full flex-grow z-0 p-4 flex items-start justify-start flex-col">
-                        {children}
-                    </main>
+            <main className="w-full flex-grow z-0 flex items-start justify-start flex-col">
+                <Nav />
 
-                    <footer className="w-full z-0">
-                        <Nav />
-                    </footer>
-                </>
-            )}
+                {children}
+            </main>
         </div>
     );
 }
