@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useState } from "react";
 
 
-type IsAppStatus = "loading" | "ready";
+export type IsAppStatus = "loading" | "ready";
 
 type IsCoreContext = {
     appStatus: IsAppStatus;
@@ -12,6 +12,7 @@ export const CoreContext = createContext({} as IsCoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appStatus, setAppStatus] = useState<IsAppStatus>("loading");
+
 
     const context = {
         appStatus,
