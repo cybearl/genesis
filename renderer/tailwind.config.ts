@@ -32,6 +32,10 @@ module.exports = {
         }
     },
     plugins: [
-        require("tailwindcss-animate")
+        require("tailwindcss-animate"),
+        function addVariants({ addVariant }: { addVariant: (name: string, variant: string) => void }) {
+            addVariant("child", "& > *");
+            addVariant("child-hover", "& > *:hover");
+        }
     ]
 };

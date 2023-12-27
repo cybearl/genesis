@@ -2,7 +2,7 @@ import { ReactNode, createContext, useState } from "react";
 
 
 export type IsAppStatus = "loading" | "ready";
-export type IsPanelBreakpoint = "reduced" | "expanded";
+export type IsPanelBreakpoint = "reducing" | "reduced" | "expanding" | "expanded";
 
 type IsCoreContext = {
     appStatus: IsAppStatus;

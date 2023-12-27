@@ -15,7 +15,8 @@ const CONFIG = {
 
     nav: {
         reducedSize: 64,
-        expandedSize: 200
+        expandedSize: 200,
+        transitionDuration: 300
     }
 };
 

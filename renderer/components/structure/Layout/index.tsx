@@ -20,7 +20,7 @@ export default function Layout({
 
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
-            <LoadingScreen isEnabled={true} />
+            <LoadingScreen isEnabled={false} />
 
             <Background />
 
