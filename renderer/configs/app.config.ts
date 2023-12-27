@@ -14,9 +14,8 @@ const CONFIG = {
     isDebug: true,
 
     nav: {
-        minWidth: 55,
-        defaultWidth: 55,
-        maxWidth: 250
+        reducedSize: 64,
+        expandedSize: 200
     }
 };
 

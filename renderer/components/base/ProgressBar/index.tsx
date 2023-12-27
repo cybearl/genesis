@@ -41,7 +41,7 @@ export default function ProgressBar({
                 style={{ width: `${percentage}%` }}
             >
                 <Image
-                    src="/static/images/logo/cybearl_colorized.webp"
+                    src="/static/images/logo/colorized.webp"
                     alt=""
                     fill
                     className="object-cover min-w-[200%] -translate-x-[25%] blur-sm brightness-150"

@@ -6,31 +6,35 @@ import CONFIG from "@/configs/app.config";
 
 
 type LoadingScreenProps = {
-    hidden?: boolean;
+    isEnabled?: boolean;
 };
 
 export default function LoadingScreen({
-    hidden = false
+    isEnabled = false
 }: LoadingScreenProps) {
-    const [isDisabled, setIsDisabled] = useState(false);
+    const [isFirstAppearance, setIsFirstAppearance] = useState(true);
+    const [isHiddenAfterAnimation, setIsHiddenAfterAnimation] = useState(false);
 
     useEffect(() => {
-        if (!hidden) {
-            setIsDisabled(false);
+        if (isEnabled) {
+            setIsHiddenAfterAnimation(false);
         }
-    }, [hidden]);
+    }, [isEnabled]);
 
     return (
         <div
             className={`
                 absolute z-20 inset-0 w-full h-full items-end justify-center
-                ${hidden ? "animate-opacity-out" : "animate-opacity-in"}
-                ${isDisabled ? "hidden" : "flex"}
+                ${isEnabled ? "animate-opacity-in" : "animate-opacity-out"}
+                ${isHiddenAfterAnimation ? "hidden" : "flex"}
+                ${isFirstAppearance && "!opacity-100"}
             `}
             onAnimationEnd={() => {
-                if (hidden) {
-                    setIsDisabled(true);
+                if (!isEnabled) {
+                    setIsHiddenAfterAnimation(true);
                 }
+
+                setIsFirstAppearance(false);
             }}
             onClick={(e) => e.preventDefault()}
         >
@@ -47,14 +51,14 @@ export default function LoadingScreen({
             <div className="w-full h-full flex flex-col items-center justify-center">
                 <div className="relative w-1/4 aspect-square flex items-center max-w-[320px]">
                     <Image
-                        src="/static/images/logo/cybearl_grayscale.webp"
+                        src="/static/images/logo/grayscale.webp"
                         alt="Loading screen logo"
                         fill
                         className="opacity-50 p-[2px]"
                     />
 
                     <Image
-                        src="/static/images/logo/cybearl_colorized.webp"
+                        src="/static/images/logo/colorized.webp"
                         alt="Loading screen logo"
                         fill
                         className="animate-opacity-pulse"
