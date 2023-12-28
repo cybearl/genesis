@@ -11,11 +11,11 @@ type IsDebugContext = {
 export const DebugContext = createContext({} as IsDebugContext);
 
 export default function DebugProvider({ children }: { children: ReactNode; }) {
-    const { panelBreakpoint } = useContext(CoreContext);
+    const { navPanelState } = useContext(CoreContext);
 
     const [currDebugValues, setCurrDebugValues] = useState<{ [key: string]: unknown; }>({
         "NODE_ENV": process.env.NODE_ENV,
-        "panelBreakpoint": panelBreakpoint
+        "navPanelState": navPanelState
     });
 
     const setDebugValues = useCallback((values: { [key: string]: unknown; }) => {
@@ -28,9 +28,9 @@ export default function DebugProvider({ children }: { children: ReactNode; }) {
 
     useEffect(() => {
         setDebugValues({
-            "panelBreakpoint": panelBreakpoint
+            "navPanelState": navPanelState
         });
-    }, [panelBreakpoint, setDebugValues]);
+    }, [navPanelState, setDebugValues]);
 
     const context = {
         debugValues: currDebugValues,

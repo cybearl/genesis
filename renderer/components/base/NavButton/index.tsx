@@ -1,8 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
 
+import { IsNavPanelState } from "@/components/contexts/Core";
 
-type IconButtonProps = {
+
+type NavButtonProps = {
+    label: string;
     icon: ReactNode;
+    navPanelState: IsNavPanelState;
 
     variant?: "primary" | "secondary" | "tertiary";
     size?: "sm" | "md" | "lg";
@@ -11,18 +15,19 @@ type IconButtonProps = {
     isDisabled?: boolean;
 };
 
-export default function IconButton({
+export default function NavButton({
+    label,
     icon,
+    navPanelState,
 
     variant = "primary",
     size = "md",
 
     onClick,
     isDisabled = false
-}: IconButtonProps) {
+}: NavButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
     const [sizeStyle, setSizeStyle] = useState("");
-
 
     useEffect(() => {
         switch (variant) {
@@ -56,13 +61,22 @@ export default function IconButton({
     return (
         <button
             className={`
-                transition-all duration-150 ease-in-out
+                transition-all duration-150 ease-in-out  w-full pb-2 pt-1 flex justify-center items-center
+                border-y border-neutral-700
                 ${variantStyle}
                 ${sizeStyle}
             `}
             onClick={onClick}
         >
-            {icon}
+            <div className="flex items-center gap-3">
+                <span className="leading-none">
+                    {icon}
+                </span>
+
+                <p className={`text-sm pt-1.5 tracking-wider`}>
+                    {label}
+                </p>
+            </div>
         </button>
     );
 }

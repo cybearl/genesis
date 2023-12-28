@@ -38,7 +38,10 @@ export default function LoadingScreen({
             }}
             onClick={(e) => e.preventDefault()}
         >
-            <Background />
+            <Background
+                imgOpacity={0.04}
+                imgBlur={0}
+            />
 
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">
                 <hr className="w-full h-[1px] border-transparent bg-gray-300" />

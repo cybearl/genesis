@@ -1,10 +1,10 @@
 const CONFIG = {
     appProducer: "CYBEARL",
-    appName: "G.E.N.E.S.I.S.",
-    appVersion: "DE.GV 1.0.0",
+    appName: "GENESIS",
+    appVersion: "1.0.0",
     appDescription: `
-        A TRADING BOT MADE BY CYBEARL. WORKING ON SHORT TIMEFRAME. MAKING PROFITS WITH SMALL RISK.
-        USING A POOL OF WEIGHTED STRATEGIES. ENTIRELY DEVELOPED BY YORATONI <3
+        WELCOME TO THE DEVELOPMENT EDITION OF 'GENESIS', A TRADING BOT MADE FOR SHORT-TERM TRADING.
+        ENTIRELY DEVELOPED BY YORATONI <3
     `,
     appDisclaimer: `
         THIS SOFTWARE IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT RISK MONEY WHICH YOU ARE AFRAID TO LOSE.
@@ -14,9 +14,11 @@ const CONFIG = {
     isDebug: true,
 
     nav: {
-        reducedSize: 64,
-        expandedSize: 200,
-        transitionDuration: 300
+        panel: {
+            reducedSize: 64,
+            expandedSize: 200,
+            transitionDuration: 300
+        }
     }
 };
 
