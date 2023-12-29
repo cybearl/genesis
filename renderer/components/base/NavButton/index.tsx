@@ -77,7 +77,6 @@ export default function NavButton({
 
                 <p className={`
                     text-sm pt-1.5 tracking-wider
-                    ${navPanelState === "expanded" ? "block" : "hidden"}
                 `}>
                     {label}
                 </p>
