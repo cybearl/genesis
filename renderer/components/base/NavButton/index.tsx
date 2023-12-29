@@ -61,19 +61,24 @@ export default function NavButton({
     return (
         <button
             className={`
-                transition-all duration-150 ease-in-out  w-full pb-2 pt-1 flex justify-center items-center
-                border-y border-neutral-700
+                transition-all duration-150 ease-in-out w-full pb-2 pt-1 flex justify-center items-center
                 ${variantStyle}
                 ${sizeStyle}
             `}
             onClick={onClick}
         >
             <div className="flex items-center gap-3">
-                <span className="leading-none">
+                <span className={`
+                    leading-none
+                    ${navPanelState === "expanded" ? "child:!text-3xl" : "child:!text-4xl"}
+                `}>
                     {icon}
                 </span>
 
-                <p className={`text-sm pt-1.5 tracking-wider`}>
+                <p className={`
+                    text-sm pt-1.5 tracking-wider
+                    ${navPanelState === "expanded" ? "block" : "hidden"}
+                `}>
                     {label}
                 </p>
             </div>

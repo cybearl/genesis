@@ -5,6 +5,7 @@ import Logo from "@/components/base/Logo";
 import { CoreContext } from "@/components/contexts/Core";
 import { DebugContext } from "@/components/contexts/Debug";
 import LoadingScreen from "@/components/general/LoadingScreen";
+import BottomBar from "@/components/structure/BottomBar";
 import Nav, { NavButton } from "@/components/structure/Nav";
 import CONFIG from "@/configs/app.config";
 import { Inconsolata } from "@/lib/fonts";
@@ -36,8 +37,31 @@ export default function Layout({
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Nav navButtons={navButtons} onNavButtonClick={onNavButtonClick} />
 
-                <div className="w-full h-full px-2 py-4 bg-black bg-opacity-90">
-                    {children}
+                <div className="w-full h-full flex flex-col">
+                    <div className="relative w-full flex-grow px-2 py-4 bg-black bg-opacity-90">
+                        {children}
+
+                        <div className="absolute right-2.5 bottom-2 flex gap-1">
+
+                            <p className="flex flex-col font-semibold leading-[16px] justify-center items-end pt-1 text-base tracking-widest">
+                                {CONFIG.appName}
+                                <span className="text-sm text-neutral-500 font-medium tracking-wide">
+                                    Vrs {CONFIG.appVersion}
+                                </span>
+                            </p>
+
+                            <Logo size="sm" />
+                        </div>
+                    </div>
+
+                    <BottomBar
+                        leftSideContent={[
+                            "test"
+                        ]}
+                        rightSideContent={[
+                            "test"
+                        ]}
+                    />
                 </div>
             </main>
 
@@ -50,17 +74,6 @@ export default function Layout({
                     ))}
                 </div>
             )}
-
-            <div className="absolute right-4 bottom-3 flex gap-2">
-                <p className="flex flex-col font-semibold leading-none items-end justify-center pt-1 text-sm tracking-widest">
-                    {CONFIG.appName}
-                    <span className="text-xs text-neutral-500 font-medium">
-                        {CONFIG.appVersion}
-                    </span>
-                </p>
-
-                <Logo size="sm" />
-            </div>
         </div>
     );
 }

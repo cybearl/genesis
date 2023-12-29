@@ -2,7 +2,7 @@ import { ReactNode, createContext, useState } from "react";
 
 
 export type IsAppStatus = "loading" | "ready";
-export type IsNavPanelState = "reducing" | "reduced" | "expanding" | "expanded";
+export type IsNavPanelState = "collapsing" | "collapsed" | "expanding" | "expanded";
 
 type IsCoreContext = {
     appStatus: IsAppStatus;

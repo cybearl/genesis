@@ -24,13 +24,13 @@ export default function Nav({
     const { navPanelState, setNavPanelState } = useContext(CoreContext);
 
     const [panelWidth, setPanelWidth] = useState(
-        navPanelState === "reduced" ? CONFIG.nav.panel.reducedSize : CONFIG.nav.panel.expandedSize
+        navPanelState === "collapsed" ? CONFIG.nav.panel.collapsedSize : CONFIG.nav.panel.expandedSize
     );
 
     useEffect(() => {
         switch (navPanelState) {
-            case "reducing":
-                setPanelWidth(CONFIG.nav.panel.reducedSize);
+            case "collapsing":
+                setPanelWidth(CONFIG.nav.panel.collapsedSize);
                 break;
             case "expanding":
                 setPanelWidth(CONFIG.nav.panel.expandedSize);
@@ -39,8 +39,8 @@ export default function Nav({
 
         setTimeout(() => {
             switch (navPanelState) {
-                case "reducing":
-                    setNavPanelState("reduced");
+                case "collapsing":
+                    setNavPanelState("collapsed");
                     break;
                 case "expanding":
                     setNavPanelState("expanded");
@@ -52,18 +52,19 @@ export default function Nav({
     return (
         <nav
             className={`
-                relative h-full bg-black bg-opacity-70 backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
+                relative h-full bg-black bg-opacity-80 backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
                 transition-all ease-in-out border-r border-neutral-800 overflow-hidden
             `}
             style={{
                 transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms}`,
-                minWidth: `${CONFIG.nav.panel.reducedSize}px`,
+                minWidth: `${CONFIG.nav.panel.collapsedSize}px`,
                 width: `${panelWidth}px`,
                 maxWidth: `${CONFIG.nav.panel.expandedSize}px`
             }}
         >
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
-                <div className="w-full h-full flex flex-col justify-start items-center pt-6">
+
+                <div className="w-full flex flex-col justify-start items-center pt-4">
                     {navButtons.map((button, index) => (
                         <NavButton
                             key={index}
@@ -75,26 +76,26 @@ export default function Nav({
                     ))}
                 </div>
 
-                <div className="w-full flex justify-center items-center py-[4px] border-t border-neutral-700 shadow shadow-black">
+                <div className="w-full flex justify-center items-center h-8 border-t border-neutral-800 shadow shadow-black">
                     <IconButton
                         icon={
                             <KeyboardDoubleArrowRightIcon
                                 className="transform transition-transform ease-in-out"
                                 style={{
                                     transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms}`,
-                                    transform: `rotate(${(navPanelState === "reduced" || navPanelState === "reducing") ? 0 : 180}deg)`
+                                    transform: `rotate(${(navPanelState === "collapsed" || navPanelState === "collapsing") ? 0 : 180}deg)`
                                 }}
                             />
                         }
                         onClick={() => {
-                            if (navPanelState === "reduced") {
+                            if (navPanelState === "collapsed") {
                                 setNavPanelState("expanding");
                             } else if (navPanelState === "expanded") {
-                                setNavPanelState("reducing");
+                                setNavPanelState("collapsing");
                             }
                         }}
                         size="md"
-                        isDisabled={navPanelState === "reducing" || navPanelState === "expanding"}
+                        isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
                     />
                 </div>
             </div>
