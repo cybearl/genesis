@@ -8,8 +8,9 @@ type IconButtonProps = {
     size?: "sm" | "md" | "lg";
     useParentSize?: boolean;
 
-    onClick?: () => void;
     isDisabled?: boolean;
+
+    onClick?: () => void;
 };
 
 export default function IconButton({
@@ -19,8 +20,9 @@ export default function IconButton({
     size = "md",
     useParentSize = false,
 
-    onClick,
-    isDisabled = false
+    isDisabled = false,
+
+    onClick
 }: IconButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
     const [sizeStyle, setSizeStyle] = useState("");
@@ -30,7 +32,7 @@ export default function IconButton({
         switch (variant) {
             case "primary":
                 if (isDisabled) setVariantStyle("text-neutral-800 cursor-default");
-                else setVariantStyle("text-primary-400 hover:text-primary-500 active:text-primary-600");
+                else setVariantStyle("text-neutral-200 hover:text-neutral-500 active:text-neutral-800");
                 break;
             case "secondary":
                 setVariantStyle("");
@@ -63,6 +65,7 @@ export default function IconButton({
                 ${sizeStyle}
                 ${useParentSize ? "w-full h-full" : ""}
             `}
+            disabled={isDisabled}
             onClick={onClick}
         >
             {icon}

@@ -52,7 +52,7 @@ export default function Nav({
     return (
         <nav
             className={`
-                relative h-full bg-black bg-opacity-80 backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
+                relative h-full bg-black bg-opacity-90 backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
                 transition-all ease-in-out border-r border-neutral-800 overflow-hidden
             `}
             style={{
@@ -63,41 +63,47 @@ export default function Nav({
             }}
         >
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
-
-                <div className="w-full flex flex-col justify-start items-center pt-4 gap-2">
-                    {navButtons.map((button, index) => (
-                        <NavButton
-                            key={index}
-                            label={button.label}
-                            icon={button.icon}
-                            navPanelState={navPanelState}
-                            onClick={() => onNavButtonClick?.(button.label)}
+                <div className="w-full flex flex-col justify-start items-center gap-8">
+                    <div className="w-full flex justify-center items-center h-8 border-b border-neutral-800 shadow shadow-black">
+                        <IconButton
+                            icon={
+                                <KeyboardDoubleArrowRightIcon
+                                    className="transform transition-transform ease-in-out"
+                                    style={{
+                                        transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms`,
+                                        transform: `rotate(${(navPanelState === "collapsed" || navPanelState === "collapsing") ? 0 : 180}deg)`
+                                    }}
+                                />
+                            }
+                            onClick={() => {
+                                if (navPanelState === "collapsed") {
+                                    setNavPanelState("expanding");
+                                } else if (navPanelState === "expanded") {
+                                    setNavPanelState("collapsing");
+                                }
+                            }}
+                            size="md"
+                            useParentSize
+                            isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
                         />
-                    ))}
+                    </div>
+
+                    <div className="w-full flex flex-col justify-start items-center gap-4 border-y border-neutral-800">
+                        {navButtons.map((button, index) => (
+                            <NavButton
+                                key={index}
+                                label={button.label}
+                                icon={button.icon}
+                                navPanelState={navPanelState}
+                                isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
+                                onClick={() => onNavButtonClick?.(button.label)}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="w-full flex justify-center items-center h-8 border-t border-neutral-800 shadow shadow-black">
-                    <IconButton
-                        icon={
-                            <KeyboardDoubleArrowRightIcon
-                                className="transform transition-transform ease-in-out"
-                                style={{
-                                    transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms`,
-                                    transform: `rotate(${(navPanelState === "collapsed" || navPanelState === "collapsing") ? 0 : 180}deg)`
-                                }}
-                            />
-                        }
-                        onClick={() => {
-                            if (navPanelState === "collapsed") {
-                                setNavPanelState("expanding");
-                            } else if (navPanelState === "expanded") {
-                                setNavPanelState("collapsing");
-                            }
-                        }}
-                        size="md"
-                        useParentSize
-                        isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
-                    />
+
                 </div>
             </div>
         </nav>

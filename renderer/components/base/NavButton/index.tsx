@@ -12,8 +12,10 @@ type NavButtonProps = {
     variant?: "primary" | "secondary" | "tertiary";
     size?: "sm" | "md" | "lg";
 
-    onClick?: () => void;
     isDisabled?: boolean;
+    isActive?: boolean;
+
+    onClick?: () => void;
 };
 
 export default function NavButton({
@@ -24,8 +26,10 @@ export default function NavButton({
     variant = "primary",
     size = "md",
 
-    onClick,
-    isDisabled = false
+    isDisabled = false,
+    isActive = false,
+
+    onClick
 }: NavButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
     const [sizeStyle, setSizeStyle] = useState("");
@@ -49,8 +53,10 @@ export default function NavButton({
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled) setVariantStyle("text-neutral-800 cursor-default");
-                else setVariantStyle("text-primary-400 hover:text-primary-500 active:text-primary-600");
+                if (isDisabled) setVariantStyle("border-transparent text-neutral-400 cursor-not-allowed");
+                else if (isActive) setVariantStyle("border-white hover:bg-neutral-900 active:border-neutral-800");
+                else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-800");
+
                 break;
             case "secondary":
                 setVariantStyle("");
@@ -59,7 +65,7 @@ export default function NavButton({
                 setVariantStyle("");
                 break;
         }
-    }, [isDisabled, variant]);
+    }, [isActive, isDisabled, variant]);
 
     useEffect(() => {
         switch (size) {
@@ -97,16 +103,18 @@ export default function NavButton({
     return (
         <button
             className={`
-                relative w-full pb-2 pt-1
+                relative w-full py-3 border-l-2 pr-[4px]
+                transition-all ease-in-out duration-75
                 ${variantStyle}
                 ${sizeStyle}
             `}
+            disabled={isDisabled}
             onClick={onClick}
         >
             <div
                 className={`
                     relative w-full flex justify-center items-center gap-3
-                    transition-all ease-in-out
+                    transition-opacity ease-in-out
                     ${iconWithLabelVisibility}
                 `}
                 style={{
@@ -115,19 +123,19 @@ export default function NavButton({
                     }ms`
                 }}
             >
-                <span className="leading-none child:text-3xl">
+                <span className="leading-none child:text-3xl pb-1">
                     {icon}
                 </span>
 
-                <p className="text-sm pt-1.5 tracking-wider text-nowrap">
+                <p className="text-sm tracking-wider font-semibold text-nowrap">
                     {label}
                 </p>
             </div>
 
             <div
                 className={`
-                    absolute top-0 left-0 w-full justify-center
-                    transition-all ease-in-out
+                    absolute top-0 left-0 w-full h-full justify-center flex items-center pr-[3px]
+                    transition-opacity ease-in-out
                     ${iconOnlyVisibility}
                 `}
                 style={{
@@ -136,7 +144,7 @@ export default function NavButton({
                     }ms`
                 }}
             >
-                <span className="leading-none child:text-3xl">
+                <span className="leading-none child:text-3xl pb-1">
                     {icon}
                 </span>
             </div>
