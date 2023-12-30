@@ -6,6 +6,7 @@ type IconButtonProps = {
 
     variant?: "primary" | "secondary" | "tertiary";
     size?: "sm" | "md" | "lg";
+    useParentSize?: boolean;
 
     onClick?: () => void;
     isDisabled?: boolean;
@@ -16,6 +17,7 @@ export default function IconButton({
 
     variant = "primary",
     size = "md",
+    useParentSize = false,
 
     onClick,
     isDisabled = false
@@ -59,6 +61,7 @@ export default function IconButton({
                 transition-all duration-150 ease-in-out
                 ${variantStyle}
                 ${sizeStyle}
+                ${useParentSize ? "w-full h-full" : ""}
             `}
             onClick={onClick}
         >

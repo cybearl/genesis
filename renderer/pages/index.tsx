@@ -10,6 +10,18 @@ export default function Index() {
                 {
                     label: "Work History",
                     icon: <WorkHistoryIcon />
+                },
+                {
+                    label: "Work History",
+                    icon: <WorkHistoryIcon />
+                },
+                {
+                    label: "Work History",
+                    icon: <WorkHistoryIcon />
+                },
+                {
+                    label: "Work History",
+                    icon: <WorkHistoryIcon />
                 }
             ]}
             onNavButtonClick={(label) => {

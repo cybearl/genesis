@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 
 import { IsNavPanelState } from "@/components/contexts/Core";
+import CONFIG from "@/configs/app.config";
 
 
 type NavButtonProps = {
@@ -28,6 +29,22 @@ export default function NavButton({
 }: NavButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
     const [sizeStyle, setSizeStyle] = useState("");
+
+    const [iconWithLabelVisibility, setIconWithLabelVisibility] = useState(
+        navPanelState === "collapsed" ? "opacity-0" : ""
+    );
+
+    const [iconWithLabelTransitionDuration, setIconWithLabelTransitionDuration] = useState(
+        navPanelState === "collapsed" ? 0.5 : 2
+    );
+
+    const [iconOnlyVisibility, setIconOnlyVisibility] = useState(
+        navPanelState === "collapsed" ? "" : "opacity-0"
+    );
+
+    const [iconOnlyTransitionDuration, setIconOnlyTransitionDuration] = useState(
+        navPanelState === "collapsed" ? 2 : 0.5
+    );
 
     useEffect(() => {
         switch (variant) {
@@ -58,28 +75,70 @@ export default function NavButton({
         }
     }, [size]);
 
+    useEffect(() => {
+        switch (navPanelState) {
+            case "collapsing":
+            case "collapsed":
+                setIconWithLabelVisibility("opacity-0");
+                setIconWithLabelTransitionDuration(0.5);
+                setIconOnlyVisibility("opacity-100");
+                setIconOnlyTransitionDuration(2);
+                break;
+            case "expanding":
+            case "expanded":
+                setIconWithLabelVisibility("opacity-100");
+                setIconWithLabelTransitionDuration(2);
+                setIconOnlyVisibility("opacity-0");
+                setIconOnlyTransitionDuration(0.5);
+                break;
+        }
+    }, [navPanelState]);
+
     return (
         <button
             className={`
-                transition-all duration-150 ease-in-out w-full pb-2 pt-1 flex justify-center items-center
+                relative w-full pb-2 pt-1
                 ${variantStyle}
                 ${sizeStyle}
             `}
             onClick={onClick}
         >
-            <div className="flex items-center gap-3">
-                <span className={`
-                    leading-none
-                    ${navPanelState === "expanded" ? "child:!text-3xl" : "child:!text-4xl"}
-                `}>
+            <div
+                className={`
+                    relative w-full flex justify-center items-center gap-3
+                    transition-all ease-in-out
+                    ${iconWithLabelVisibility}
+                `}
+                style={{
+                    transitionDuration: `${
+                        Math.round(CONFIG.nav.panel.transitionDuration * iconWithLabelTransitionDuration)
+                    }ms`
+                }}
+            >
+                <span className="leading-none child:text-3xl">
                     {icon}
                 </span>
 
-                <p className={`
-                    text-sm pt-1.5 tracking-wider
-                `}>
+                <p className="text-sm pt-1.5 tracking-wider text-nowrap">
                     {label}
                 </p>
+            </div>
+
+            <div
+                className={`
+                    absolute top-0 left-0 w-full justify-center
+                    transition-all ease-in-out
+                    ${iconOnlyVisibility}
+                `}
+                style={{
+                    transitionDuration: `${
+                        Math.round(CONFIG.nav.panel.transitionDuration * iconOnlyTransitionDuration)
+                    }ms`
+                }}
+            >
+                <span className="leading-none child:text-3xl">
+                    {icon}
+                </span>
             </div>
         </button>
     );

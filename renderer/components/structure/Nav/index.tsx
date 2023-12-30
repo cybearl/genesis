@@ -56,7 +56,7 @@ export default function Nav({
                 transition-all ease-in-out border-r border-neutral-800 overflow-hidden
             `}
             style={{
-                transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms}`,
+                transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms`,
                 minWidth: `${CONFIG.nav.panel.collapsedSize}px`,
                 width: `${panelWidth}px`,
                 maxWidth: `${CONFIG.nav.panel.expandedSize}px`
@@ -64,7 +64,7 @@ export default function Nav({
         >
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
 
-                <div className="w-full flex flex-col justify-start items-center pt-4">
+                <div className="w-full flex flex-col justify-start items-center pt-4 gap-2">
                     {navButtons.map((button, index) => (
                         <NavButton
                             key={index}
@@ -82,7 +82,7 @@ export default function Nav({
                             <KeyboardDoubleArrowRightIcon
                                 className="transform transition-transform ease-in-out"
                                 style={{
-                                    transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms}`,
+                                    transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms`,
                                     transform: `rotate(${(navPanelState === "collapsed" || navPanelState === "collapsing") ? 0 : 180}deg)`
                                 }}
                             />
@@ -95,6 +95,7 @@ export default function Nav({
                             }
                         }}
                         size="md"
+                        useParentSize
                         isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
                     />
                 </div>
