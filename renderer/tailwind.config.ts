@@ -1,3 +1,6 @@
+import plugin from "tailwindcss/plugin";
+
+
 /** @type {import("tailwindcss").Config} */
 module.exports = {
     content: [
@@ -33,9 +36,12 @@ module.exports = {
     },
     plugins: [
         require("tailwindcss-animate"),
-        function addVariants({ addVariant }: { addVariant: (name: string, variant: string) => void }) {
+        // Adding child variants
+        plugin(({ addVariant }) => {
             addVariant("child", "& > *");
             addVariant("child-hover", "& > *:hover");
-        }
+            addVariant("child-focus", "& > *:focus");
+            addVariant("child-active", "& > *:active");
+        })
     ]
 };
