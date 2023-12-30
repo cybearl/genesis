@@ -16,7 +16,7 @@ const CONFIG = {
     nav: {
         panel: {
             collapsedSize: 64,
-            expandedSize: 200,
+            expandedSize: 250,
             transitionDuration: 300
         }
     }

@@ -2,25 +2,29 @@ import { ReactNode, useContext } from "react";
 
 import Background from "@/components/base/Background";
 import Logo from "@/components/base/Logo";
+import { IsNavButton } from "@/components/base/NavButton";
 import { CoreContext } from "@/components/contexts/Core";
 import { DebugContext } from "@/components/contexts/Debug";
 import LoadingScreen from "@/components/general/LoadingScreen";
 import BottomBar from "@/components/structure/BottomBar";
-import Nav, { NavButton } from "@/components/structure/Nav";
+import Nav from "@/components/structure/Nav";
 import CONFIG from "@/configs/app.config";
 import { Inconsolata } from "@/lib/fonts";
 
 
 type LayoutProps = {
     children: ReactNode;
-    navButtons: NavButton[];
-    onNavButtonClick: (label: string) => void;
+
+    navButtons: IsNavButton[];
+    onNavButtonClick: (index: number) => void;
+    currentPage: number;
 };
 
 export default function Layout({
     children,
     navButtons,
-    onNavButtonClick
+    onNavButtonClick,
+    currentPage
 }: LayoutProps) {
     const { appStatus } = useContext(CoreContext);
     const { debugValues } = useContext(DebugContext);
@@ -35,7 +39,11 @@ export default function Layout({
             />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
-                <Nav navButtons={navButtons} onNavButtonClick={onNavButtonClick} />
+                <Nav
+                    navButtons={navButtons}
+                    onNavButtonClick={onNavButtonClick}
+                    currentPage={currentPage}
+                />
 
                 <div className="w-full h-full flex flex-col">
                     <div className="relative w-full flex-grow px-2 py-4 bg-black bg-opacity-90">

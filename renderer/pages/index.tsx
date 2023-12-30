@@ -1,32 +1,37 @@
-import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
+import ScoreboardIcon from "@mui/icons-material/Scoreboard";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import StoreIcon from "@mui/icons-material/Store";
+import { useState } from "react";
 
 import Layout from "@/components/structure/Layout";
 
 
 export default function Index() {
+    const [currentPage, setCurrentPage] = useState(0);
+
     return (
         <Layout
             navButtons={[
                 {
-                    label: "Work History",
-                    icon: <WorkHistoryIcon />
+                    label: "Market data feed",
+                    icon: <StoreIcon />
                 },
                 {
-                    label: "Work History",
-                    icon: <WorkHistoryIcon />
+                    label: "Strategy scoring",
+                    icon: <ScoreboardIcon />
                 },
                 {
-                    label: "Work History",
-                    icon: <WorkHistoryIcon />
+                    label: "My bot instances",
+                    icon: <PrecisionManufacturingIcon />
                 },
                 {
-                    label: "Work History",
-                    icon: <WorkHistoryIcon />
+                    label: "Create a new bot",
+                    icon: <SmartToyIcon />
                 }
             ]}
-            onNavButtonClick={(label) => {
-                console.log(label);
-            }}
+            onNavButtonClick={(index) => setCurrentPage(index)}
+            currentPage={currentPage}
         >
 
         </Layout>

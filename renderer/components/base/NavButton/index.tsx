@@ -4,13 +4,16 @@ import { IsNavPanelState } from "@/components/contexts/Core";
 import CONFIG from "@/configs/app.config";
 
 
-type NavButtonProps = {
+export type IsNavButton = {
     label: string;
     icon: ReactNode;
+};
+
+type NavButtonProps = {
+    data: IsNavButton;
     navPanelState: IsNavPanelState;
 
     variant?: "primary" | "secondary" | "tertiary";
-    size?: "sm" | "md" | "lg";
 
     isDisabled?: boolean;
     isActive?: boolean;
@@ -19,12 +22,10 @@ type NavButtonProps = {
 };
 
 export default function NavButton({
-    label,
-    icon,
+    data,
     navPanelState,
 
     variant = "primary",
-    size = "md",
 
     isDisabled = false,
     isActive = false,
@@ -32,7 +33,6 @@ export default function NavButton({
     onClick
 }: NavButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
-    const [sizeStyle, setSizeStyle] = useState("");
 
     const [iconWithLabelVisibility, setIconWithLabelVisibility] = useState(
         navPanelState === "collapsed" ? "opacity-0" : ""
@@ -53,8 +53,9 @@ export default function NavButton({
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled) setVariantStyle("border-transparent text-neutral-400 cursor-not-allowed");
-                else if (isActive) setVariantStyle("border-white hover:bg-neutral-900 active:border-neutral-800");
+                if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-400 cursor-not-allowed");
+                else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default");
+                else if (isDisabled && isActive) setVariantStyle("border-white cursor-default");
                 else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-800");
 
                 break;
@@ -66,20 +67,6 @@ export default function NavButton({
                 break;
         }
     }, [isActive, isDisabled, variant]);
-
-    useEffect(() => {
-        switch (size) {
-            case "sm":
-                setSizeStyle("child:!text-2xl");
-                break;
-            case "md":
-                setSizeStyle("child:!text-3xl");
-                break;
-            case "lg":
-                setSizeStyle("child:!text-4xl");
-                break;
-        }
-    }, [size]);
 
     useEffect(() => {
         switch (navPanelState) {
@@ -106,46 +93,43 @@ export default function NavButton({
                 relative w-full py-3 border-l-2 pr-[4px]
                 transition-all ease-in-out duration-75
                 ${variantStyle}
-                ${sizeStyle}
             `}
             disabled={isDisabled}
             onClick={onClick}
         >
             <div
                 className={`
-                    relative w-full flex justify-center items-center gap-3
+                    flex justify-center items-center gap-3
                     transition-opacity ease-in-out
                     ${iconWithLabelVisibility}
                 `}
                 style={{
-                    transitionDuration: `${
-                        Math.round(CONFIG.nav.panel.transitionDuration * iconWithLabelTransitionDuration)
+                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconWithLabelTransitionDuration)
                     }ms`
                 }}
             >
                 <span className="leading-none child:text-3xl pb-1">
-                    {icon}
+                    {data.icon}
                 </span>
 
                 <p className="text-sm tracking-wider font-semibold text-nowrap">
-                    {label}
+                    {data.label}
                 </p>
             </div>
 
             <div
                 className={`
-                    absolute top-0 left-0 w-full h-full justify-center flex items-center pr-[3px]
+                    absolute top-0 left-0 w-full h-full justify-center flex items-center pr-[2px]
                     transition-opacity ease-in-out
                     ${iconOnlyVisibility}
                 `}
                 style={{
-                    transitionDuration: `${
-                        Math.round(CONFIG.nav.panel.transitionDuration * iconOnlyTransitionDuration)
+                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconOnlyTransitionDuration)
                     }ms`
                 }}
             >
                 <span className="leading-none child:text-3xl pb-1">
-                    {icon}
+                    {data.icon}
                 </span>
             </div>
         </button>
