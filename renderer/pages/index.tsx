@@ -1,15 +1,13 @@
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
+import SettingsIcon from "@mui/icons-material/Settings";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import StoreIcon from "@mui/icons-material/Store";
 import { useState } from "react";
 
 import Layout from "@/components/structure/Layout";
-import AccountCenter from "@/pages/AccountCenter";
-import CreateANewBot from "@/pages/CreateANewBot";
+import BotInstances from "@/pages/BotInstances";
 import MarketDataFeed from "@/pages/MarketDataFeed";
-import MyBotInstances from "@/pages/MyBotInstances";
+import Settings from "@/pages/Settings";
 import StrategyScoring from "@/pages/StrategyScoring";
 
 
@@ -19,9 +17,8 @@ export default function Index() {
     const pages = [
         <MarketDataFeed key={0} />,
         <StrategyScoring key={1} />,
-        <MyBotInstances key={2} />,
-        <CreateANewBot key={3} />,
-        <AccountCenter key={4} />
+        <BotInstances key={2} />,
+        <Settings key={4} />
     ];
 
     return (
@@ -36,16 +33,12 @@ export default function Index() {
                     icon: <ScoreboardIcon />
                 },
                 {
-                    label: "My bot instances",
-                    icon: <PrecisionManufacturingIcon />
-                },
-                {
-                    label: "Create a new bot",
+                    label: "Bot instances",
                     icon: <SmartToyIcon />
                 },
                 {
-                    label: "Account / Center",
-                    icon: <AdminPanelSettingsIcon />
+                    label: "Settings",
+                    icon: <SettingsIcon />
                 }
             ]}
             onNavButtonClick={(index) => setCurrentPage(index)}

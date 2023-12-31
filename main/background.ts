@@ -1,9 +1,10 @@
 import path from "path";
 
 import { config } from "dotenv";
-import { app, ipcMain } from "electron";
+import { app } from "electron";
 import serve from "electron-serve";
 
+import handler from "@main/api/index.test";
 import defaultWindowConfig from "@main/configs/window.config";
 import { createWindow } from "@main/helpers/createWindow";
 
@@ -38,6 +39,7 @@ if (isProd) {
     // Disable the default menu bar
     mainWindow.setMenuBarVisibility(false);
 
+    // Load the application
     if (isProd) {
         await mainWindow.loadURL("app://./home");
     } else {
@@ -52,6 +54,5 @@ app.on("window-all-closed", () => {
     }
 });
 
-ipcMain.on("message", async (event, arg) => {
-    event.reply("message", `${arg} World!`);
-});
+// Call the ipcHandler
+handler();

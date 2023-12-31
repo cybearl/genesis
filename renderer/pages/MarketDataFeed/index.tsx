@@ -1,7 +1,10 @@
 export default function MarketDataFeed() {
+
     return (
-        <div>
+        <div className="w-full h-full">
             <h1>Market data feed</h1>
+
+
         </div>
     );
 }

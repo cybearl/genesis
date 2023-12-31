@@ -1,7 +1,8 @@
 import { IpcRendererEvent, contextBridge, ipcRenderer } from "electron";
 
 
-const handler = {
+const ipcHandler = {
+    // Expose the platform
     platform: process.platform,
 
     send(channel: string, value: unknown) {
@@ -17,6 +18,6 @@ const handler = {
     }
 };
 
-contextBridge.exposeInMainWorld("ipc", handler);
+contextBridge.exposeInMainWorld("api", ipcHandler);
 
-export type IpcHandler = typeof handler;
+export type IpcHandler = typeof ipcHandler;
