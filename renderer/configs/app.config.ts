@@ -17,7 +17,8 @@ const CONFIG = {
         panel: {
             collapsedSize: 64,
             expandedSize: 250,
-            transitionDuration: 300
+            transitionDuration: 300,
+            minLabelLength: 16
         }
     }
 };

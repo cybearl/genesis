@@ -7,8 +7,6 @@ import { CoreContext } from "@/components/contexts/Core";
 import CONFIG from "@/configs/app.config";
 
 
-
-
 type NavProps = {
     navButtons: IsNavButton[];
     onNavButtonClick: (index: number) => void;

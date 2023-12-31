@@ -94,6 +94,7 @@ export default function NavButton({
                 transition-all ease-in-out duration-75
                 ${variantStyle}
             `}
+            name={data.label}
             disabled={isDisabled}
             onClick={onClick}
         >
@@ -108,12 +109,12 @@ export default function NavButton({
                     }ms`
                 }}
             >
-                <span className="leading-none child:text-3xl pb-1">
+                <span className="leading-none child:text-3xl">
                     {data.icon}
                 </span>
 
                 <p className="text-sm tracking-wider font-semibold text-nowrap">
-                    {data.label}
+                    {data.label.padEnd(CONFIG.nav.panel.minLabelLength, "\xa0")}
                 </p>
             </div>
 
@@ -128,7 +129,7 @@ export default function NavButton({
                     }ms`
                 }}
             >
-                <span className="leading-none child:text-3xl pb-1">
+                <span className="leading-none child:text-3xl">
                     {data.icon}
                 </span>
             </div>
