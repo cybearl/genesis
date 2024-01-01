@@ -15,7 +15,7 @@ export const CoreContext = createContext({} as IsCoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appStatus, setAppStatus] = useState<IsAppStatus>("ready");
-    const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");
+    const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");  // TODO: Add electron-store to save navPanelState
 
     const context = {
         appStatus,

@@ -52,7 +52,7 @@ export default function Layout({
                             <p className="flex flex-col font-semibold leading-[16px] justify-center items-end pt-1 text-base tracking-widest">
                                 {CONFIG.appName}
                                 <span className="text-sm text-neutral-500 font-medium tracking-wide">
-                                    Vrs {CONFIG.appVersion}
+                                    v{CONFIG.appVersion}
                                 </span>
                             </p>
 
