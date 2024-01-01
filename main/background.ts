@@ -4,7 +4,7 @@ import { config } from "dotenv";
 import { app } from "electron";
 import serve from "electron-serve";
 
-import handler from "@main/api/index.test";
+import ipcHandler from "@main/api/index";
 import defaultWindowConfig from "@main/configs/window.config";
 import { createWindow } from "@main/helpers/createWindow";
 
@@ -54,5 +54,4 @@ app.on("window-all-closed", () => {
     }
 });
 
-// Call the ipcHandler
-handler();
+ipcHandler();
