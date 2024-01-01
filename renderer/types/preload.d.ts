@@ -1,8 +1,8 @@
-import { IsWindowApi } from "@main/preload";
+import { IsWindowAPI } from "@main/preload";
 
 
 declare global {
     interface Window {
-        api: IsWindowApi;
+        api: IsWindowAPI;
     }
 }

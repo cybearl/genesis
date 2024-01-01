@@ -1,11 +1,21 @@
 import { IpcRendererEvent, contextBridge, ipcRenderer } from "electron";
 
 
+/**
+ * The API exposed to the renderer process.
+ *
+ * **Security Note:** Direct access to API functions should be avoided,
+ * instead, every exposed function should corresponds to a specific task.
+ */
 const WINDOW_API = {
     platform: process.platform,
 
     send(channel: string, value: unknown) {
         ipcRenderer.send(channel, value);
+    },
+
+    invoke(channel: string, value: unknown) {
+        return ipcRenderer.invoke(channel, value);
     },
 
     on(channel: string, callback: (...args: unknown[]) => void) {
@@ -17,4 +27,4 @@ const WINDOW_API = {
 };
 
 contextBridge.exposeInMainWorld("api", WINDOW_API);
-export type IsWindowApi = typeof WINDOW_API;
+export type IsWindowAPI = typeof WINDOW_API;
