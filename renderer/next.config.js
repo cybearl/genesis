@@ -8,27 +8,33 @@ module.exports = {
     trailingSlash: true,
     images: { unoptimized: true },
     webpack: (config) => {
-        const existingEnv = config.plugins[1].definitions;
+        // Find the DefinePlugin for the existing environment variables
+        config.plugins.forEach((plugin) => {
+            if (plugin.definitions && plugin.definitions.__NEXT_DEFINE_ENV) {
+                // Adds environment variables from .env file (shared by main and renderer processes)
+                // Without overriding existing ones
 
-        // Adds environment variables from .env file (shared by main and renderer processes)
-        // Without overriding existing ones
-        if (existingEnv?.__NEXT_DEFINE_ENV === "true") {
-            // Parse .env file
-            const env = dotenv.config({ path: ".env" }).parsed;
+                // Parse .env file
+                const env = dotenv.config({ path: ".env" }).parsed;
 
-            // Filter only those starting with "NEXT_PUBLIC_"
-            const sharedEnv = Object.keys(env)
-                .filter((key) => key.startsWith("NEXT_PUBLIC_"))
-                .reduce((obj, key) => {
-                    obj[key] = env[key];
-                    return obj;
-                }, {});
+                // Filter only those starting with "NEXT_PUBLIC_"
+                const sharedEnv = Object.keys(env)
+                    .filter((key) => key.startsWith("NEXT_PUBLIC_"))
+                    .reduce((obj, key) => {
+                        obj[`process.env.${key}`] = env[key];
+                        return obj;
+                    }, {});
 
-            config.plugins[1].definitions = {
-                ...existingEnv,
-                ...sharedEnv
-            };
-        }
+                plugin.definitions = {
+                    ...plugin.definitions,
+                    ...sharedEnv
+                };
+            }
+
+            console.log(plugin);
+
+            return plugin;
+        });
 
         return config;
     },

@@ -10,6 +10,7 @@ import CONFIG from "@/configs/app.config";
 type NavProps = {
     topNavButtons: IsNavButton[];
     bottomNavButtons: IsNavButton[];
+    devOnlyNavButtons?: IsNavButton[];
     onNavButtonClick: (index: number) => void;
     activeNavButtonIndex: number;
 };
@@ -17,6 +18,7 @@ type NavProps = {
 export default function Nav({
     topNavButtons,
     bottomNavButtons,
+    devOnlyNavButtons = [],
     onNavButtonClick,
     activeNavButtonIndex
 }: NavProps) {
@@ -27,6 +29,8 @@ export default function Nav({
     );
 
     useEffect(() => {
+        console.log(process.env.NEXT_PUBLIC_TEST);
+
         switch (navPanelState) {
             case "collapsing":
                 setPanelWidth(CONFIG.nav.panel.collapsedSize);
@@ -78,7 +82,7 @@ export default function Nav({
 
                     <div className="w-full flex flex-col justify-start items-center">
                         {bottomNavButtons.map((data, index) => {
-                            const bottomIndex = index + topNavButtons.length;
+                            const bottomIndex = topNavButtons.length + index;
 
                             return (
                                 <NavButton
@@ -88,6 +92,21 @@ export default function Nav({
                                     isActive={bottomIndex === activeNavButtonIndex}
                                     isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
                                     onClick={() => onNavButtonClick?.(bottomIndex)}
+                                />
+                            );
+                        })}
+
+                        {process.env.NODE_ENV === "development" && devOnlyNavButtons.map((data, index) => {
+                            const devIndex = topNavButtons.length + bottomNavButtons.length + index;
+
+                            return (
+                                <NavButton
+                                    key={devIndex}
+                                    data={data}
+                                    navPanelState={navPanelState}
+                                    isActive={devIndex === activeNavButtonIndex}
+                                    isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
+                                    onClick={() => onNavButtonClick?.(devIndex)}
                                 />
                             );
                         })}

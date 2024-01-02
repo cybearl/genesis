@@ -15,6 +15,7 @@ type LayoutProps = {
 
     topNavButtons: IsNavButton[];
     bottomNavButtons: IsNavButton[];
+    devOnlyNavButtons?: IsNavButton[];
     onNavButtonClick: (index: number) => void;
     currentPage: number;
 };
@@ -23,6 +24,7 @@ export default function Layout({
     children,
     topNavButtons,
     bottomNavButtons,
+    devOnlyNavButtons = [],
     onNavButtonClick,
     currentPage
 }: LayoutProps) {
@@ -41,6 +43,7 @@ export default function Layout({
                 <Nav
                     topNavButtons={topNavButtons}
                     bottomNavButtons={bottomNavButtons}
+                    devOnlyNavButtons={devOnlyNavButtons}
                     onNavButtonClick={onNavButtonClick}
                     activeNavButtonIndex={currentPage}
                 />
