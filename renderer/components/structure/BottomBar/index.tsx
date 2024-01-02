@@ -15,19 +15,19 @@ export default function BottomBar({
             w-full h-8 flex items-center px-4 border-t border-neutral-800
             bg-black bg-opacity-[0.92] backdrop-blur-lg text-neutral-500
         `}>
-            <div className="flex-grow flex items-center justify-start gap-2 uppercase font-semibold tracking-wider">
+            <div className="flex-grow flex items-center justify-start gap-6">
                 {leftSideContent.map((content, index) => (
-                    <div key={index}>
+                    <p key={index} className="font-semibold tracking-wider text-sm">
                         {content}
-                    </div>
+                    </p>
                 ))}
             </div>
 
-            <div className="flex-grow flex items-center justify-end gap-2 uppercase font-semibold tracking-wider">
+            <div className="flex-grow flex items-center justify-end gap-6">
                 {rightSideContent.map((content, index) => (
-                    <div key={index}>
+                    <p key={index} className="font-semibold tracking-wider text-sm">
                         {content}
-                    </div>
+                    </p>
                 ))}
             </div>
         </div>

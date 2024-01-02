@@ -94,7 +94,7 @@ export default function NavButton({
                 transition-all ease-in-out duration-75
                 ${variantStyle}
             `}
-            name={data.label}
+            title={(!isActive && navPanelState === "collapsed") ? data.label : ""}
             disabled={isDisabled}
             onClick={onClick}
         >

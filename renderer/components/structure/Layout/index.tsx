@@ -1,7 +1,6 @@
 import { ReactNode, useContext, useEffect, useRef, useState } from "react";
 
 import Background from "@/components/base/Background";
-import Logo from "@/components/base/Logo";
 import { IsNavButton } from "@/components/base/NavButton";
 import { CoreContext } from "@/components/contexts/Core";
 import LoadingScreen from "@/components/general/LoadingScreen";
@@ -76,28 +75,19 @@ export default function Layout({
                         </div>
                     </div>
 
-                    <div
-                        className="absolute bottom-[40px] flex gap-1 items-center justify-center"
-                        style={{
-                            right: logoRightOffset
-                        }}
-                    >
-                        <p className="flex flex-col font-semibold leading-[16px] justify-center items-end pt-0.5 text-sm tracking-widest">
-                            {CONFIG.appName}
-                            <span className="text-xs text-neutral-500 font-medium tracking-wide">
-                                v{CONFIG.appVersion}
-                            </span>
-                        </p>
-
-                        <Logo size="sm" />
-                    </div>
-
                     <BottomBar
                         leftSideContent={[
-                            "test"
+                            <span key={0}>
+                                {CONFIG.appName} v{CONFIG.appVersion}
+                            </span>
                         ]}
                         rightSideContent={[
-                            "test"
+                            <span key={0}>
+                                <span className="text-lg leading-[0]">
+                                    ©
+                                </span>
+                                &nbsp;{new Date().getFullYear()} Cybearl
+                            </span>
                         ]}
                     />
                 </div>
