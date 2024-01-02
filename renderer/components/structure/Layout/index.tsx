@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useRef, useState } from "react";
+import { ReactNode, useContext } from "react";
 
 import Background from "@/components/base/Background";
 import { IsNavButton } from "@/components/base/NavButton";
@@ -28,29 +28,6 @@ export default function Layout({
 }: LayoutProps) {
     const { appStatus } = useContext(CoreContext);
 
-    const limitedHeightContainerRef = useRef<HTMLDivElement>(null);
-    const childrenContainerRef = useRef<HTMLDivElement>(null);
-
-    const [logoRightOffset, setLogoRightOffset] = useState("10px");
-
-    useEffect(() => {
-        const limitedHeightContainer = limitedHeightContainerRef.current;
-        const childrenContainer = childrenContainerRef.current;
-
-        if (limitedHeightContainer && childrenContainer) {
-            const limitedHeightContainerHeight = limitedHeightContainer.clientHeight;
-            const childrenContainerHeight = childrenContainer.clientHeight;
-
-            console.log(limitedHeightContainerHeight, childrenContainerHeight);
-
-            if (childrenContainerHeight > limitedHeightContainerHeight) {
-                setLogoRightOffset("26px");
-            } else {
-                setLogoRightOffset("10px");
-            }
-        }
-    }, [childrenContainerRef, limitedHeightContainerRef, currentPage]);
-
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
             <LoadingScreen isEnabled={appStatus !== "ready"} />
@@ -69,8 +46,8 @@ export default function Layout({
                 />
 
                 <div className="relative w-full h-full max-h-screen flex flex-col">
-                    <div ref={limitedHeightContainerRef} className="relative h-full scrollbar overflow-y-auto flex-grow px-4 py-3 bg-black bg-opacity-90">
-                        <div ref={childrenContainerRef} className="min-h-max">
+                    <div className="relative h-full scrollbar overflow-y-auto flex-grow px-4 py-3 bg-black bg-opacity-90">
+                        <div className="min-h-max">
                             {children}
                         </div>
                     </div>
