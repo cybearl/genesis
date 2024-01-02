@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import "@/styles/globals.css";
+import "@/styles/scrollbar.css";
 
 import CoreProvider from "@/components/contexts/Core";
 

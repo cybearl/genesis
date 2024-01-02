@@ -49,7 +49,7 @@ export default function Nav({
     return (
         <nav
             className={`
-                relative h-full bg-black bg-opacity-90 backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
+                relative h-full bg-black bg-opacity-[0.92] backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
                 transition-all ease-in-out border-r border-neutral-800 overflow-hidden
             `}
             style={{
@@ -73,7 +73,7 @@ export default function Nav({
                     ))}
                 </div>
 
-                <div className="w-full flex justify-center items-center h-8 border-t border-neutral-800 shadow shadow-black">
+                <div className="w-full flex justify-center items-center h-[31px] border-t border-neutral-800 shadow shadow-black">
                     <IconButton
                         icon={
                             <KeyboardDoubleArrowRightIcon
