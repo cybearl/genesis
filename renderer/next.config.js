@@ -1,6 +1,10 @@
 const dotenv = require("dotenv");
 
 
+// dotenv.config({ path: ".env" });
+
+console.log(process.env.NODE_ENV);
+
 /** @type {import("next").NextConfig} */
 module.exports = {
     reactStrictMode: true,
@@ -21,7 +25,7 @@ module.exports = {
                 const sharedEnv = Object.keys(env)
                     .filter((key) => key.startsWith("NEXT_PUBLIC_"))
                     .reduce((obj, key) => {
-                        obj[`process.env.${key}`] = env[key];
+                        obj[`process.env.${ key }`] = env[key];
                         return obj;
                     }, {});
 
@@ -30,8 +34,6 @@ module.exports = {
                     ...sharedEnv
                 };
             }
-
-            console.log(plugin);
 
             return plugin;
         });

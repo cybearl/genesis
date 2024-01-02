@@ -29,7 +29,7 @@ export default function Nav({
     );
 
     useEffect(() => {
-        console.log(process.env.NEXT_PUBLIC_TEST);
+        console.log(process.env.NEXT_PUBLIC_ENV);
 
         switch (navPanelState) {
             case "collapsing":
