@@ -8,15 +8,17 @@ import CONFIG from "@/configs/app.config";
 
 
 type NavProps = {
-    navButtons: IsNavButton[];
+    topNavButtons: IsNavButton[];
+    bottomNavButtons: IsNavButton[];
     onNavButtonClick: (index: number) => void;
-    currentPage: number;
+    activeNavButtonIndex: number;
 };
 
 export default function Nav({
-    navButtons,
+    topNavButtons,
+    bottomNavButtons,
     onNavButtonClick,
-    currentPage
+    activeNavButtonIndex
 }: NavProps) {
     const { navPanelState, setNavPanelState } = useContext(CoreContext);
 
@@ -60,17 +62,36 @@ export default function Nav({
             }}
         >
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
-                <div className="w-full flex flex-col justify-start items-center">
-                    {navButtons.map((data, index) => (
-                        <NavButton
-                            key={index}
-                            data={data}
-                            navPanelState={navPanelState}
-                            isActive={index === currentPage}
-                            isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
-                            onClick={() => onNavButtonClick?.(index)}
-                        />
-                    ))}
+                <div className="w-full flex flex-col h-full justify-between items-center">
+                    <div className="w-full flex flex-col justify-start items-center">
+                        {topNavButtons.map((data, index) => (
+                            <NavButton
+                                key={index}
+                                data={data}
+                                navPanelState={navPanelState}
+                                isActive={index === activeNavButtonIndex}
+                                isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
+                                onClick={() => onNavButtonClick?.(index)}
+                            />
+                        ))}
+                    </div>
+
+                    <div className="w-full flex flex-col justify-start items-center">
+                        {bottomNavButtons.map((data, index) => {
+                            const bottomIndex = index + topNavButtons.length;
+
+                            return (
+                                <NavButton
+                                    key={bottomIndex}
+                                    data={data}
+                                    navPanelState={navPanelState}
+                                    isActive={bottomIndex === activeNavButtonIndex}
+                                    isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
+                                    onClick={() => onNavButtonClick?.(bottomIndex)}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
 
                 <div className="w-full flex justify-center items-center h-[31px] border-t border-neutral-800 shadow shadow-black">

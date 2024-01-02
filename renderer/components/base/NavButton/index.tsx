@@ -56,7 +56,7 @@ export default function NavButton({
                 if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-400 cursor-not-allowed");
                 else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default");
                 else if (isDisabled && isActive) setVariantStyle("border-white cursor-default");
-                else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-800");
+                else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-600");
 
                 break;
             case "secondary":

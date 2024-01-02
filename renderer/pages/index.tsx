@@ -1,3 +1,4 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import HelpIcon from "@mui/icons-material/Help";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
@@ -7,12 +8,13 @@ import StoreIcon from "@mui/icons-material/Store";
 import { useState } from "react";
 
 import Layout from "@/components/structure/Layout";
+import Account from "@/pages/Account";
 import BotInstances from "@/pages/BotInstances";
 import DryRunSandbox from "@/pages/DryRunSandbox";
+import Help from "@/pages/Help";
 import MarketDataFeed from "@/pages/MarketDataFeed";
 import Settings from "@/pages/Settings";
 import StrategyScoring from "@/pages/StrategyScoring";
-import Support from "@/pages/Support";
 
 
 export default function Index() {
@@ -23,13 +25,14 @@ export default function Index() {
         <StrategyScoring key={1} />,
         <DryRunSandbox key={2} />,
         <BotInstances key={3} />,
-        <Settings key={4} />,
-        <Support key={5} />
+        <Help key={4} />,
+        <Account key={5} />,
+        <Settings key={6} />
     ];
 
     return (
         <Layout
-            navButtons={[
+            topNavButtons={[
                 {
                     label: "Market data feed",
                     icon: <StoreIcon />
@@ -45,14 +48,20 @@ export default function Index() {
                 {
                     label: "Bot instances",
                     icon: <SmartToyIcon />
+                }
+            ]}
+            bottomNavButtons={[
+                {
+                    label: "Help",
+                    icon: <HelpIcon />
+                },
+                {
+                    label: "Account",
+                    icon: <AccountCircleIcon />
                 },
                 {
                     label: "Settings",
                     icon: <SettingsIcon />
-                },
-                {
-                    label: "Support",
-                    icon: <HelpIcon />
                 }
             ]}
             onNavButtonClick={(index) => setCurrentPage(index)}
