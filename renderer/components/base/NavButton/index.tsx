@@ -53,7 +53,7 @@ export default function NavButton({
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-400 cursor-not-allowed");
+                if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-400 cursor-default");
                 else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default");
                 else if (isDisabled && isActive) setVariantStyle("border-white cursor-default");
                 else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-600");
