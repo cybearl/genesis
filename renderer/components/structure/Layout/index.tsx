@@ -67,7 +67,7 @@ export default function Layout({
                 />
 
                 <div className="relative w-full h-full max-h-screen flex flex-col">
-                    <div ref={limitedHeightContainerRef} className="relative h-full scrollbar overflow-y-auto flex-grow px-2 py-4 bg-black bg-opacity-90">
+                    <div ref={limitedHeightContainerRef} className="relative h-full scrollbar overflow-y-auto flex-grow px-4 py-3 bg-black bg-opacity-90">
                         <div ref={childrenContainerRef} className="min-h-max">
                             {children}
                         </div>
