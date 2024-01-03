@@ -9,7 +9,7 @@ import NsShared from "../../types/shared";
  */
 export default function ipcHandler() {
     // Exposes the app information to the renderer process
-    ipcMain.handle("app::info", (): NsShared.AppInfo => ({
+    ipcMain.handle("app::info", async (): Promise<NsShared.AppInfo> => ({
         name: app.getName(),
         version: app.getVersion(),
         isPackaged: app.isPackaged
