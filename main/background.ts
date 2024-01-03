@@ -39,17 +39,6 @@ if (app.isPackaged) {
         const port = process.argv[2];
         await mainWindow.loadURL(`http://localhost:${port}/home`);
     }
-
-    // Send app information to the renderer process
-    const appInfo: AppInfo = {
-        name: app.getName(),
-        version: app.getVersion(),
-        isPackaged: app.isPackaged
-    };
-
-    mainWindow.webContents.once("did-finish-load", () => {
-        mainWindow.webContents.send("app::info", appInfo);
-    });
 })();
 
 app.on("window-all-closed", () => {

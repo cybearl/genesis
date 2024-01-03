@@ -1,4 +1,6 @@
-import { ipcMain } from "electron";
+import { app, ipcMain } from "electron";
+
+import NsShared from "../../types/shared";
 
 
 /**
@@ -6,5 +8,10 @@ import { ipcMain } from "electron";
  * between the main and the renderer process.
  */
 export default function ipcHandler() {
-
+    // Exposes the app information to the renderer process
+    ipcMain.handle("app::info", (): NsShared.AppInfo => ({
+        name: app.getName(),
+        version: app.getVersion(),
+        isPackaged: app.isPackaged
+    }));
 }

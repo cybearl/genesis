@@ -8,21 +8,7 @@ import { contextBridge, ipcRenderer } from "electron";
  * instead, every exposed function should corresponds to a specific task.
  */
 const WINDOW_API = {
-    platform: process.platform,
 
-    /**
-     * Recover the app information from the "app::info" channel.
-     */
-    getAppInfo: () => new Promise<AppInfo>((resolve) => {
-        ipcRenderer.once("app::info", (_event, appInfo) => resolve(appInfo));
-    })
-
-    // on(channel: string, callback: (...args: unknown[]) => void) {
-    //     const subscription = (_event: IpcRendererEvent, ...args: unknown[]) => callback(...args);
-    //     ipcRenderer.on(channel, subscription);
-
-    //     return () => ipcRenderer.removeListener(channel, subscription);
-    // }
 };
 
 contextBridge.exposeInMainWorld("api", WINDOW_API);

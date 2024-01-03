@@ -35,6 +35,7 @@
         // "baseUrl": "./src",                               /* Specify the base directory to resolve non-relative module names. */
         "paths": {                                           /* Specify a set of entries that re-map imports to additional lookup locations. */
             "@main/*": ["./main/*"],
+            "@sharedTypes/*": ["./types/*"],
             "@/*": ["./renderer/*"]
         },
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
@@ -107,6 +108,9 @@
         "skipDefaultLibCheck": true,                         /* Skip type checking .d.ts files that are included with TypeScript. */
         // "skipLibCheck": true                              /* Skip type checking all .d.ts files. */
     },
+    "include": [
+        "types/shared.d.ts"
+    ],
     "exclude": [
         "node_modules",
         "renderer/next.config.js",
