@@ -1,4 +1,4 @@
-import { IpcRendererEvent, contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
 
 /**
@@ -10,20 +10,19 @@ import { IpcRendererEvent, contextBridge, ipcRenderer } from "electron";
 const WINDOW_API = {
     platform: process.platform,
 
-    send(channel: string, value: unknown) {
-        ipcRenderer.send(channel, value);
-    },
+    /**
+     * Recover the app information from the "app::info" channel.
+     */
+    getAppInfo: () => new Promise<AppInfo>((resolve) => {
+        ipcRenderer.once("app::info", (_event, appInfo) => resolve(appInfo));
+    })
 
-    invoke(channel: string, value: unknown) {
-        return ipcRenderer.invoke(channel, value);
-    },
+    // on(channel: string, callback: (...args: unknown[]) => void) {
+    //     const subscription = (_event: IpcRendererEvent, ...args: unknown[]) => callback(...args);
+    //     ipcRenderer.on(channel, subscription);
 
-    on(channel: string, callback: (...args: unknown[]) => void) {
-        const subscription = (_event: IpcRendererEvent, ...args: unknown[]) => callback(...args);
-        ipcRenderer.on(channel, subscription);
-
-        return () => ipcRenderer.removeListener(channel, subscription);
-    }
+    //     return () => ipcRenderer.removeListener(channel, subscription);
+    // }
 };
 
 contextBridge.exposeInMainWorld("api", WINDOW_API);

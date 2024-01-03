@@ -1,6 +1,5 @@
 import path from "path";
 
-import { config } from "dotenv";
 import { app } from "electron";
 import serve from "electron-serve";
 
@@ -9,13 +8,7 @@ import defaultWindowConfig from "@main/configs/window.config";
 import { createWindow } from "@main/helpers/createWindow";
 
 
-// Load environment variables from .env file (shared between main and renderer processes)
-config({ path: ".env" });
-
-// Determine whether we are running in production or development mode
-const isProd = process.env.NODE_ENV === "production";
-
-if (isProd) {
+if (app.isPackaged) {
     serve({ directory: "app" });
 } else {
     app.setPath("userData", `${app.getPath("userData")} (development)`);
@@ -40,12 +33,23 @@ if (isProd) {
     mainWindow.setMenuBarVisibility(false);
 
     // Load the application
-    if (isProd) {
+    if (app.isPackaged) {
         await mainWindow.loadURL("app://./home");
     } else {
         const port = process.argv[2];
         await mainWindow.loadURL(`http://localhost:${port}/home`);
     }
+
+    // Send app information to the renderer process
+    const appInfo: AppInfo = {
+        name: app.getName(),
+        version: app.getVersion(),
+        isPackaged: app.isPackaged
+    };
+
+    mainWindow.webContents.once("did-finish-load", () => {
+        mainWindow.webContents.send("app::info", appInfo);
+    });
 })();
 
 app.on("window-all-closed", () => {

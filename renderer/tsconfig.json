@@ -106,7 +106,6 @@
     },
     "include": [
         "next-env.d.ts",
-        "../types/env.d.ts",
         "**/*.ts",
         "**/*.tsx"
     ]

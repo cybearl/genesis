@@ -29,8 +29,6 @@ export default function Nav({
     );
 
     useEffect(() => {
-        console.log(process.env.NEXT_PUBLIC_ENV);
-
         switch (navPanelState) {
             case "collapsing":
                 setPanelWidth(CONFIG.nav.panel.collapsedSize);
