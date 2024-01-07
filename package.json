@@ -19,7 +19,6 @@
         "@mui/icons-material": "^5.15.1",
         "@mui/material": "^5.15.1",
         "electron-serve": "^1.1.0",
-        "electron-store": "^8.1.0",
         "tailwindcss-animate": "^1.0.7",
         "webpack": "^5.89.0"
     },

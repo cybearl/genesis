@@ -19,7 +19,7 @@ export const CoreContext = createContext({} as IsCoreContext);
 export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appInfo, setAppInfo] = useState<NsShared.AppInfo | null>(null);
     const [appStatus, setAppStatus] = useState<IsAppStatus>("ready");
-    const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");  // TODO: Add electron-store to save navPanelState
+    const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");
 
     useEffect(() => {
         const getAppInfo = async () => {
