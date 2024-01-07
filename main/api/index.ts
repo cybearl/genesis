@@ -12,6 +12,6 @@ export default function ipcHandler() {
     ipcMain.handle("app::info", async (): Promise<NsShared.AppInfo> => ({
         name: app.getName(),
         version: app.getVersion(),
-        isPackaged: app.isPackaged
+        isDev: !app.isPackaged
     }));
 }

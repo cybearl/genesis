@@ -22,7 +22,12 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");  // TODO: Add electron-store to save navPanelState
 
     useEffect(() => {
+        const getAppInfo = async () => {
+            const appInfo = await window.api.getAppInfo();
+            setAppInfo(appInfo);
+        };
 
+        getAppInfo();
     }, []);
 
     const context = {

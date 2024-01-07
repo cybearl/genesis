@@ -1,6 +1,6 @@
 const CONFIG = {
     appProducer: "CYBEARL",
-    appName: "GENESIS",
+    appName: "Genesis",
     appVersion: "1.0.0",
     appDescription: `
         WELCOME TO THE DEVELOPMENT EDITION OF 'GENESIS', A TRADING BOT MADE FOR SHORT-TERM TRADING.

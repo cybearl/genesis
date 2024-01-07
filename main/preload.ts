@@ -1,4 +1,6 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
+
+import NsShared from "@sharedTypes/shared";
 
 
 /**
@@ -8,7 +10,10 @@ import { contextBridge } from "electron";
  * instead, every exposed function should corresponds to a specific task.
  */
 const WINDOW_API = {
-
+    getAppInfo: async (): Promise<NsShared.AppInfo> => {
+        const result = await ipcRenderer.invoke("app::info");
+        return result;
+    }
 };
 
 contextBridge.exposeInMainWorld("api", WINDOW_API);

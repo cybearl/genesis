@@ -91,7 +91,7 @@ export default function NavButton({
         <button
             className={`
                 relative w-full py-3 border-l-2 pr-[4px]
-                transition-all ease-in-out duration-75
+                transition-all ease-in-out duration-150
                 ${variantStyle}
             `}
             title={(!isActive && navPanelState === "collapsed") ? data.label : ""}
