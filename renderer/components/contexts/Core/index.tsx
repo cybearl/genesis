@@ -7,7 +7,7 @@ export type IsAppStatus = "loading" | "ready";
 export type IsNavPanelState = "collapsing" | "collapsed" | "expanding" | "expanded";
 
 type IsCoreContext = {
-    appInfo: NsShared.AppInfo | null;
+    appInfo: NsShared.IsAppInfo | null;
     appStatus: IsAppStatus;
     setAppStatus: (appStatus: IsAppStatus) => void;
     navPanelState: IsNavPanelState;
@@ -17,17 +17,12 @@ type IsCoreContext = {
 export const CoreContext = createContext({} as IsCoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
-    const [appInfo, setAppInfo] = useState<NsShared.AppInfo | null>(null);
+    const [appInfo, setAppInfo] = useState<NsShared.IsAppInfo | null>(null);
     const [appStatus, setAppStatus] = useState<IsAppStatus>("ready");
     const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");
 
     useEffect(() => {
-        const getAppInfo = async () => {
-            const appInfo = await window.api.getAppInfo();
-            setAppInfo(appInfo);
-        };
 
-        getAppInfo();
     }, []);
 
     const context = {

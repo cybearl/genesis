@@ -1,8 +1,8 @@
-import { IsWindowAPI } from "@main/preload";
+import { IsFetcher } from "@main/preload";
 
 
 declare global {
     interface Window {
-        api: IsWindowAPI;
+        fetcher: IsFetcher;
     }
 }
