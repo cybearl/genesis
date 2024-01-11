@@ -22,7 +22,12 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");
 
     useEffect(() => {
+        const test = async () => {
+            const response = await window.fetcher("");
+            console.log(response);
+        };
 
+        test();
     }, []);
 
     const context = {
