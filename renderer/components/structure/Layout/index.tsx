@@ -28,7 +28,7 @@ export default function Layout({
     onNavButtonClick,
     currentPage
 }: LayoutProps) {
-    const { appInfo, appStatus } = useContext(CoreContext);
+    const { info, appStatus } = useContext(CoreContext);
 
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
@@ -43,7 +43,7 @@ export default function Layout({
                 <Nav
                     topNavButtons={topNavButtons}
                     bottomNavButtons={bottomNavButtons}
-                    devOnlyNavButtons={appInfo?.isDev ? devOnlyNavButtons : []}
+                    devOnlyNavButtons={info?.isDev ? devOnlyNavButtons : []}
                     onNavButtonClick={onNavButtonClick}
                     activeNavButtonIndex={currentPage}
                 />
@@ -58,7 +58,7 @@ export default function Layout({
                     <BottomBar
                         leftSideContent={[
                             <span key={0}>
-                                {CONFIG.appName} v{CONFIG.appVersion} {appInfo?.isDev && "[DEV MODE]"}
+                                {CONFIG.appName} v{CONFIG.appVersion} {info?.isDev && "[DEV MODE]"}
                             </span>
                         ]}
                         rightSideContent={[

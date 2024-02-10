@@ -14,7 +14,7 @@ import { IpcFetchResponse } from "@sharedTypes/shared";
 async function ipcFetch(
     url: string,
     method: "GET" | "POST" | "PATCH" | "DELETE" = "GET",
-    body: unknown = undefined
+    body: any = undefined
 ): Promise<IpcFetchResponse> {
     // Validate the request
     if (method === "GET" && body) throw new Error("GET requests cannot have a body.");
