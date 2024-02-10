@@ -1,4 +1,6 @@
-import { ipcMain } from "electron";
+import { IpcMainInvokeEvent, ipcMain } from "electron";
+
+import apiInfoHandler from "@main/api/info";
 
 import { IpcFetchRequest, IpcFetchResponse } from "../../types/shared";
 
@@ -10,13 +12,14 @@ import { IpcFetchRequest, IpcFetchResponse } from "../../types/shared";
  * It redirects the request to the appropriate handler.
  */
 export default function ipcHandler() {
-    ipcMain.handle("ipc::fetch", async (
-        event: Electron.IpcMainInvokeEvent,
-        request: IpcFetchRequest
-    ): Promise<IpcFetchResponse> => {
+    const entryPoint = async (event: IpcMainInvokeEvent, req: IpcFetchRequest): Promise<IpcFetchResponse> => {
         event.preventDefault();
 
-        switch (request.url) {
+        switch (req.url) {
+            case "/api/info": {
+                const res = await apiInfoHandler(event, req);
+                return res;
+            }
             default: {
                 return {
                     status: 404,
@@ -24,5 +27,7 @@ export default function ipcHandler() {
                 };
             }
         }
-    });
+    };
+
+    ipcMain.handle("ipc::fetch", entryPoint);
 }
