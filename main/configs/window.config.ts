@@ -1,3 +1,6 @@
+import { appConfig } from "@main/configs/app.config";
+
+
 export type WindowConfig = {
     title: string;
     initialWidth: number;
@@ -7,7 +10,7 @@ export type WindowConfig = {
 };
 
 const defaultWindowConfig: WindowConfig = {
-    title: "Genesis",
+    title: appConfig.name,
     initialWidth: 1024,
     initialHeight: 768,
     minWidth: 1024,

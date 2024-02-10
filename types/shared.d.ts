@@ -19,7 +19,7 @@ export interface IpcFetchRequest {
 export interface IpcFetchResponse {
     status: number;
     message?: string;
-    data?: unknown;
+    data?: any;
 }
 
 /**
@@ -28,5 +28,5 @@ export interface IpcFetchResponse {
 export interface Info {
     name: string;
     version: string;
-    isDev: boolean;
+    environment: "development" | "production";
 }

@@ -43,7 +43,7 @@ export default function Layout({
                 <Nav
                     topNavButtons={topNavButtons}
                     bottomNavButtons={bottomNavButtons}
-                    devOnlyNavButtons={info?.isDev ? devOnlyNavButtons : []}
+                    devOnlyNavButtons={info?.environment === "development" ? devOnlyNavButtons : []}
                     onNavButtonClick={onNavButtonClick}
                     activeNavButtonIndex={currentPage}
                 />
@@ -58,7 +58,7 @@ export default function Layout({
                     <BottomBar
                         leftSideContent={[
                             <span key={0}>
-                                {CONFIG.appName} v{CONFIG.appVersion} {info?.isDev && "[DEV MODE]"}
+                                {CONFIG.appName} v{CONFIG.appVersion} {info?.environment === "development" && "[DEV MODE]"}
                             </span>
                         ]}
                         rightSideContent={[

@@ -1,23 +1,34 @@
 import { IpcMainInvokeEvent } from "electron";
 
-import { IpcFetchRequest } from "@sharedTypes/shared";
+import { appConfig } from "@main/configs/app.config";
+import { IpcFetchRequest, IpcFetchResponse } from "@sharedTypes/shared";
 
 
 /**
+ * `GET` /api/info route handler.
+ * @returns The info of the application.
+ */
+const getInfo = async () => appConfig;
+
+/**
  * Handler for the /api/info route.
- *
  */
 export default async function handler(
     event: IpcMainInvokeEvent,
     req: IpcFetchRequest
-) {
+): Promise<IpcFetchResponse> {
+    if (req.method === "GET") {
+        const data = await getInfo();
+
+        return {
+            status: 200,
+            message: "OK",
+            data: data
+        };
+    }
+
     return {
-        status: 200,
-        message: "OK",
-        data: {
-            name: "Electron React Boilerplate",
-            version: "1.0.0",
-            isDev: true
-        }
+        status: 404,
+        message: "Not Found"
     };
 }
