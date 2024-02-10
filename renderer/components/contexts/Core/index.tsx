@@ -23,7 +23,7 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
 
     useEffect(() => {
         const test = async () => {
-            const response = await window.ipcFetcher("");
+            const response = await window.ipcFetch("");
             console.log(response);
         };
 

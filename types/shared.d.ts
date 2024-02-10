@@ -2,13 +2,13 @@
  * A shared namespace for types used for both the main and renderer processes.
  */
 declare namespace NsShared {
-    interface IpcFetcherRequest {
+    interface IpcFetchRequest {
         url: string;
-        method: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "TRACE" | "PATCH";
+        method: "GET" | "POST" | "PATCH" | "DELETE";
         body: unknown;
     }
 
-    interface IpcFetcherResponse {
+    interface IpcFetchResponse {
         status: number;
         message?: string;
         data?: unknown;

@@ -3,20 +3,24 @@ import { contextBridge, ipcRenderer } from "electron";
 import NsShared from "@sharedTypes/shared";
 
 /**
- * The ipcFetcher API provides an interface allowing communication between the
+ * The ipcFetch API provides an interface allowing communication between the
  * renderer process and the main process.
  * @param url The URL to fetch.
  * @param method The HTTP method to use.
  * @param body The body of the request.
  * @returns A promise that resolves to the response.
  */
-async function ipcFetcher(
+async function ipcFetch(
     url: string,
-    method: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "TRACE" | "PATCH" = "GET",
+    method: "GET" | "POST" | "PATCH" | "DELETE" = "GET",
     body: unknown = undefined
-): Promise<NsShared.IpcFetcherResponse> {
+): Promise<NsShared.IpcFetchResponse> {
+    // Validate the request
+    if (method === "GET" && body) throw new Error("GET requests cannot have a body.");
+    if (method !== "GET" && !body) throw new Error("Non-GET requests must have a body.");
+
     const response = await ipcRenderer.invoke(
-        "ipc::fetcher",
+        "ipc::fetch",
         {
             url,
             method,
@@ -28,5 +32,5 @@ async function ipcFetcher(
 }
 
 
-contextBridge.exposeInMainWorld("ipcFetcher", ipcFetcher);
-export type IpcFetcher = typeof ipcFetcher;
+contextBridge.exposeInMainWorld("ipcFetch", ipcFetch);
+export type IpcFetch = typeof ipcFetch;
