@@ -7,8 +7,8 @@ import { IpcFetchResponse } from "@sharedTypes/shared";
  * The ipcFetch API provides an interface allowing communication between the
  * renderer process and the main process.
  * @param url The URL to fetch.
- * @param method The HTTP method to use.
- * @param body The body of the request.
+ * @param method The HTTP method to use (optional, defaults to `GET`).
+ * @param body The body of the request (optional, defaults to `undefined`).
  * @returns A promise that resolves to the response.
  */
 async function ipcFetch(
