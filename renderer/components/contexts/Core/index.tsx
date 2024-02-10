@@ -3,27 +3,27 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import NsShared from "@sharedTypes/shared";
 
 
-export type IsAppStatus = "loading" | "ready";
-export type IsNavPanelState = "collapsing" | "collapsed" | "expanding" | "expanded";
+export type AppStatus = "loading" | "ready";
+export type NavPanelState = "collapsing" | "collapsed" | "expanding" | "expanded";
 
-type IsCoreContext = {
-    appInfo: NsShared.IsAppInfo | null;
-    appStatus: IsAppStatus;
-    setAppStatus: (appStatus: IsAppStatus) => void;
-    navPanelState: IsNavPanelState;
-    setNavPanelState: (navPanelState: IsNavPanelState) => void;
+type CoreContext = {
+    appInfo: NsShared.AppInfo | null;
+    appStatus: AppStatus;
+    setAppStatus: (appStatus: AppStatus) => void;
+    navPanelState: NavPanelState;
+    setNavPanelState: (navPanelState: NavPanelState) => void;
 };
 
-export const CoreContext = createContext({} as IsCoreContext);
+export const CoreContext = createContext({} as CoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
-    const [appInfo, setAppInfo] = useState<NsShared.IsAppInfo | null>(null);
-    const [appStatus, setAppStatus] = useState<IsAppStatus>("ready");
-    const [navPanelState, setNavPanelState] = useState<IsNavPanelState>("expanded");
+    const [appInfo, setAppInfo] = useState<NsShared.AppInfo | null>(null);
+    const [appStatus, setAppStatus] = useState<AppStatus>("ready");
+    const [navPanelState, setNavPanelState] = useState<NavPanelState>("expanded");
 
     useEffect(() => {
         const test = async () => {
-            const response = await window.fetcher("");
+            const response = await window.ipcFetcher("");
             console.log(response);
         };
 

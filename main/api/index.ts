@@ -4,14 +4,16 @@ import NsShared from "../../types/shared";
 
 
 /**
- * The main Fetcher API entry point used for the IPC communication
+ * The ipcFetcher API entry point used for the IPC communication
  * between the main and the renderer process.
+ *
+ * It redirects the request to the appropriate handler.
  */
 export default function ipcHandler() {
-    ipcMain.handle("api::fetcher", async (
+    ipcMain.handle("ipc::fetcher", async (
         event: Electron.IpcMainInvokeEvent,
-        request: NsShared.IsFetcherRequest
-    ): Promise<NsShared.IsFetcherResponse> => {
+        request: NsShared.IpcFetcherRequest
+    ): Promise<NsShared.IpcFetcherResponse> => {
         event.preventDefault();
 
         switch (request.url) {

@@ -1,17 +1,17 @@
 import { ReactNode, useEffect, useState } from "react";
 
-import { IsNavPanelState } from "@/components/contexts/Core";
+import { NavPanelState } from "@/components/contexts/Core";
 import CONFIG from "@/configs/app.config";
 
 
-export type IsNavButton = {
+export type NavButtonData = {
     label: string;
     icon: ReactNode;
 };
 
 type NavButtonProps = {
-    data: IsNavButton;
-    navPanelState: IsNavPanelState;
+    data: NavButtonData;
+    navPanelState: NavPanelState;
 
     variant?: "primary" | "secondary" | "tertiary";
 

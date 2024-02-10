@@ -1,7 +1,7 @@
 import { ReactNode, useContext } from "react";
 
 import Background from "@/components/base/Background";
-import { IsNavButton } from "@/components/base/NavButton";
+import { NavButtonData } from "@/components/base/NavButton";
 import { CoreContext } from "@/components/contexts/Core";
 import LoadingScreen from "@/components/general/LoadingScreen";
 import BottomBar from "@/components/structure/BottomBar";
@@ -13,9 +13,9 @@ import { Inconsolata } from "@/lib/fonts";
 type LayoutProps = {
     children: ReactNode;
 
-    topNavButtons: IsNavButton[];
-    bottomNavButtons: IsNavButton[];
-    devOnlyNavButtons?: IsNavButton[];
+    topNavButtons: NavButtonData[];
+    bottomNavButtons: NavButtonData[];
+    devOnlyNavButtons?: NavButtonData[];
     onNavButtonClick: (index: number) => void;
     currentPage: number;
 };

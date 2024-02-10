@@ -9,7 +9,7 @@ import Store from "electron-store";
 import defaultWindowConfig from "@main/configs/window.config";
 
 
-type IsWindow = {
+type Window = {
     x: number;
     y: number;
     width: number;
@@ -20,7 +20,7 @@ export const createWindow = (
     windowName: string,
     options: BrowserWindowConstructorOptions
 ): BrowserWindow => {
-    const defaultWindow: IsWindow = {
+    const defaultWindow: Window = {
         x: 0,
         y: 0,
         width: options.width || defaultWindowConfig.initialWidth,
@@ -44,7 +44,7 @@ export const createWindow = (
      * Gets the current position of the window.
      * @returns The current position of the window.
      */
-    const getCurrentPosition = (): IsWindow => {
+    const getCurrentPosition = (): Window => {
         const position = win.getPosition();
         const size = win.getSize();
 
@@ -62,7 +62,7 @@ export const createWindow = (
      * @param bounds The bounds of the screen.
      * @returns Whether the window is within the bounds of the screen.
      */
-    const windowWithinBounds = (windowState: IsWindow, bounds: IsWindow) => (
+    const windowWithinBounds = (windowState: Window, bounds: Window) => (
         windowState.x >= bounds.x &&
         windowState.y >= bounds.y &&
         windowState.x + windowState.width <= bounds.x + bounds.width &&
@@ -87,7 +87,7 @@ export const createWindow = (
      * @param windowState The window state.
      * @returns The window state.
      */
-    const ensureVisibleOnSomeDisplay = (windowState: IsWindow) => {
+    const ensureVisibleOnSomeDisplay = (windowState: Window) => {
         const visible = screen.getAllDisplays().some((display) => windowWithinBounds(windowState, display.bounds));
 
         if (!visible) {

@@ -1,8 +1,8 @@
-import { IsFetcher } from "@main/preload";
+import { IpcFetcher } from "@main/preload";
 
 
 declare global {
     interface Window {
-        fetcher: IsFetcher;
+        ipcFetcher: IpcFetcher;
     }
 }

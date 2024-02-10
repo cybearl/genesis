@@ -2,15 +2,15 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import { useContext, useEffect, useState } from "react";
 
 import IconButton from "@/components/base/IconButton";
-import NavButton, { IsNavButton } from "@/components/base/NavButton";
+import NavButton, { NavButtonData } from "@/components/base/NavButton";
 import { CoreContext } from "@/components/contexts/Core";
 import CONFIG from "@/configs/app.config";
 
 
 type NavProps = {
-    topNavButtons: IsNavButton[];
-    bottomNavButtons: IsNavButton[];
-    devOnlyNavButtons?: IsNavButton[];
+    topNavButtons: NavButtonData[];
+    bottomNavButtons: NavButtonData[];
+    devOnlyNavButtons?: NavButtonData[];
     onNavButtonClick: (index: number) => void;
     activeNavButtonIndex: number;
 };

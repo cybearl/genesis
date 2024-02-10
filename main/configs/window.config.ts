@@ -1,4 +1,4 @@
-export type IsWindowConfig = {
+export type WindowConfig = {
     title: string;
     initialWidth: number;
     initialHeight: number;
@@ -6,7 +6,7 @@ export type IsWindowConfig = {
     minHeight?: number;
 };
 
-const defaultWindowConfig: IsWindowConfig = {
+const defaultWindowConfig: WindowConfig = {
     title: "Genesis",
     initialWidth: 1024,
     initialHeight: 768,

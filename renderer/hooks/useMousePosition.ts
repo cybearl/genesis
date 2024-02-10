@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 
-type IsMousePosition = {
+type MousePosition = {
     x: number | null;
     y: number | null;
 };
 
 export default function useMousePosition() {
-    const [mousePosition, setMousePosition] = useState<IsMousePosition>({
+    const [mousePosition, setMousePosition] = useState<MousePosition>({
         x: null,
         y: null
     });
