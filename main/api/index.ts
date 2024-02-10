@@ -1,6 +1,6 @@
 import { ipcMain } from "electron";
 
-import NsShared from "../../types/shared";
+import { IpcFetchRequest, IpcFetchResponse } from "../../types/shared";
 
 
 /**
@@ -12,8 +12,8 @@ import NsShared from "../../types/shared";
 export default function ipcHandler() {
     ipcMain.handle("ipc::fetch", async (
         event: Electron.IpcMainInvokeEvent,
-        request: NsShared.IpcFetchRequest
-    ): Promise<NsShared.IpcFetchResponse> => {
+        request: IpcFetchRequest
+    ): Promise<IpcFetchResponse> => {
         event.preventDefault();
 
         switch (request.url) {

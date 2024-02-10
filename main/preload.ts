@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-import NsShared from "@sharedTypes/shared";
+import { IpcFetchResponse } from "@sharedTypes/shared";
+
 
 /**
  * The ipcFetch API provides an interface allowing communication between the
@@ -14,19 +15,16 @@ async function ipcFetch(
     url: string,
     method: "GET" | "POST" | "PATCH" | "DELETE" = "GET",
     body: unknown = undefined
-): Promise<NsShared.IpcFetchResponse> {
+): Promise<IpcFetchResponse> {
     // Validate the request
     if (method === "GET" && body) throw new Error("GET requests cannot have a body.");
     if (method !== "GET" && !body) throw new Error("Non-GET requests must have a body.");
 
-    const response = await ipcRenderer.invoke(
-        "ipc::fetch",
-        {
-            url,
-            method,
-            body
-        }
-    );
+    const response = await ipcRenderer.invoke("ipc::fetch", {
+        url,
+        method,
+        body
+    });
 
     return response;
 }
