@@ -2,10 +2,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import HelpIcon from "@mui/icons-material/Help";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import PriceChangeIcon from "@mui/icons-material/PriceChange";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
-import StoreIcon from "@mui/icons-material/Store";
 import { useMemo, useState } from "react";
 
 import Layout from "@/components/structure/Layout";
@@ -15,6 +16,7 @@ import DeveloperMode from "@/pages/DeveloperMode";
 import DryRunSandbox from "@/pages/DryRunSandbox";
 import Help from "@/pages/Help";
 import MarketDataFeed from "@/pages/MarketDataFeed";
+import RealTimeMarket from "@/pages/RealTimeMarket";
 import Settings from "@/pages/Settings";
 import StrategyScoring from "@/pages/StrategyScoring";
 
@@ -23,22 +25,30 @@ export default function Index() {
     const [currentPage, setCurrentPage] = useState(0);
 
     const pages = useMemo(() => [
-        <MarketDataFeed key={0} />,
-        <StrategyScoring key={1} />,
-        <DryRunSandbox key={2} />,
-        <BotInstances key={3} />,
-        <Help key={4} />,
-        <Account key={5} />,
-        <Settings key={6} />,
-        <DeveloperMode key={7} />
+        // TOP NAV
+        <RealTimeMarket key={0} />,
+        <MarketDataFeed key={1} />,
+        <StrategyScoring key={2} />,
+        <DryRunSandbox key={3} />,
+        <BotInstances key={4} />,
+
+        // BOTTOM NAV
+        <Help key={5} />,
+        <Account key={6} />,
+        <Settings key={7} />,
+        <DeveloperMode key={8} />
     ], []);
 
     return (
         <Layout
             topNavButtons={[
                 {
+                    label: "Real-time market",
+                    icon: <PriceChangeIcon />
+                },
+                {
                     label: "Market data feed",
-                    icon: <StoreIcon />
+                    icon: <PaymentsIcon />
                 },
                 {
                     label: "Strategy scoring",

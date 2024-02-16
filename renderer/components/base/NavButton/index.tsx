@@ -13,7 +13,7 @@ type NavButtonProps = {
     data: NavButtonData;
     navPanelState: NavPanelState;
 
-    variant?: "primary" | "secondary" | "tertiary";
+    variant?: "primary";
 
     isDisabled?: boolean;
     isActive?: boolean;
@@ -58,12 +58,6 @@ export default function NavButton({
                 else if (isDisabled && isActive) setVariantStyle("border-white cursor-default");
                 else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-600");
 
-                break;
-            case "secondary":
-                setVariantStyle("");
-                break;
-            case "tertiary":
-                setVariantStyle("");
                 break;
         }
     }, [isActive, isDisabled, variant]);
