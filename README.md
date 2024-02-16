@@ -4,10 +4,6 @@
     </a>
 </p>
 
-<h1 align="center" style="font-size: 64px; margin-top: -32px; text-decoration: underline;">
-    . G E N E S I S .
-</h1>
-
 <p align="center">
     <a href="https://github.com/yoratoni" target="_blank">
         <img src="https://img.shields.io/badge/made%20by-Yoratoni-858FF0?style=flat-square">
