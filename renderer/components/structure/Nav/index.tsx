@@ -72,7 +72,7 @@ export default function Nav({
                                 data={data}
                                 navPanelState={navPanelState}
                                 isActive={index === activeNavButtonIndex}
-                                isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
+                                isDisabled={navPanelState === "collapsing" || navPanelState === "expanding" || data.isDisabled}
                                 onClick={() => onNavButtonClick?.(index)}
                             />
                         ))}
@@ -88,7 +88,7 @@ export default function Nav({
                                     data={data}
                                     navPanelState={navPanelState}
                                     isActive={bottomIndex === activeNavButtonIndex}
-                                    isDisabled={navPanelState === "collapsing" || navPanelState === "expanding"}
+                                    isDisabled={navPanelState === "collapsing" || navPanelState === "expanding" || data.isDisabled}
                                     onClick={() => onNavButtonClick?.(bottomIndex)}
                                 />
                             );

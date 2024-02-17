@@ -1,8 +1,8 @@
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import HelpIcon from "@mui/icons-material/Help";
-import PaymentsIcon from "@mui/icons-material/Payments";
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -44,11 +44,11 @@ export default function Index() {
             topNavButtons={[
                 {
                     label: "Real-time market",
-                    icon: <PriceChangeIcon />
+                    icon: <AccountBalanceIcon />
                 },
                 {
                     label: "Market data feed",
-                    icon: <PaymentsIcon />
+                    icon: <PriceChangeIcon />
                 },
                 {
                     label: "Strategy scoring",
