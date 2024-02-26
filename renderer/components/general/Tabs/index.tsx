@@ -21,17 +21,19 @@ export default function Tabs({
     return (
         <div className="flex flex-col w-full">
             <div className={`
-                w-full h-9 flex items-center border-b border-neutral-800
+                w-full flex items-center border-b border-neutral-800
                 bg-black bg-opacity-[0.4] backdrop-blur-lg text-neutral-500
                 ${spreadAcross ? "justify-between" : "justify-start"}
             `}>
                 {labels.map((label, index) => (
-                    <Tab
-                        key={index}
-                        label={label}
-                        isActive={index === currentTab}
-                        // onClick={() => setCurrentTab(index)}
-                    />
+                    <div key={index} className={`border-neutral-800 w-full ${index !== labels.length - 1 && "border-r"}`}>
+                        <Tab
+                            label={label}
+                            isActive={index === currentTab}
+                            onClick={() => setCurrentTab(index)}
+                            isCloseable={true}
+                        />
+                    </div>
                 ))}
             </div>
         </div>
