@@ -3,7 +3,7 @@ import { ReactNode, useContext } from "react";
 import Background from "@/components/base/Background";
 import { NavButtonData } from "@/components/base/NavButton";
 import { CoreContext } from "@/components/contexts/Core";
-import LoadingScreen from "@/components/general/LoadingScreen";
+import LoadingApp from "@/components/general/LoadingApp";
 import BottomBar from "@/components/structure/BottomBar";
 import Nav from "@/components/structure/Nav";
 import CONFIG from "@/configs/app.config";
@@ -32,7 +32,7 @@ export default function Layout({
 
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
-            <LoadingScreen isEnabled={appStatus !== "ready"} />
+            <LoadingApp isEnabled={appStatus !== "ready"} />
 
             <Background
                 imgOpacity={1}
@@ -50,9 +50,7 @@ export default function Layout({
 
                 <div className="relative w-full h-full max-h-screen flex flex-col">
                     <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-black bg-opacity-90">
-                        <div className="min-h-max">
-                            {children}
-                        </div>
+                        {children}
                     </div>
 
                     <BottomBar

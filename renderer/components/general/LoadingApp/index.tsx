@@ -5,13 +5,13 @@ import Background from "@/components/base/Background";
 import CONFIG from "@/configs/app.config";
 
 
-type LoadingScreenProps = {
+type LoadingAppProps = {
     isEnabled?: boolean;
 };
 
-export default function LoadingScreen({
+export default function LoadingApp({
     isEnabled = false
-}: LoadingScreenProps) {
+}: LoadingAppProps) {
     const [isFirstAppearance, setIsFirstAppearance] = useState(true);
     const [isHiddenAfterAnimation, setIsHiddenAfterAnimation] = useState(false);
 

@@ -71,6 +71,7 @@ export default function NavButton({
                 setIconWithLabelTransitionDuration(0.5);
                 setIconOnlyVisibility("opacity-100");
                 setIconOnlyTransitionDuration(2);
+
                 break;
             case "expanding":
             case "expanded":
@@ -78,6 +79,7 @@ export default function NavButton({
                 setIconWithLabelTransitionDuration(2);
                 setIconOnlyVisibility("opacity-0");
                 setIconOnlyTransitionDuration(0.5);
+
                 break;
         }
     }, [navPanelState]);
@@ -100,8 +102,7 @@ export default function NavButton({
                     ${iconWithLabelVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconWithLabelTransitionDuration)
-                    }ms`
+                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconWithLabelTransitionDuration)}ms`
                 }}
             >
                 <span className="leading-none child:text-3xl">
@@ -120,8 +121,7 @@ export default function NavButton({
                     ${iconOnlyVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconOnlyTransitionDuration)
-                    }ms`
+                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconOnlyTransitionDuration)}ms`
                 }}
             >
                 <span className="leading-none child:text-3xl">

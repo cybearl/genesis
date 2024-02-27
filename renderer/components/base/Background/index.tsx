@@ -11,7 +11,7 @@ export default function Background({
     imgBlur = 4
 }: BackgroundProps) {
     return (
-        <div className="absolute -z-10 inset-0  w-full h-full flex items-center justify-center bg-black">
+        <div className="absolute -z-10 inset-0 w-full h-full flex items-center justify-center bg-black">
             <div className="absolute min-w-[150vw] aspect-square">
                 <Image
                     src="/static/images/background/cybearl.webp"

@@ -32,9 +32,11 @@ export default function Nav({
         switch (navPanelState) {
             case "collapsing":
                 setPanelWidth(CONFIG.nav.panel.collapsedSize);
+
                 break;
             case "expanding":
                 setPanelWidth(CONFIG.nav.panel.expandedSize);
+
                 break;
         }
 
@@ -42,9 +44,11 @@ export default function Nav({
             switch (navPanelState) {
                 case "collapsing":
                     setNavPanelState("collapsed");
+
                     break;
                 case "expanding":
                     setNavPanelState("expanded");
+
                     break;
             }
         }, CONFIG.nav.panel.transitionDuration);

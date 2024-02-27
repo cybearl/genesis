@@ -18,15 +18,19 @@ export default function ProgressBar({
         switch (size) {
             case "sm":
                 setSizeStyle("h-4");
+
                 break;
             case "md":
                 setSizeStyle("h-6");
+
                 break;
             case "lg":
                 setSizeStyle("h-8");
+
                 break;
             default:
                 setSizeStyle("h-2");
+
                 break;
         }
     }, [size]);

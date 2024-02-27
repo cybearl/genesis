@@ -14,10 +14,10 @@ export default function Logo({
     useEffect(() => {
         switch (size) {
             case "sm":
-                setSizeStyle("w-10 h-10");
+                setSizeStyle("w-12 h-12");
                 break;
             case "md":
-                setSizeStyle("w-14 h-14");
+                setSizeStyle("w-16 h-16");
                 break;
             case "lg":
                 setSizeStyle("w-20 h-20");
@@ -35,12 +35,19 @@ export default function Logo({
     }, [size]);
 
     return (
-        <div className={`relative ${sizeStyle}`}>
+        <div className={`relative aspect-square ${sizeStyle}`}>
             <Image
-                src="static/images/logo/colorized.webp"
-                alt="Logo"
+                src="/static/images/logo/grayscale.webp"
+                alt="Loading screen logo"
                 fill
-                className="object-contain"
+                className="opacity-50 p-[2px]"
+            />
+
+            <Image
+                src="/static/images/logo/colorized.webp"
+                alt="Loading screen logo"
+                fill
+                className="animate-opacity-pulse"
             />
         </div>
     );

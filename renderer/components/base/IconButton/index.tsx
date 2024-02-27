@@ -33,12 +33,15 @@ export default function IconButton({
             case "primary":
                 if (isDisabled) setVariantStyle("text-neutral-800 cursor-default");
                 else setVariantStyle("text-neutral-200 hover:text-neutral-500 active:text-neutral-800");
+
                 break;
             case "secondary":
                 setVariantStyle("");
+
                 break;
             case "tertiary":
                 setVariantStyle("");
+
                 break;
         }
     }, [isDisabled, variant]);
