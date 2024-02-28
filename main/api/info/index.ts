@@ -8,7 +8,10 @@ import { IpcFetchRequest, IpcFetchResponse } from "@sharedTypes/shared";
  * `GET` /api/info route handler.
  * @returns The info of the application.
  */
-const getInfo = async () => appConfig;
+const getInfo = async () => ({
+    ...appConfig,
+    applicationPath: __dirname
+});
 
 /**
  * Handler for the /api/info route.

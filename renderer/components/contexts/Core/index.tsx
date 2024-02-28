@@ -22,12 +22,12 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [navPanelState, setNavPanelState] = useState<NavPanelState>("expanded");
 
     useEffect(() => {
-        const test = async () => {
+        const getAppInfo = async () => {
             const res = await window.ipcFetch("/api/info");
             if (res.data) setInfo(res.data);
         };
 
-        test();
+        getAppInfo();
     }, []);
 
     const context = {

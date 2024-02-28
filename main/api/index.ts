@@ -1,6 +1,7 @@
 import { IpcMainInvokeEvent, ipcMain } from "electron";
 
 import apiInfoHandler from "@main/api/info";
+import apiNotifierHandler from "@main/api/notifier";
 
 import { IpcFetchRequest, IpcFetchResponse } from "../../types/shared";
 
@@ -18,6 +19,10 @@ export default function ipcHandler() {
         switch (req.url) {
             case "/api/info": {
                 const res = await apiInfoHandler(event, req);
+                return res;
+            }
+            case "/api/notifier": {
+                const res = await apiNotifierHandler(event, req);
                 return res;
             }
             default: {

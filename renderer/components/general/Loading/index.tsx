@@ -6,7 +6,7 @@ import Logo from "@/components/base/Logo";
 type LoadingProps = {
     whatIsLoading?: string;
 
-    size?: "sm" | "md" | "lg" | "xl";
+    size?: "md" | "lg" | "xl";
     useParentDimensions?: boolean;
 
     isEnabled?: boolean;
@@ -20,18 +20,14 @@ export default function Loading({
 
     isEnabled = true
 }: LoadingProps) {
-    const [logoSizeStyle, setLogoSizeStyle] = useState<"sm" | "md" | "lg" | "xl" | "2xl" | "3xl">("xl");
+    const [logoSizeStyle, setLogoSizeStyle] = useState<"md" | "lg" | "xl" | "2xl" | "3xl">("xl");
     const [smallTextSizeStyle, setSmallTextSizeStyle] = useState("text-sm");
     const [largeTextSizeStyle, setLargeTextSizeStyle] = useState("text-3xl");
 
+    const [isHidden, setIsHidden] = useState(false);
+
     useEffect(() => {
         switch (size) {
-            case "sm":
-                setLogoSizeStyle("sm");
-                setSmallTextSizeStyle("text-sm");
-                setLargeTextSizeStyle("text-base pb-2");
-
-                break;
             case "md":
                 setLogoSizeStyle("md");
                 setSmallTextSizeStyle("text-sm");
@@ -53,15 +49,28 @@ export default function Loading({
         }
     }, [size]);
 
+    // Show then in animation
+    useEffect(() => {
+        if (isEnabled) setIsHidden(false);
+    }, [isEnabled]);
+
     return (
         <div
-            className={`relative flex items-center justify-center ${useParentDimensions ? "w-full h-full" : "w-fit h-auto"}`}
+            className={`
+                relative items-center justify-center ${useParentDimensions ? "w-full h-full" : "w-fit h-auto"}
+                ${isEnabled ? "animate-opacity-in" : "animate-opacity-out"}
+                ${isHidden ? "hidden" : "flex"}
+            `}
+            onAnimationEnd={() => {
+                // Out animation then hide
+                if (!isEnabled) setIsHidden(true);
+            }}
             onClick={(e) => e.preventDefault()}
         >
             <div className="flex items-center justify-center gap-2">
                 <Logo size={logoSizeStyle} />
 
-                <div className={`${largeTextSizeStyle} font-extralight text-left leading-none`}>
+                <div className={`${largeTextSizeStyle} font-light text-left leading-none`}>
                     <span className={`${smallTextSizeStyle} pl-4`}>
                         Please wait while ..<br />
                     </span>
