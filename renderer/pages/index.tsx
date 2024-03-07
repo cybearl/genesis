@@ -10,15 +10,15 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import { useMemo, useState } from "react";
 
 import Layout from "@/components/structure/Layout";
-import Account from "@/pages/Account";
-import BotInstances from "@/pages/BotInstances";
-import DeveloperMode from "@/pages/DeveloperMode";
-import DryRunSandbox from "@/pages/DryRunSandbox";
-import Help from "@/pages/Help";
-import MarketDataFeed from "@/pages/MarketDataFeed";
-import RealTimeMarket from "@/pages/RealTimeMarket";
-import Settings from "@/pages/Settings";
-import StrategyScoring from "@/pages/StrategyScoring";
+import Account from "@/pages/account";
+import BotInstances from "@/pages/bot-instances";
+import DeveloperMode from "@/pages/developer-mode";
+import DryRunSandbox from "@/pages/dry-run-sandbox";
+import Help from "@/pages/help";
+import MarketDataFeed from "@/pages/market-data-feed";
+import RealTimeMarket from "@/pages/real-time-market";
+import Settings from "@/pages/settings";
+import StrategyScoring from "@/pages/strategy-scoring";
 
 
 export default function Index() {

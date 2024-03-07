@@ -56,7 +56,7 @@ export default function Layout({
                     <BottomBar
                         leftSideContent={[
                             <span key={0}>
-                                {CONFIG.appName} v{CONFIG.appVersion} {info?.environment === "development" && "[DEV MODE]"}
+                                {CONFIG.appName} v{CONFIG.appVersion} {info?.environment === "development" && "[DEVELOPER MODE]"}
                             </span>
                         ]}
                         rightSideContent={[
