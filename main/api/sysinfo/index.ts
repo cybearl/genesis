@@ -1,22 +1,14 @@
 import { currentLoad, mem } from "systeminformation";
 
 import { MemoryMap } from "@main/utils/units";
-import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
-
-
-type SysInfo = {
-    cpuPercentage: string;
-    memoryUsedInGB: string;
-    memoryTotalInGB: string;
-    memoryPercentage: string;
-};
+import { FetchRequest, FetchResponse, SHR__SysInfo } from "@sharedTypes/shared";
 
 
 /**
  * `GET` /api/sysinfo route handler.
  * @returns The system information.
  */
-const getSysInfo = async (): Promise<SysInfo> => {
+const getSysInfo = async (): Promise<SHR__SysInfo> => {
     const cpuLoad = await currentLoad();
     const memoryLoad = await mem();
 

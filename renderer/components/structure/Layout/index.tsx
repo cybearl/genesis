@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 
 import Background from "@/components/base/Background";
 import { NavButtonData } from "@/components/base/NavButton";
@@ -6,8 +6,9 @@ import { CoreContext } from "@/components/contexts/Core";
 import LoadingApp from "@/components/general/LoadingApp";
 import BottomBar from "@/components/structure/BottomBar";
 import Nav from "@/components/structure/Nav";
-import CONFIG from "@/configs/app.config";
+import useInterval from "@/hooks/useInterval";
 import { Inconsolata } from "@/lib/fonts";
+import { SHR__SysInfo } from "@sharedTypes/shared";
 
 
 type LayoutProps = {
@@ -29,6 +30,12 @@ export default function Layout({
     currentPage
 }: LayoutProps) {
     const { info, appStatus } = useContext(CoreContext);
+    const [sysInfo, setSysInfo] = useState({} as SHR__SysInfo);
+
+    useInterval(async () => {
+        const res = await window.ipcFetch("/api/sysinfo");
+        setSysInfo(res.data as SHR__SysInfo);
+    }, 1500);
 
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
@@ -56,7 +63,10 @@ export default function Layout({
                     <BottomBar
                         leftSideContent={[
                             <span key={0}>
-                                {CONFIG.appName} v{CONFIG.appVersion} {info?.environment === "development" && "[DEVELOPER MODE]"}
+                                {sysInfo?.cpuPercentage}%
+                            </span>,
+                            <span key={1}>
+                                {sysInfo?.memoryUsedInGB}/{sysInfo?.memoryTotalInGB} GB ({sysInfo?.memoryPercentage}%)
                             </span>
                         ]}
                         rightSideContent={[

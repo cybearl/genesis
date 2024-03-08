@@ -58,8 +58,18 @@ export interface FetchResponse {
 /**
  * The type of the info returned by the /api/info route.
  */
-export interface SharedT__Info {
+export interface SHR__Info {
     name: string;
     version: string;
     environment: "development" | "production";
 }
+
+/**
+ * The type of the system information returned by the /api/sysinfo route.
+ */
+type SHR__SysInfo = {
+    cpuPercentage: string;
+    memoryUsedInGB: string;
+    memoryTotalInGB: string;
+    memoryPercentage: string;
+};
