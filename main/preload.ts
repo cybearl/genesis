@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-import { IpcFetchResponse } from "@sharedTypes/shared";
+import { FetchResponse, RawFetchRequestOptions } from "@sharedTypes/shared";
 
 
 /**
@@ -13,19 +13,17 @@ import { IpcFetchResponse } from "@sharedTypes/shared";
  */
 async function ipcFetch(
     url: string,
-    method: "GET" | "POST" | "PATCH" | "DELETE" = "GET",
-    body: any = undefined
-): Promise<IpcFetchResponse> {
-    // Validate the request
-    if (method === "GET" && body) throw new Error("GET requests cannot have a body.");
-    if (method !== "GET" && !body) throw new Error("Non-GET requests must have a body.");
+    options?: RawFetchRequestOptions
+): Promise<FetchResponse> {
+    if (!url) throw new Error("URL is required.");
+    if (typeof url !== "string") throw new Error("URL must be a string.");
 
-    const response = await ipcRenderer.invoke("ipc::fetch", {
-        url,
-        method,
-        body
-    });
+    if (options) {
+        if (options.method === "GET" && options.body) throw new Error("GET requests cannot have a body.");
+        if (options.method !== "GET" && !options.body) throw new Error("Non-GET requests must have a body.");
+    }
 
+    const response = await ipcRenderer.invoke("ipc::router", { url, options });
     return response;
 }
 

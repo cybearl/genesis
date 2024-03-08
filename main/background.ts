@@ -1,9 +1,9 @@
 import path from "path";
 
-import { app } from "electron";
+import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 
-import ipcHandler from "@main/api/index";
+import ipcRouter from "@main/api/index";
 import defaultWindowConfig from "@main/configs/window.config";
 import { createWindow } from "@main/helpers/createWindow";
 
@@ -47,4 +47,4 @@ app.on("window-all-closed", () => {
     }
 });
 
-ipcHandler();
+ipcMain.handle("ipc::router", ipcRouter);

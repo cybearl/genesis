@@ -1,4 +1,4 @@
-import { IpcMainInvokeEvent, ipcMain } from "electron";
+import { IpcMainInvokeEvent } from "electron";
 
 import apiInfoHandler from "@main/api/info";
 import apiNotifierHandler from "@main/api/notifier";
@@ -8,44 +8,42 @@ import { FetchRequest, FetchResponse, RawFetchRequest } from "../../types/shared
 
 
 /**
- * The ipcFetch API entry point used for the IPC communication
- * between the main and the renderer process.
- *
- * It redirects the request to the appropriate handler.
+ * The IPC router (entry point used for the IPC communication
+ * between the main and the renderer process) redirects
+ * the request to the appropriate API endpoint.
  */
-export default function ipcHandler() {
-    const entryPoint = async (event: IpcMainInvokeEvent, req: RawFetchRequest): Promise<FetchResponse> => {
-        event.preventDefault();
+export default async function ipcRouter(
+    event: IpcMainInvokeEvent,
+    req: RawFetchRequest
+): Promise<FetchResponse> {
+    event.preventDefault();
 
-        // Get the query parameters from the URL
-        const query = getQueryParams(req.url);
-
-        // Convert the raw fetch request to a FetchRequest
-        const fetchRequest: FetchRequest = {
-            url: req.url,
-            method: req.options?.method || "GET",
-            headers: req.options?.headers || {},
-            query: query,
-            body: req.options?.body
-        };
-
-        switch (req.url) {
-            case "/api/info": {
-                const res = await apiInfoHandler(fetchRequest);
-                return res;
-            }
-            case "/api/notifier": {
-                const res = await apiNotifierHandler(fetchRequest);
-                return res;
-            }
-            default: {
-                return {
-                    status: 404,
-                    message: "Not Found"
-                };
-            }
-        }
+    // Convert the raw fetch request to a FetchRequest
+    // useable by the API handlers
+    const fetchRequest: FetchRequest = {
+        url: req.url,
+        method: req.options?.method || "GET",
+        headers: req.options?.headers || {},
+        query: getQueryParams(req.url),
+        body: req.options?.body
     };
 
-    ipcMain.handle("ipc::fetch", entryPoint);
+    console.log("fetchRequest", fetchRequest);
+
+    switch (req.url) {
+        case "/api/info": {
+            const res = await apiInfoHandler(fetchRequest);
+            return res;
+        }
+        case "/api/notifier": {
+            const res = await apiNotifierHandler(fetchRequest);
+            return res;
+        }
+        default: {
+            return {
+                status: 404,
+                message: "Not Found"
+            };
+        }
+    }
 }

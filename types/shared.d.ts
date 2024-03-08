@@ -58,7 +58,7 @@ export interface FetchResponse {
 /**
  * The type of the info returned by the /api/info route.
  */
-export interface T_API_Info {
+export interface SharedT__Info {
     name: string;
     version: string;
     environment: "development" | "production";
