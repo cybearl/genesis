@@ -1,9 +1,8 @@
 import path from "path";
 
-import { IpcMainInvokeEvent } from "electron";
 import notifier from "node-notifier";
 
-import { IpcFetchRequest, IpcFetchResponse } from "@sharedTypes/shared";
+import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
 
 
 export type NotifierRequest = {
@@ -29,11 +28,8 @@ const notify = async (notification: NotifierRequest) => {
 /**
  * Handler for the /api/notifier route.
  */
-export default async function handler(
-    event: IpcMainInvokeEvent,
-    req: IpcFetchRequest
-): Promise<IpcFetchResponse> {
-    const { title, message, icon, sound } = req.body as NotifierRequest;
+export default async function handler(req: FetchRequest): Promise<FetchResponse> {
+    const { title, message, icon, sound } = req.query as NotifierRequest;
 
     if (!message) {
         return {

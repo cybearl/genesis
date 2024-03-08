@@ -1,31 +1,64 @@
 /**
- * The type of a request to the ipcFetch API.
- * @param url The URL to fetch.
+ * The options passed to the API endpoint.
  * @param method The HTTP method to use (optional, defaults to `GET`).
- * @param body The body of the request (optional, defaults to `undefined`).
+ * @param headers The headers of the request (optional, defaults to `{}`).
+ * @param body The body of the request (optional, defaults to `{}`).
  */
-export interface IpcFetchRequest {
-    url: string;
+export interface RawFetchRequestOptions {
     method: "GET" | "POST" | "PATCH" | "DELETE";
-    body: any;
+    headers?: object;
+    body?: object;
 }
 
 /**
- * The type of a response from the ipcFetch API.
+ * The type of a request to the fetch API.
+ * @param url The URL to fetch.
+ * @param options The options to pass to the fetch API (optional, see `RawFetchRequestOptions` for default values).
+ */
+export interface RawFetchRequest {
+    url: string;
+    options?: RawFetchRequestOptions;
+}
+
+/**
+ * FetchRequest with mandatory options merged with url, simulating the behavior
+ * of the original NextJS fetch endpoint function.
+ * @param url The URL to fetch.
+ * @param method The HTTP method to use (optional, defaults to `GET`).
+ * @param headers The headers of the request (optional, defaults to `{}`).
+ * @param query The query of the request (optional, defaults to `{}`).
+ * @param body The body of the request (optional, defaults to `{}`).
+ */
+export interface FetchRequest {
+    url: string;
+    method: "GET" | "POST" | "PATCH" | "DELETE";
+    headers?: object;
+    query?: object;
+    body?: object;
+}
+
+/**
+ * The type of a response from the fetch API.
  * @param status The HTTP status code of the response.
  * @param message The message of the response.
  * @param data The data of the response.
  */
-export interface IpcFetchResponse {
+export interface FetchResponse {
     status: number;
     message?: string;
-    data?: any;
+    data?: object;
 }
+
+/**
+ * ====================
+ *   API SHARED TYPES
+ * ====================
+ */
 
 /**
  * The type of the info returned by the /api/info route.
  */
-export interface Info {
+export interface T_API_Info {
     name: string;
     version: string;
     environment: "development" | "production";

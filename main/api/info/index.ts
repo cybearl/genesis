@@ -1,7 +1,5 @@
-import { IpcMainInvokeEvent } from "electron";
-
 import { appConfig } from "@main/configs/app.config";
-import { IpcFetchRequest, IpcFetchResponse } from "@sharedTypes/shared";
+import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
 
 
 /**
@@ -16,10 +14,7 @@ const getInfo = async () => ({
 /**
  * Handler for the /api/info route.
  */
-export default async function handler(
-    event: IpcMainInvokeEvent,
-    req: IpcFetchRequest
-): Promise<IpcFetchResponse> {
+export default async function handler(req: FetchRequest): Promise<FetchResponse> {
     if (req.method === "GET") {
         const data = await getInfo();
 
