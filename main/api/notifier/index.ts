@@ -34,7 +34,8 @@ export default async function handler(req: FetchRequest): Promise<FetchResponse>
     if (!message) {
         return {
             status: 400,
-            message: "Bad Request"
+            message: "Bad Request",
+            data: null
         };
     }
 
@@ -43,12 +44,14 @@ export default async function handler(req: FetchRequest): Promise<FetchResponse>
 
         return {
             status: 200,
-            message: "OK"
+            message: "OK",
+            data: null
         };
     }
 
     return {
-        status: 404,
-        message: "Not Found"
+        status: 405,
+        message: "Method Not Allowed",
+        data: null
     };
 }

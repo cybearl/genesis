@@ -45,8 +45,8 @@ export interface FetchRequest {
  */
 export interface FetchResponse {
     status: number;
-    message?: string;
-    data?: object;
+    message: string;
+    data: object | null;
 }
 
 /**

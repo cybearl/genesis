@@ -26,7 +26,8 @@ export default async function handler(req: FetchRequest): Promise<FetchResponse>
     }
 
     return {
-        status: 404,
-        message: "Not Found"
+        status: 405,
+        message: "Method Not Allowed",
+        data: null
     };
 }

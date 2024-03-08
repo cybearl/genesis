@@ -1,11 +1,20 @@
-import Loading from "@/components/general/Loading";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+
+import IconButton from "@/components/base/IconButton";
 
 
 export default function Settings() {
+    const test = async () => {
+        const test = await window.ipcFetch("/api/sysinfo");
+        console.log(test);
+    };
 
     return (
         <div className="w-full h-full">
-            {/* <Loading size="lg" isEnabled={true} useParentDimensions /> */}
+            <IconButton
+                icon={<AccountBalanceIcon />}
+                onClick={() => test()}
+            />
         </div>
     );
 }
