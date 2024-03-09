@@ -117,6 +117,7 @@ export default function Nav({
 
                 <div className="w-full flex justify-center items-center h-[31px] border-t border-neutral-800 shadow shadow-black">
                     <IconButton
+                        title={navPanelState === "collapsed" ? "Expand" : "Collapse"}
                         icon={
                             <KeyboardDoubleArrowRightIcon
                                 className="transform transition-transform ease-in-out"

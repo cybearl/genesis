@@ -19,8 +19,10 @@ export default async function ipcRouter(
 ): Promise<FetchResponse> {
     event.preventDefault();
 
-    // Convert the raw fetch request to a FetchRequest
-    // useable by the API handlers
+    // Convert the raw fetch request to a FetchRequest useable by the API handlers
+    // ex: `req.options?.url` query parameters goes into `req.query`
+    // ex: `req.options?.body` becomes `req.body`
+    // etc..
     const fetchRequest: FetchRequest = {
         url: req.url,
         method: req.options?.method || "GET",
@@ -30,6 +32,9 @@ export default async function ipcRouter(
     };
 
     switch (req.url) {
+        case "/api/config": {
+
+        }
         case "/api/info": {
             const res = await apiInfoHandler(fetchRequest);
             return res;

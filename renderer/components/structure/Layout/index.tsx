@@ -1,4 +1,5 @@
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { Memory, Speed } from "@mui/icons-material";
+import { ReactNode, useContext, useState } from "react";
 
 import Background from "@/components/base/Background";
 import { NavButtonData } from "@/components/base/NavButton";
@@ -35,7 +36,7 @@ export default function Layout({
     useInterval(async () => {
         const res = await window.ipcFetch("/api/sysinfo");
         setSysInfo(res.data as SHR__SysInfo);
-    }, 1500);
+    }, 2000);
 
     return (
         <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
@@ -62,18 +63,18 @@ export default function Layout({
 
                     <BottomBar
                         leftSideContent={[
-                            <span key={0}>
+                            <span key={0} title="Global CPU usage">
+                                <Speed className="text-lg mr-1.5 mb-0.5" />
                                 {sysInfo?.cpuPercentage}%
                             </span>,
-                            <span key={1}>
+                            <span key={1} title="Global memory usage">
+                                <Memory className="text-lg mr-1.5 mb-0.5" />
                                 {sysInfo?.memoryUsedInGB}/{sysInfo?.memoryTotalInGB} GB ({sysInfo?.memoryPercentage}%)
                             </span>
                         ]}
                         rightSideContent={[
-                            <span key={0}>
-                                <span className="text-lg leading-[0]">
-                                    ©
-                                </span>
+                            <span key={0} title="Made by Cybearl | Yoratoni">
+                                <span className="text-lg leading-[0]">©</span>
                                 &nbsp;{new Date().getFullYear()} Cybearl
                             </span>
                         ]}

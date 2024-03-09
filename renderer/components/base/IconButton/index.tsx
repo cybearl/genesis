@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 type IconButtonProps = {
     icon: ReactNode;
 
+    title?: string;
     variant?: "primary" | "secondary" | "tertiary";
     size?: "sm" | "md" | "lg";
     useParentSize?: boolean;
@@ -16,6 +17,7 @@ type IconButtonProps = {
 export default function IconButton({
     icon,
 
+    title,
     variant = "primary",
     size = "md",
     useParentSize = false,
@@ -68,6 +70,7 @@ export default function IconButton({
                 ${sizeStyle}
                 ${useParentSize ? "w-full h-full" : ""}
             `}
+            title={title}
             disabled={isDisabled}
             onClick={onClick}
         >
