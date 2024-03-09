@@ -36,7 +36,7 @@ export const createWindow = (
     let state = Object.assign({}, defaultWindow);
 
     // Create the store for the window
-    const storeName = `${windowName} Window`;
+    const storeName = `${windowName}_window`;
     const storeKey = "state";
     const store = new Store<Rectangle>({ name: storeName });
 

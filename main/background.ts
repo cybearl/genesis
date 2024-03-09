@@ -17,7 +17,7 @@ if (app.isPackaged) {
 (async () => {
     await app.whenReady();
 
-    const mainWindow = createWindow("Main", {
+    const mainWindow = createWindow("main", {
         title: defaultWindowConfig.title,
         width: defaultWindowConfig.initialWidth,
         height: defaultWindowConfig.initialHeight,
