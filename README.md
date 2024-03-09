@@ -1,22 +1,22 @@
 <p align="center">
     <a href="https://github.com/cybearl/genesis" target="_blank">
-        <img src="https://raw.githubusercontent.com/cybearl/genesis/main/assets/illustration.png" alt="Genesis logo">
+        <img src="https://raw.githubusercontent.com/cybearl/genesis/main/assets/title.png" alt="Genesis logo" width="600px">
     </a>
 </p>
 
 <p align="center">
+    <a href="https://github.com/cybearl/genesis/blob/main/package.json" target="_blank">
+        <img src="https://img.shields.io/github/package-json/v/cybearl/genesis?color=FDD384&style=flat-square">
+    </a>
     <a href="https://github.com/yoratoni" target="_blank">
         <img src="https://img.shields.io/badge/made%20by-Yoratoni-858FF0?style=flat-square">
     </a>
     <a href="https://github.com/cybearl/genesis/blob/main/LICENSE" target="_blank">
         <img src="https://img.shields.io/github/license/cybearl/genesis?color=D962F2&style=flat-square">
     </a>
-    <!-- <a href="https://github.com/cybearl/genesis/issues" target="_blank">
+    <a href="https://github.com/cybearl/genesis/issues" target="_blank">
         <img src="https://img.shields.io/github/issues-raw/cybearl/genesis?color=FF8D70&style=flat-square">
-    </a> -->
-    <!-- <a href="https://github.com/cybearl/genesis/blob/main/package.json" target="_blank">
-        <img src="https://img.shields.io/github/package-json/v/cybearl/genesis?color=FDD384&style=flat-square">
-    </a> -->
+    </a>
 </p>
 
 ## Update: 12/2023
