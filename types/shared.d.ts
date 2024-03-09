@@ -65,11 +65,19 @@ export interface SHR__Info {
 }
 
 /**
+ * The type of the settings returned by the /api/settings route.
+ */
+export interface SHR__Settings {
+    theme: "light" | "dark";
+    locale: string;
+}
+
+/**
  * The type of the system information returned by the /api/sysinfo route.
  */
-type SHR__SysInfo = {
+export interface SHR__SysInfo {
     cpuPercentage: string;
     memoryUsedInGB: string;
     memoryTotalInGB: string;
     memoryPercentage: string;
-};
+}

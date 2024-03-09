@@ -2,6 +2,7 @@ import { IpcMainInvokeEvent } from "electron";
 
 import apiInfoHandler from "@main/api/info";
 import apiNotifierHandler from "@main/api/notifier";
+import apiSettingsHandler from "@main/api/settings";
 import apiSysInfoHandler from "@main/api/sysinfo";
 import { parseQueryFromUrl } from "@main/utils/api";
 
@@ -31,21 +32,24 @@ export default async function ipcRouter(
         body: req.options?.body
     };
 
-    switch (req.url) {
-        case "/api/config": {
+    let res: FetchResponse;
 
-        }
+    switch (req.url) {
         case "/api/info": {
-            const res = await apiInfoHandler(fetchRequest);
-            return res;
+            res = await apiInfoHandler(fetchRequest);
+            break;
         }
         case "/api/notifier": {
-            const res = await apiNotifierHandler(fetchRequest);
-            return res;
+            res = await apiNotifierHandler(fetchRequest);
+            break;
+        }
+        case "/api/settings": {
+            res = await apiSettingsHandler(fetchRequest);
+            break;
         }
         case "/api/sysinfo": {
-            const res = await apiSysInfoHandler(fetchRequest);
-            return res;
+            res = await apiSysInfoHandler(fetchRequest);
+            break;
         }
         default: {
             return {
@@ -55,4 +59,6 @@ export default async function ipcRouter(
             };
         }
     }
+
+    return res;
 }
