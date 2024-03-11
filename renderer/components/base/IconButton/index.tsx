@@ -68,7 +68,7 @@ export default function IconButton({
                 transition-all duration-150 ease-in-out
                 ${variantStyle}
                 ${sizeStyle}
-                ${useParentSize ? "w-full h-full" : ""}
+                ${useParentSize ? "w-full h-full" : "p-1"}
             `}
             title={title}
             disabled={isDisabled}
