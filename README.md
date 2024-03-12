@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/cybearl/genesis" target="_blank">
-        <img src="https://raw.githubusercontent.com/cybearl/genesis/main/assets/logo.png" alt="Genesis logo" width="650px">
+        <img src="https://raw.githubusercontent.com/cybearl/genesis/main/assets/logo.png" alt="Genesis logo" width="400px">
     </a>
 </p>
 
