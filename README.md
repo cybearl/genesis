@@ -30,11 +30,7 @@ and features around the cryptocurrency space.
 - [ ] A lot of different tools and features around the cryptocurrency space.
 
 ## Updates:
-**Note:** I care about the Open-Source community,
-that's why this repo is public, but it is not aimed to be a commercial product,
-neither a product for the community, I'm doing this for personal use,
-and I'm sharing it with the community because I think it could be interesting
-or some people.
+Here's a quick list of updates I've made to the project, and what I'm currently working on.
 
 #### Update: 12/2023
 I've decided to switch to Electron for the bot itself, I started this bot with a too complex architecture,
@@ -54,3 +50,9 @@ Now, here's a quick list of features I'm thinking about:
 - [ ] A bot page, to see the current bots running, and to add new ones.
 - [ ] I plan to implement a system that watch a lot of different cryptos at the same time to find the best
   opportunities (even for manual trading, it could be interesting).
+
+**Note:** I care about the Open-Source community,
+that's why this repo is public, but it is not aimed to be a commercial product,
+neither a product for the community, I'm doing this for personal use,
+and I'm sharing it with the community because I think it could be interesting
+or some people.
