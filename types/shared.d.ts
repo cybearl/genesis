@@ -76,8 +76,15 @@ export interface SHR__Settings {
  * The type of the system information returned by the /api/sysinfo route.
  */
 export interface SHR__SysInfo {
-    cpuPercentage: string;
-    memoryUsedInGB: string;
-    memoryTotalInGB: string;
-    memoryPercentage: string;
+    cpu: {
+        percentage: string;
+        str: string;
+    },
+    memory: {
+        available: string;
+        used: string;
+        total: string;
+        percentage: string;
+        str: string;
+    };
 }

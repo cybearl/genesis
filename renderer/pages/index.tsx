@@ -1,12 +1,4 @@
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import BugReportIcon from "@mui/icons-material/BugReport";
-import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
-import HelpIcon from "@mui/icons-material/Help";
-import PriceChangeIcon from "@mui/icons-material/PriceChange";
-import ScoreboardIcon from "@mui/icons-material/Scoreboard";
-import SettingsIcon from "@mui/icons-material/Settings";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
+import { Icon } from "@iconify/react";
 import { useMemo, useState } from "react";
 
 import Layout from "@/components/structure/Layout";
@@ -44,43 +36,43 @@ export default function Index() {
             topNavButtons={[
                 {
                     label: "Real-time market",
-                    icon: <AccountBalanceIcon />
+                    icon: <Icon icon="material-symbols:account-balance-wallet-outline" />
                 },
                 {
                     label: "Market data feed",
-                    icon: <PriceChangeIcon />
+                    icon: <Icon icon="material-symbols:price-change-outline-rounded" />
                 },
                 {
                     label: "Strategy scoring",
-                    icon: <ScoreboardIcon />
+                    icon: <Icon icon="material-symbols:scoreboard-outline-rounded" />
                 },
                 {
                     label: "Dry-run sandbox",
-                    icon: <BugReportIcon />
+                    icon: <Icon icon="material-symbols:bug-report-outline-rounded" />
                 },
                 {
                     label: "Bot instances",
-                    icon: <SmartToyIcon />
+                    icon: <Icon icon="material-symbols:smart-toy-outline-rounded" />
                 }
             ]}
             bottomNavButtons={[
                 {
                     label: "Help",
-                    icon: <HelpIcon />
+                    icon: <Icon icon="material-symbols:help-outline-rounded" />
                 },
                 {
                     label: "Account",
-                    icon: <AccountCircleIcon />
+                    icon: <Icon icon="material-symbols:account-circle" />
                 },
                 {
                     label: "Settings",
-                    icon: <SettingsIcon />
+                    icon: <Icon icon="material-symbols:settings-outline-rounded" />
                 }
             ]}
             devOnlyNavButtons={[
                 {
                     label: "Developer mode",
-                    icon: <DeveloperBoardIcon />
+                    icon: <Icon icon="material-symbols:developer-board-outline-rounded" />
                 }
             ]}
             onNavButtonClick={(index) => setCurrentPage(index)}

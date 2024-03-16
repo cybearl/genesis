@@ -9,18 +9,28 @@ import { FetchRequest, FetchResponse, SHR__SysInfo } from "@sharedTypes/shared";
  * @returns The system information.
  */
 const getSysInfo = async (): Promise<SHR__SysInfo> => {
-    const cpuLoad = await currentLoad();
-    const memoryLoad = await mem();
+    const sysCPU = await currentLoad();
+    const sysMemory = await mem();
+    const sysMemoryAvailableGB = sysMemory.available / MemoryMap.GB;
+    const sysMemoryUsedGB = sysMemory.active / MemoryMap.GB;
+    const sysMemoryTotalGB = sysMemory.total / MemoryMap.GB;
+    const sysMemoryPercentage = (sysMemoryUsedGB / sysMemoryTotalGB) * 100;
 
-    const memoryUsed = memoryLoad.active / MemoryMap.GB;
-    const memoryTotal = memoryLoad.total / MemoryMap.GB;
-
-    return {
-        cpuPercentage: (100 - cpuLoad.currentLoadIdle).toFixed(2),
-        memoryUsedInGB: memoryUsed.toFixed(2),
-        memoryTotalInGB: memoryTotal.toFixed(2),
-        memoryPercentage: ((memoryUsed / memoryTotal) * 100).toFixed(2)
+    const data: SHR__SysInfo = {
+        cpu: {
+            percentage: (100 - sysCPU.currentLoadIdle).toFixed(2),
+            str: `${(100 - sysCPU.currentLoadIdle).toFixed(2)}%`
+        },
+        memory: {
+            available: sysMemoryAvailableGB.toFixed(2),
+            used: sysMemoryUsedGB.toFixed(2),
+            total: sysMemoryTotalGB.toFixed(2),
+            percentage: sysMemoryPercentage.toFixed(2),
+            str: `${sysMemoryUsedGB.toFixed(2)} / ${sysMemoryTotalGB.toFixed(2)} GB (${sysMemoryPercentage.toFixed(2)}%)`
+        }
     };
+
+    return data;
 };
 
 /**

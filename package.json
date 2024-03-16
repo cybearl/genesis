@@ -14,10 +14,6 @@
         "postinstall": "electron-builder install-app-deps"
     },
     "dependencies": {
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.11.0",
-        "@mui/icons-material": "^5.15.1",
-        "@mui/material": "^5.15.1",
         "electron-serve": "^1.1.0",
         "electron-store": "^8.1.0",
         "node-notifier": "^10.0.1",
@@ -26,6 +22,7 @@
         "webpack": "^5.89.0"
     },
     "devDependencies": {
+        "@iconify/react": "^4.1.1",
         "@total-typescript/ts-reset": "^0.5.1",
         "@types/node": "^18.11.18",
         "@types/node-notifier": "^8.0.5",

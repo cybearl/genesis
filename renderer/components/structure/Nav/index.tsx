@@ -1,4 +1,4 @@
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { Icon } from "@iconify/react";
 import { useContext, useEffect, useState } from "react";
 
 import IconButton from "@/components/base/IconButton";
@@ -119,7 +119,8 @@ export default function Nav({
                     <IconButton
                         title={navPanelState === "collapsed" ? "Expand" : "Collapse"}
                         icon={
-                            <KeyboardDoubleArrowRightIcon
+                            <Icon
+                                icon="material-symbols:keyboard-double-arrow-right-rounded"
                                 className="transform transition-transform ease-in-out"
                                 style={{
                                     transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms`,

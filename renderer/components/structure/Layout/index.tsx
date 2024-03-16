@@ -1,4 +1,4 @@
-import { Memory, Speed } from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 import { ReactNode, useContext, useState } from "react";
 
 import Background from "@/components/base/Background";
@@ -31,7 +31,7 @@ export default function Layout({
     currentPage
 }: LayoutProps) {
     const { info, appStatus } = useContext(CoreContext);
-    const [sysInfo, setSysInfo] = useState({} as SHR__SysInfo);
+    const [sysInfo, setSysInfo] = useState<SHR__SysInfo>();
 
     useInterval(async () => {
         const res = await window.ipcFetch("/api/sysinfo");
@@ -63,21 +63,16 @@ export default function Layout({
 
                     <BottomBar
                         leftSideContent={[
-                            <span key={0} title="Global CPU usage">
-                                <Speed className="text-lg mr-1.5 mb-0.5" />
-                                {sysInfo?.cpuPercentage}%
+                            <span key={0} title="System CPU usage" className="flex justify-center items-center">
+                                <Icon icon="material-symbols:speed-outline-rounded" className="text-lg mr-2 mb-0.5" />
+                                {sysInfo ? sysInfo.cpu.str : "..."}
                             </span>,
-                            <span key={1} title="Global memory usage">
-                                <Memory className="text-lg mr-1.5 mb-0.5" />
-                                {sysInfo?.memoryUsedInGB}/{sysInfo?.memoryTotalInGB} GB ({sysInfo?.memoryPercentage}%)
+                            <span key={1} title="System memory usage" className="flex justify-center items-center">
+                                <Icon icon="material-symbols:memory-outline-rounded" className="text-lg mr-1.5 mb-[1px]" />
+                                {sysInfo ? sysInfo.memory.str : "..."}
                             </span>
                         ]}
-                        rightSideContent={[
-                            <span key={0} title="Made by Cybearl | Yoratoni">
-                                <span className="text-lg leading-[0]">©</span>
-                                &nbsp;{new Date().getFullYear()} Cybearl
-                            </span>
-                        ]}
+                        rightSideContent={[]}
                     />
                 </div>
             </main>

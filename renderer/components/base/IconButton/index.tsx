@@ -65,7 +65,7 @@ export default function IconButton({
     return (
         <button
             className={`
-                transition-all duration-150 ease-in-out
+                transition-all duration-150 ease-in-out flex justify-center items-center
                 ${variantStyle}
                 ${sizeStyle}
                 ${useParentSize ? "w-full h-full" : "p-1"}

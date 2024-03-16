@@ -1,4 +1,4 @@
-import CloseIcon from "@mui/icons-material/Close";
+import { Icon } from "@iconify/react";
 
 
 type TabProps = {
@@ -37,7 +37,7 @@ export default function Tab({
                         onClose?.();
                     }}
                 >
-                    <CloseIcon />
+                    <Icon icon="material-symbols:close-rounded" />
                 </button>
             )}
         </div>
