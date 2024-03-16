@@ -12,8 +12,8 @@ export default function BottomBar({
 }: BottomBarProps) {
     return (
         <div className={`
-            w-full h-8 flex items-center px-4 border-t border-neutral-800
-            bg-black bg-opacity-[0.92] backdrop-blur-lg text-neutral-400
+            w-full h-8 flex items-center px-4 border-t border-secondary-800
+            bg-secondary-1000 bg-opacity-[0.92] backdrop-blur-lg text-secondary-400
         `}>
             <div className="flex-grow flex items-center justify-start gap-4 pt-0.5">
                 {leftSideContent.map((content, index) => (

@@ -54,10 +54,9 @@ export default function NavButton({
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-500 cursor-default");
-                else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default bg-neutral-900 bg-opacity-40");
-                else if (isDisabled && isActive) setVariantStyle("border-white cursor-default");
-                else setVariantStyle("border-transparent hover:bg-neutral-900 active:border-neutral-600");
+                if (isDisabled) setVariantStyle("border-transparent text-secondary-500 cursor-default");
+                else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default bg-secondary-950 text-white");
+                else setVariantStyle("border-transparent hover:bg-secondary-900 active:border-secondary-600 text-secondary-300");
 
                 break;
         }

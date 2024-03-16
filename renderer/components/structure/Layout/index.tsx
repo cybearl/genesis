@@ -57,7 +57,7 @@ export default function Layout({
                 />
 
                 <div className="relative w-full h-full max-h-screen flex flex-col">
-                    <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-black bg-opacity-90">
+                    <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-secondary-1000 bg-opacity-90">
                         {children}
                     </div>
 

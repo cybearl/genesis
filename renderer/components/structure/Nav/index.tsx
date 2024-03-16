@@ -57,8 +57,8 @@ export default function Nav({
     return (
         <nav
             className={`
-                relative h-full bg-black bg-opacity-[0.92] backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
-                transition-all ease-in-out border-r border-neutral-800 overflow-hidden
+                relative h-full bg-secondary-1000 bg-opacity-[0.92] backdrop-blur-lg flex justify-between items-center shadow-lg shadow-black
+                transition-all ease-in-out border-r border-secondary-800 overflow-hidden
             `}
             style={{
                 transitionDuration: `${CONFIG.nav.panel.transitionDuration}ms`,
@@ -115,7 +115,7 @@ export default function Nav({
                     </div>
                 </div>
 
-                <div className="w-full flex justify-center items-center h-[31px] border-t border-neutral-800 shadow shadow-black">
+                <div className="w-full flex justify-center items-center h-[31px] border-t border-secondary-800 shadow shadow-black">
                     <IconButton
                         title={navPanelState === "collapsed" ? "Expand" : "Collapse"}
                         icon={

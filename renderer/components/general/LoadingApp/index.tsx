@@ -44,11 +44,11 @@ export default function LoadingApp({
             />
 
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-gray-300" />
-                <div className="w-full text-base max-w-3xl text-center text-gray-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
+                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
+                <div className="w-full text-base max-w-3xl text-center text-secondary-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
                     {CONFIG.appDescription}
                 </div>
-                <hr className="w-full h-[1px] border-transparent bg-gray-300" />
+                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
             </div>
 
             <div className="w-full h-full flex flex-col items-center justify-center">
@@ -78,11 +78,11 @@ export default function LoadingApp({
             </div>
 
             <div className="absolute bottom-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-gray-300" />
-                <div className="w-full text-base max-w-3xl text-center text-gray-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
+                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
+                <div className="w-full text-base max-w-3xl text-center text-secondary-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
                     {CONFIG.appDisclaimer}
                 </div>
-                <hr className="w-full h-[1px] border-transparent bg-gray-300" />
+                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
             </div>
         </div>
     );

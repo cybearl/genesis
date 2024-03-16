@@ -33,8 +33,8 @@ export default function IconButton({
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled) setVariantStyle("text-neutral-800 cursor-default");
-                else setVariantStyle("text-neutral-200 hover:text-neutral-500 active:text-neutral-800");
+                if (isDisabled) setVariantStyle("text-secondary-800 cursor-default");
+                else setVariantStyle("text-secondary-200 hover:text-secondary-500 active:text-secondary-800");
 
                 break;
             case "secondary":
