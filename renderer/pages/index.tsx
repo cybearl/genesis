@@ -36,7 +36,7 @@ export default function Index() {
 
     return (
         <Layout
-            topNavButtons={[
+            topSidebarButtons={[
                 {
                     label: "Real-time market",
                     icon: <Icon icon="material-symbols:account-balance-wallet-outline" />
@@ -58,7 +58,7 @@ export default function Index() {
                     icon: <Icon icon="material-symbols:smart-toy-outline-rounded" />
                 }
             ]}
-            bottomNavButtons={[
+            bottomSidebarButtons={[
                 {
                     label: "Help",
                     icon: <Icon icon="material-symbols:help-outline-rounded" />
@@ -72,13 +72,13 @@ export default function Index() {
                     icon: <Icon icon="material-symbols:settings-outline-rounded" />
                 }
             ]}
-            devOnlyNavButtons={[
+            devOnlySidebarButtons={[
                 {
                     label: "Developer mode",
                     icon: <Icon icon="material-symbols:developer-board-outline-rounded" />
                 }
             ]}
-            onNavButtonClick={(index) => setCurrentPage(index)}
+            onSidebarButtonClick={(index) => setCurrentPage(index)}
             currentPage={currentPage}
         >
             {pages[currentPage]}

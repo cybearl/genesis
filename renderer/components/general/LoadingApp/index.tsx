@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import Background from "@/components/base/Background";
-import CONFIG from "@/configs/app.config";
+import AppConfig from "@/configs/app.config";
 
 
 type LoadingAppProps = {
@@ -46,7 +46,7 @@ export default function LoadingApp({
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">
                 <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
                 <div className="w-full text-base max-w-3xl text-center text-secondary-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
-                    {CONFIG.appDescription}
+                    {AppConfig.appDescription}
                 </div>
                 <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
             </div>
@@ -73,14 +73,14 @@ export default function LoadingApp({
                         A project by<br />
                     </span>
 
-                    {CONFIG.appProducer}.
+                    {AppConfig.appProducer}.
                 </div>
             </div>
 
             <div className="absolute bottom-6 w-full flex justify-between items-center gap-8">
                 <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
                 <div className="w-full text-base max-w-3xl text-center text-secondary-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
-                    {CONFIG.appDisclaimer}
+                    {AppConfig.appDisclaimer}
                 </div>
                 <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
             </div>

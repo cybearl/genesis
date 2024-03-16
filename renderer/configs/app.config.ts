@@ -1,4 +1,4 @@
-const CONFIG = {
+const AppConfig = {
     appProducer: "CYBEARL",
     appName: "Genesis",
     appVersion: "1.0.0",
@@ -11,16 +11,26 @@ const CONFIG = {
         USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
     `,
 
-    isDebug: true,
+    background: {
+        opacity: 0.5,
+        blur: 20
+    },
 
-    nav: {
+    sidebar: {
+        opacity: 0.5,
+        blur: 20,
         panel: {
             collapsedSize: 64,
             expandedSize: 250,
             transitionDuration: 300,
             minLabelLength: 16
         }
+    },
+
+    statusBar: {
+        opacity: 0.5,
+        blur: 20
     }
 };
 
-export default CONFIG;
+export default AppConfig;

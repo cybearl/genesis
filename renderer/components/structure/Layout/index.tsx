@@ -2,11 +2,12 @@ import { Icon } from "@iconify/react";
 import { ReactNode, useContext, useState } from "react";
 
 import Background from "@/components/base/Background";
-import { NavButtonData } from "@/components/base/NavButton";
+import { SidebarButtonData } from "@/components/base/SidebarButton";
 import { CoreContext } from "@/components/contexts/Core";
 import LoadingApp from "@/components/general/LoadingApp";
-import BottomBar from "@/components/structure/BottomBar";
-import Nav from "@/components/structure/Nav";
+import Sidebar from "@/components/structure/Sidebar";
+import StatusBar from "@/components/structure/StatusBar";
+import AppConfig from "@/configs/app.config";
 import useInterval from "@/hooks/useInterval";
 import { SHR__SysInfo } from "@sharedTypes/shared";
 
@@ -14,19 +15,19 @@ import { SHR__SysInfo } from "@sharedTypes/shared";
 type LayoutProps = {
     children: ReactNode;
 
-    topNavButtons: NavButtonData[];
-    bottomNavButtons: NavButtonData[];
-    devOnlyNavButtons?: NavButtonData[];
-    onNavButtonClick: (index: number) => void;
+    topSidebarButtons: SidebarButtonData[];
+    bottomSidebarButtons: SidebarButtonData[];
+    devOnlySidebarButtons?: SidebarButtonData[];
+    onSidebarButtonClick: (index: number) => void;
     currentPage: number;
 };
 
 export default function Layout({
     children,
-    topNavButtons,
-    bottomNavButtons,
-    devOnlyNavButtons = [],
-    onNavButtonClick,
+    topSidebarButtons,
+    bottomSidebarButtons,
+    devOnlySidebarButtons = [],
+    onSidebarButtonClick,
     currentPage
 }: LayoutProps) {
     const { info, appStatus } = useContext(CoreContext);
@@ -47,20 +48,27 @@ export default function Layout({
             />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
-                <Nav
-                    topNavButtons={topNavButtons}
-                    bottomNavButtons={bottomNavButtons}
-                    devOnlyNavButtons={info?.environment === "development" ? devOnlyNavButtons : []}
-                    onNavButtonClick={onNavButtonClick}
-                    activeNavButtonIndex={currentPage}
+                <Sidebar
+                    topSidebarButtons={topSidebarButtons}
+                    bottomSidebarButtons={bottomSidebarButtons}
+                    devOnlySidebarButtons={info?.environment === "development" ? devOnlySidebarButtons : []}
+                    onSidebarButtonClick={onSidebarButtonClick}
+                    activeSidebarButtonIndex={currentPage}
                 />
 
                 <div className="relative w-full h-full max-h-screen flex flex-col">
-                    <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-secondary-1000 bg-opacity-90">
+                    <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-transparent">
+                        <div
+                            className="-z-10 absolute inset-0 bg-neutral-950"
+                            style={{
+                                opacity: AppConfig.background.opacity,
+                                backdropFilter: `blur(${AppConfig.background.blur}px)`
+                            }}
+                        />
                         {children}
                     </div>
 
-                    <BottomBar
+                    <StatusBar
                         leftSideContent={[
                             <span key={0} title="System CPU usage" className="flex justify-center items-center">
                                 <Icon icon="material-symbols:speed-outline-rounded" className="text-lg mr-1.5" />

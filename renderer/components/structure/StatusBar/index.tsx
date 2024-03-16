@@ -1,20 +1,29 @@
 import { ReactNode } from "react";
 
+import AppConfig from "@/configs/app.config";
 
-type BottomBarProps = {
+
+type StatusBarProps = {
     leftSideContent?: ReactNode[];
     rightSideContent?: ReactNode[];
 };
 
-export default function BottomBar({
+export default function StatusBar({
     leftSideContent = [],
     rightSideContent = []
-}: BottomBarProps) {
+}: StatusBarProps) {
     return (
         <div className={`
-            w-full h-8 flex items-center px-4 border-t border-secondary-800
-            bg-secondary-1000 bg-opacity-[0.92] backdrop-blur-lg text-secondary-300
+            w-full h-8 flex items-center px-4 backdrop-blur-lg text-secondary-300
         `}>
+            <div
+                className="-z-10 absolute inset-0 bg-black"
+                style={{
+                    opacity: AppConfig.statusBar.opacity,
+                    backdropFilter: `blur(${AppConfig.statusBar.blur}px)`
+                }}
+            />
+
             <div className="flex-grow flex items-center justify-start gap-4">
                 {leftSideContent.map((content, index) => (
                     <p key={index} className="font-semibold text-sm">

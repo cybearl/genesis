@@ -1,18 +1,18 @@
 import { ReactNode, useEffect, useState } from "react";
 
-import { NavPanelState } from "@/components/contexts/Core";
-import CONFIG from "@/configs/app.config";
+import { SidebarPanelState } from "@/components/contexts/Core";
+import AppConfig from "@/configs/app.config";
 
 
-export type NavButtonData = {
+export type SidebarButtonData = {
     label: string;
     icon: ReactNode;
     isDisabled?: boolean;
 };
 
-type NavButtonProps = {
-    data: NavButtonData;
-    navPanelState: NavPanelState;
+type SidebarButtonProps = {
+    data: SidebarButtonData;
+    sidebarPanelState: SidebarPanelState;
 
     variant?: "primary";
 
@@ -22,9 +22,9 @@ type NavButtonProps = {
     onClick?: () => void;
 };
 
-export default function NavButton({
+export default function SidebarButton({
     data,
-    navPanelState,
+    sidebarPanelState,
 
     variant = "primary",
 
@@ -32,23 +32,23 @@ export default function NavButton({
     isActive = false,
 
     onClick
-}: NavButtonProps) {
+}: SidebarButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
 
     const [iconWithLabelVisibility, setIconWithLabelVisibility] = useState(
-        navPanelState === "collapsed" ? "opacity-0" : ""
+        sidebarPanelState === "collapsed" ? "opacity-0" : ""
     );
 
     const [iconWithLabelTransitionDuration, setIconWithLabelTransitionDuration] = useState(
-        navPanelState === "collapsed" ? 0.5 : 2
+        sidebarPanelState === "collapsed" ? 0.5 : 2
     );
 
     const [iconOnlyVisibility, setIconOnlyVisibility] = useState(
-        navPanelState === "collapsed" ? "" : "opacity-0"
+        sidebarPanelState === "collapsed" ? "" : "opacity-0"
     );
 
     const [iconOnlyTransitionDuration, setIconOnlyTransitionDuration] = useState(
-        navPanelState === "collapsed" ? 2 : 0.5
+        sidebarPanelState === "collapsed" ? 2 : 0.5
     );
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export default function NavButton({
     }, [isActive, isDisabled, variant]);
 
     useEffect(() => {
-        switch (navPanelState) {
+        switch (sidebarPanelState) {
             case "collapsing":
             case "collapsed":
                 setIconWithLabelVisibility("opacity-0");
@@ -81,7 +81,7 @@ export default function NavButton({
 
                 break;
         }
-    }, [navPanelState]);
+    }, [sidebarPanelState]);
 
     return (
         <button
@@ -90,7 +90,7 @@ export default function NavButton({
                 transition-all ease-in-out duration-150
                 ${variantStyle}
             `}
-            title={(!isActive && navPanelState === "collapsed") ? data.label : ""}
+            title={(!isActive && sidebarPanelState === "collapsed") ? data.label : ""}
             disabled={isDisabled}
             onClick={onClick}
         >
@@ -101,7 +101,7 @@ export default function NavButton({
                     ${iconWithLabelVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconWithLabelTransitionDuration)}ms`
+                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * iconWithLabelTransitionDuration)}ms`
                 }}
             >
                 <span className="leading-none child:text-3xl">
@@ -109,7 +109,7 @@ export default function NavButton({
                 </span>
 
                 <p className="text-sm tracking-wider font-semibold text-nowrap">
-                    {data.label.padEnd(CONFIG.nav.panel.minLabelLength, "\xa0")}
+                    {data.label.padEnd(AppConfig.sidebar.panel.minLabelLength, "\xa0")}
                 </p>
             </div>
 
@@ -120,7 +120,7 @@ export default function NavButton({
                     ${iconOnlyVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(CONFIG.nav.panel.transitionDuration * iconOnlyTransitionDuration)}ms`
+                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * iconOnlyTransitionDuration)}ms`
                 }}
             >
                 <span className="leading-none child:text-3xl">
