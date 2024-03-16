@@ -55,8 +55,8 @@ export default function NavButton({
         switch (variant) {
             case "primary":
                 if (isDisabled) setVariantStyle("border-transparent text-secondary-500 cursor-default");
-                else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default bg-secondary-950 text-white");
-                else setVariantStyle("border-transparent hover:bg-secondary-900 active:border-secondary-600 text-secondary-300");
+                else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default bg-secondary-950");
+                else setVariantStyle("border-transparent hover:bg-secondary-900 active:border-secondary-600");
 
                 break;
         }

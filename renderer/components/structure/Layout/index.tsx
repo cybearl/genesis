@@ -8,7 +8,6 @@ import LoadingApp from "@/components/general/LoadingApp";
 import BottomBar from "@/components/structure/BottomBar";
 import Nav from "@/components/structure/Nav";
 import useInterval from "@/hooks/useInterval";
-import { Inconsolata } from "@/lib/fonts";
 import { SHR__SysInfo } from "@sharedTypes/shared";
 
 
@@ -39,7 +38,7 @@ export default function Layout({
     }, 2000);
 
     return (
-        <div className={`${Inconsolata.className} z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col`}>
+        <div className="z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col">
             <LoadingApp isEnabled={appStatus !== "ready"} />
 
             <Background
@@ -64,11 +63,11 @@ export default function Layout({
                     <BottomBar
                         leftSideContent={[
                             <span key={0} title="System CPU usage" className="flex justify-center items-center">
-                                <Icon icon="material-symbols:speed-outline-rounded" className="text-lg mr-2 mb-0.5" />
+                                <Icon icon="material-symbols:speed-outline-rounded" className="text-lg mr-1.5" />
                                 {sysInfo ? sysInfo.cpu.str : "..."}
                             </span>,
                             <span key={1} title="System memory usage" className="flex justify-center items-center">
-                                <Icon icon="material-symbols:memory-outline-rounded" className="text-lg mr-1.5 mb-[1px]" />
+                                <Icon icon="material-symbols:memory-outline-rounded" className="text-lg mr-1.5" />
                                 {sysInfo ? sysInfo.memory.str : "..."}
                             </span>
                         ]}
