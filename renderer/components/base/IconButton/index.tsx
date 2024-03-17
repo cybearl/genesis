@@ -29,12 +29,11 @@ export default function IconButton({
     const [variantStyle, setVariantStyle] = useState("");
     const [sizeStyle, setSizeStyle] = useState("");
 
-
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled) setVariantStyle("text-secondary-800 cursor-default");
-                else setVariantStyle("text-secondary-200 hover:text-secondary-500 active:text-secondary-800");
+                if (isDisabled) setVariantStyle("text-white cursor-default bg-primary-600");
+                else setVariantStyle("text-white hover:bg-primary-600 active:bg-primary-500 bg-primary-400");
 
                 break;
             case "secondary":

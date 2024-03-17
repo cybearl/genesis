@@ -3,33 +3,37 @@ const AppConfig = {
     appName: "Genesis",
     appVersion: "1.0.0",
     appDescription: `
-        WELCOME TO THE DEVELOPMENT EDITION OF 'GENESIS', A TRADING BOT MADE FOR SHORT-TERM TRADING.
-        ENTIRELY DEVELOPED BY YORATONI <3
+        WELCOME TO THE DEVELOPMENT EDITION OF 'GENESIS', AN ADVANCED CRYPTO TRADING TOOLBOX.
+        ENTIRELY DEVELOPED BY YORATONI.
     `,
     appDisclaimer: `
-        THIS SOFTWARE IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT RISK MONEY WHICH YOU ARE AFRAID TO LOSE.
+        THIS SOFTWARE IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT RISK MONEY WHICH YOU ARE AFRAID TO LOOSE.
         USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
     `,
 
     background: {
-        opacity: 0.5,
+        opacity: 0,
         blur: 20
     },
 
     sidebar: {
-        opacity: 0.5,
+        opacity: 0,
         blur: 20,
         panel: {
-            collapsedSize: 64,
-            expandedSize: 250,
+            collapsedSize: 56,
+            expandedSize: 260,
             transitionDuration: 300,
             minLabelLength: 16
         }
     },
 
     statusBar: {
-        opacity: 0.5,
+        opacity: 0,
         blur: 20
+    },
+
+    sysInfo: {
+        refreshInterval: 1500
     }
 };
 

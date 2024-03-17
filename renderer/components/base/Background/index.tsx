@@ -14,7 +14,7 @@ export default function Background({
         <div className="absolute -z-10 inset-0 w-full h-full flex items-center justify-center bg-red-500">
             <div className="absolute min-w-[150vw] aspect-square">
                 <Image
-                    src="/static/images/background/cybearl.webp"
+                    src="/static/images/background/grayscale.webp"
                     alt="Cybearl background"
                     fill
                     className="overflow-visible object-cover"
