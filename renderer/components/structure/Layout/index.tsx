@@ -4,7 +4,7 @@ import { ReactNode, useContext, useState } from "react";
 import Background from "@/components/base/Background";
 import { SidebarButtonData } from "@/components/base/SidebarButton";
 import { CoreContext } from "@/components/contexts/Core";
-import LoadingApp from "@/components/general/LoadingApp";
+import LoadingScreen from "@/components/general/LoadingScreen";
 import Sidebar from "@/components/structure/Sidebar";
 import StatusBar from "@/components/structure/StatusBar";
 import AppConfig from "@/configs/app.config";
@@ -40,12 +40,12 @@ export default function Layout({
 
     return (
         <div className="z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col">
-            <LoadingApp isEnabled={appStatus !== "ready"} />
-
             <Background
                 imgOpacity={1}
                 imgBlur={AppConfig.background.blur}
             />
+
+            <LoadingScreen isEnabled={appStatus !== "ready"} />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Sidebar

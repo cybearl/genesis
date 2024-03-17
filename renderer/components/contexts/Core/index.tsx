@@ -18,7 +18,7 @@ export const CoreContext = createContext({} as CoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [info, setInfo] = useState<SHR__Info | null>(null);
-    const [appStatus, setAppStatus] = useState<AppStatus>("ready");
+    const [appStatus, setAppStatus] = useState<AppStatus>("loading");
     const [sidebarPanelState, setSidebarPanelState] = useState<SidebarPanelState>("expanded");
 
     useEffect(() => {

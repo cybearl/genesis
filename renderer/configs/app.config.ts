@@ -12,7 +12,7 @@ const AppConfig = {
     `,
 
     background: {
-        opacity: 0.95,
+        opacity: 0.9,
         blur: 0
     },
 

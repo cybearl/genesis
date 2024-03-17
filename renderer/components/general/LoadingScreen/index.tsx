@@ -5,13 +5,13 @@ import Background from "@/components/base/Background";
 import AppConfig from "@/configs/app.config";
 
 
-type LoadingAppProps = {
+type LoadingScreenProps = {
     isEnabled?: boolean;
 };
 
-export default function LoadingApp({
+export default function LoadingScreen({
     isEnabled = false
-}: LoadingAppProps) {
+}: LoadingScreenProps) {
     const [isFirstAppearance, setIsFirstAppearance] = useState(true);
     const [isHiddenAfterAnimation, setIsHiddenAfterAnimation] = useState(false);
 
@@ -24,7 +24,7 @@ export default function LoadingApp({
     return (
         <div
             className={`
-                absolute z-20 inset-0 w-full h-full items-end justify-center
+                absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-950
                 ${isEnabled ? "animate-opacity-in" : "animate-opacity-out"}
                 ${isHiddenAfterAnimation ? "hidden" : "flex"}
                 ${isFirstAppearance && "!opacity-100"}
@@ -38,17 +38,12 @@ export default function LoadingApp({
             }}
             onClick={(e) => e.preventDefault()}
         >
-            <Background
-                imgOpacity={0.04}
-                imgBlur={0}
-            />
-
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
-                <div className="w-full text-base max-w-3xl text-center text-secondary-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
+                <hr className="w-full h-[1px] border-transparent bg-white" />
+                <div className="w-full text-base max-w-3xl text-center text-white px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
                     {AppConfig.appDescription}
                 </div>
-                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
+                <hr className="w-full h-[1px] border-transparent bg-white" />
             </div>
 
             <div className="w-full h-full flex flex-col items-center justify-center">
@@ -78,11 +73,11 @@ export default function LoadingApp({
             </div>
 
             <div className="absolute bottom-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
-                <div className="w-full text-base max-w-3xl text-center text-secondary-300 px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
+                <hr className="w-full h-[1px] border-transparent bg-white" />
+                <div className="w-full text-base max-w-3xl text-center px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
                     {AppConfig.appDisclaimer}
                 </div>
-                <hr className="w-full h-[1px] border-transparent bg-secondary-300" />
+                <hr className="w-full h-[1px] border-transparent bg-white" />
             </div>
         </div>
     );
