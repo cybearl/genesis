@@ -35,27 +35,16 @@ export default function SidebarButton({
 }: SidebarButtonProps) {
     const [variantStyle, setVariantStyle] = useState("");
 
-    const [iconWithLabelVisibility, setIconWithLabelVisibility] = useState(
-        sidebarPanelState === "collapsed" ? "opacity-0" : ""
-    );
-
-    const [iconWithLabelTransitionDuration, setIconWithLabelTransitionDuration] = useState(
-        sidebarPanelState === "collapsed" ? 0.5 : 2
-    );
-
-    const [iconOnlyVisibility, setIconOnlyVisibility] = useState(
-        sidebarPanelState === "collapsed" ? "" : "opacity-0"
-    );
-
-    const [iconOnlyTransitionDuration, setIconOnlyTransitionDuration] = useState(
-        sidebarPanelState === "collapsed" ? 2 : 0.5
-    );
+    const [expandedVisibility, setExpandedVisibility] = useState(sidebarPanelState === "collapsed" ? "opacity-0" : "");
+    const [expandedTransitionDuration, setExpandedTransitionDuration] = useState(sidebarPanelState === "collapsed" ? 0.5 : 2);
+    const [collapsedVisibility, setCollapsedVisibility] = useState(sidebarPanelState === "collapsed" ? "" : "opacity-0");
+    const [collapsedTransitionDuration, setCollapsedTransitionDuration] = useState(sidebarPanelState === "collapsed" ? 2 : 0.5);
 
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled) setVariantStyle("border-transparent text-secondary-500 cursor-default");
-                else if (!isDisabled && isActive) setVariantStyle("border-white cursor-default bg-secondary-950");
+                if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-500 cursor-default");
+                else if (isActive) setVariantStyle("border-white cursor-default bg-secondary-950");
                 else setVariantStyle("border-transparent hover:bg-secondary-900 active:border-secondary-600");
 
                 break;
@@ -66,18 +55,18 @@ export default function SidebarButton({
         switch (sidebarPanelState) {
             case "collapsing":
             case "collapsed":
-                setIconWithLabelVisibility("opacity-0");
-                setIconWithLabelTransitionDuration(0.5);
-                setIconOnlyVisibility("opacity-100");
-                setIconOnlyTransitionDuration(2);
+                setExpandedVisibility("opacity-0");
+                setExpandedTransitionDuration(0.5);
+                setCollapsedVisibility("opacity-100");
+                setCollapsedTransitionDuration(2);
 
                 break;
             case "expanding":
             case "expanded":
-                setIconWithLabelVisibility("opacity-100");
-                setIconWithLabelTransitionDuration(2);
-                setIconOnlyVisibility("opacity-0");
-                setIconOnlyTransitionDuration(0.5);
+                setExpandedVisibility("opacity-100");
+                setExpandedTransitionDuration(2);
+                setCollapsedVisibility("opacity-0");
+                setCollapsedTransitionDuration(0.5);
 
                 break;
         }
@@ -96,15 +85,15 @@ export default function SidebarButton({
         >
             <div
                 className={`
-                    flex justify-center items-center gap-3
+                    flex justify-star pl-[20px] items-center gap-3
                     transition-opacity ease-in-out
-                    ${iconWithLabelVisibility}
+                    ${expandedVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * iconWithLabelTransitionDuration)}ms`
+                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * expandedTransitionDuration)}ms`
                 }}
             >
-                <span className="leading-none child:text-3xl">
+                <span className="leading-none text-3xl">
                     {data.icon}
                 </span>
 
@@ -117,13 +106,13 @@ export default function SidebarButton({
                 className={`
                     absolute top-0 left-0 w-full h-full justify-center flex items-center pr-[2px]
                     transition-opacity ease-in-out
-                    ${iconOnlyVisibility}
+                    ${collapsedVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * iconOnlyTransitionDuration)}ms`
+                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * collapsedTransitionDuration)}ms`
                 }}
             >
-                <span className="leading-none child:text-3xl">
+                <span className="leading-none text-3xl">
                     {data.icon}
                 </span>
             </div>

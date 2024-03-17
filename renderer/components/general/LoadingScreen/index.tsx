@@ -24,7 +24,7 @@ export default function LoadingScreen({
     return (
         <div
             className={`
-                absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-950
+                absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-700
                 ${isEnabled ? "animate-opacity-in" : "animate-opacity-out"}
                 ${isHiddenAfterAnimation ? "hidden" : "flex"}
                 ${isFirstAppearance && "!opacity-100"}

@@ -50,13 +50,13 @@ export default function IconButton({
     useEffect(() => {
         switch (size) {
             case "sm":
-                setSizeStyle("child:!text-2xl");
+                setSizeStyle("text-2xl");
                 break;
             case "md":
-                setSizeStyle("child:!text-3xl");
+                setSizeStyle("text-3xl");
                 break;
             case "lg":
-                setSizeStyle("child:!text-4xl");
+                setSizeStyle("text-4xl");
                 break;
         }
     }, [size]);

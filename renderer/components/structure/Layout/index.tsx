@@ -70,11 +70,11 @@ export default function Layout({
                     <StatusBar
                         leftSideContent={[
                             <span key={0} title="System CPU usage" className="flex justify-center items-center">
-                                <Icon icon="material-symbols:speed-outline-rounded" className="text-lg mr-1.5" />
+                                <Icon icon="material-symbols:speed-outline-rounded" inline className="text-lg mr-1.5" />
                                 {sysInfo ? sysInfo.cpu.str : "..."}
                             </span>,
                             <span key={1} title="System memory usage" className="flex justify-center items-center">
-                                <Icon icon="material-symbols:memory-outline-rounded" className="text-lg mr-1" />
+                                <Icon icon="material-symbols:memory-outline-rounded" inline className="text-lg mr-1" />
                                 {sysInfo ? sysInfo.memory.str : "..."}
                             </span>
                         ]}
