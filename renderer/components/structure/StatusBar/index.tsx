@@ -14,10 +14,10 @@ export default function StatusBar({
 }: StatusBarProps) {
     return (
         <div className={`
-            w-full h-8 flex items-center px-4 backdrop-blur-lg text-secondary-300
+            relative w-full h-8 flex items-center px-4 backdrop-blur-lg text-white border-t
         `}>
             <div
-                className="-z-10 absolute inset-0 bg-black"
+                className="-z-10 absolute inset-0 bg-secondary-500"
                 style={{
                     opacity: AppConfig.statusBar.opacity,
                     backdropFilter: `blur(${AppConfig.statusBar.blur}px)`
@@ -26,7 +26,7 @@ export default function StatusBar({
 
             <div className="flex-grow flex items-center justify-start gap-4">
                 {leftSideContent.map((content, index) => (
-                    <p key={index} className="font-semibold text-sm">
+                    <p key={index} className="font-medium text-xs">
                         {content}
                     </p>
                 ))}
@@ -34,7 +34,7 @@ export default function StatusBar({
 
             <div className="flex-grow flex items-center justify-end gap-4">
                 {rightSideContent.map((content, index) => (
-                    <p key={index} className="font-bold tracking-wider text-sm">
+                    <p key={index} className="font-medium text-xs">
                         {content}
                     </p>
                 ))}

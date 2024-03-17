@@ -13,6 +13,7 @@ body {
 }
 
 body {
+    background-color: black;
     overscroll-behavior-y: contain;
     -webkit-tap-highlight-color: transparent;
 }
@@ -25,4 +26,5 @@ body {
     padding: 0;
     outline: none;
     user-select: none;
+    @apply border-secondary-100;
 }

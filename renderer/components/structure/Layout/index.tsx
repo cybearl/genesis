@@ -44,7 +44,7 @@ export default function Layout({
 
             <Background
                 imgOpacity={1}
-                imgBlur={0}
+                imgBlur={AppConfig.background.blur}
             />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
@@ -59,10 +59,9 @@ export default function Layout({
                 <div className="relative w-full h-full max-h-screen flex flex-col">
                     <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-transparent">
                         <div
-                            className="-z-10 absolute inset-0 bg-neutral-950"
+                            className="-z-10 absolute inset-0 bg-secondary-700"
                             style={{
-                                opacity: AppConfig.background.opacity,
-                                backdropFilter: `blur(${AppConfig.background.blur}px)`
+                                opacity: AppConfig.background.opacity
                             }}
                         />
                         {children}
@@ -70,12 +69,12 @@ export default function Layout({
 
                     <StatusBar
                         leftSideContent={[
-                            <span key={0} title="System CPU usage" className="flex justify-center items-center text-white">
+                            <span key={0} title="System CPU usage" className="flex justify-center items-center">
                                 <Icon icon="material-symbols:speed-outline-rounded" className="text-lg mr-1.5" />
                                 {sysInfo ? sysInfo.cpu.str : "..."}
                             </span>,
-                            <span key={1} title="System memory usage" className="flex justify-center items-center text-white">
-                                <Icon icon="material-symbols:memory-outline-rounded" className="text-lg mr-1.5" />
+                            <span key={1} title="System memory usage" className="flex justify-center items-center">
+                                <Icon icon="material-symbols:memory-outline-rounded" className="text-lg mr-1" />
                                 {sysInfo ? sysInfo.memory.str : "..."}
                             </span>
                         ]}

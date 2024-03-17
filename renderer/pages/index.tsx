@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react";
 import { useMemo, useState } from "react";
 
 import Layout from "@/components/structure/Layout";
-import { Inconsolata } from "@/lib/fonts";
 import Account from "@/pages/account";
 import BotInstances from "@/pages/bot-instances";
 import DeveloperMode from "@/pages/developer-mode";
@@ -16,8 +15,6 @@ import StrategyScoring from "@/pages/strategy-scoring";
 
 export default function Index() {
     const [currentPage, setCurrentPage] = useState(0);
-
-    console.log(Inconsolata.variable);
 
     const pages = useMemo(() => [
         // TOP NAV

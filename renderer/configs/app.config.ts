@@ -12,12 +12,12 @@ const AppConfig = {
     `,
 
     background: {
-        opacity: 0,
-        blur: 20
+        opacity: 0.95,
+        blur: 0
     },
 
     sidebar: {
-        opacity: 0,
+        opacity: 0.9,
         blur: 20,
         panel: {
             collapsedSize: 56,
@@ -28,8 +28,8 @@ const AppConfig = {
     },
 
     statusBar: {
-        opacity: 0,
-        blur: 20
+        opacity: 0.9,
+        blur: 4
     },
 
     sysInfo: {

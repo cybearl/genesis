@@ -33,7 +33,7 @@ export default function IconButton({
         switch (variant) {
             case "primary":
                 if (isDisabled) setVariantStyle("text-white cursor-default bg-primary-600");
-                else setVariantStyle("text-white hover:bg-primary-600 active:bg-primary-500 bg-primary-400");
+                else setVariantStyle("text-white hover:bg-primary-600 active:bg-primary-500 bg-primary-700");
 
                 break;
             case "secondary":
