@@ -38,12 +38,19 @@ export default function LoadingScreen({
             }}
             onClick={(e) => e.preventDefault()}
         >
+            <Background
+                imgOpacity={0.1}
+                imgBlur={10}
+            />
+
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-white" />
-                <div className="w-full text-base max-w-3xl text-center text-white px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
+                <hr className="w-full h-[1px] border-transparent bg-white grow" />
+
+                <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
                     {AppConfig.appDescription}
                 </div>
-                <hr className="w-full h-[1px] border-transparent bg-white" />
+
+                <hr className="w-full h-[1px] border-transparent bg-white grow" />
             </div>
 
             <div className="w-full h-full flex flex-col items-center justify-center">
@@ -52,7 +59,7 @@ export default function LoadingScreen({
                         src="/static/images/logo/grayscale.webp"
                         alt="Loading screen logo"
                         fill
-                        className="opacity-50 p-[2px]"
+                        className="opacity-20"
                     />
 
                     <Image
@@ -69,15 +76,18 @@ export default function LoadingScreen({
                     </span>
 
                     {AppConfig.appProducer}.
+                    <hr className="w-full h-[1px] border-transparent bg-white mt-1" />
                 </div>
             </div>
 
             <div className="absolute bottom-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-white" />
-                <div className="w-full text-base max-w-3xl text-center px-4 max-lg:text-sm max-lg:max-w-xl tracking-wide">
+                <hr className="h-[1px] border-transparent bg-white grow" />
+
+                <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
                     {AppConfig.appDisclaimer}
                 </div>
-                <hr className="w-full h-[1px] border-transparent bg-white" />
+
+                <hr className="h-[1px] border-transparent bg-white grow" />
             </div>
         </div>
     );
