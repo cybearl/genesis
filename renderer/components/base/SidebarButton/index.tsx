@@ -36,16 +36,21 @@ export default function SidebarButton({
     const [variantStyle, setVariantStyle] = useState("");
 
     const [expandedVisibility, setExpandedVisibility] = useState(sidebarPanelState === "collapsed" ? "opacity-0" : "");
-    const [expandedTransitionDuration, setExpandedTransitionDuration] = useState(sidebarPanelState === "collapsed" ? 0.5 : 2);
+    const [expandedTransitionDuration, setExpandedTransitionDuration] = useState(
+        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedTransitionDuration : AppConfig.sidebar.panel.expandedTransitionDuration
+    );
+
     const [collapsedVisibility, setCollapsedVisibility] = useState(sidebarPanelState === "collapsed" ? "" : "opacity-0");
-    const [collapsedTransitionDuration, setCollapsedTransitionDuration] = useState(sidebarPanelState === "collapsed" ? 2 : 0.5);
+    const [collapsedTransitionDuration, setCollapsedTransitionDuration] = useState(
+        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.expandedTransitionDuration : AppConfig.sidebar.panel.collapsedTransitionDuration
+    );
 
     useEffect(() => {
         switch (variant) {
             case "primary":
-                if (isDisabled && !isActive) setVariantStyle("border-transparent text-neutral-500 cursor-default");
-                else if (isActive) setVariantStyle("border-white cursor-default bg-secondary-950");
-                else setVariantStyle("border-transparent hover:bg-secondary-900 active:border-secondary-600");
+                if (isDisabled && !isActive) setVariantStyle("border-transparent cursor-default");
+                else if (isActive) setVariantStyle("border-white cursor-default bg-secondary-900");
+                else setVariantStyle("border-transparent hover:bg-secondary-800 active:border-neutral-600 active:bg-secondary-700");
 
                 break;
         }
@@ -56,17 +61,17 @@ export default function SidebarButton({
             case "collapsing":
             case "collapsed":
                 setExpandedVisibility("opacity-0");
-                setExpandedTransitionDuration(0.5);
+                setExpandedTransitionDuration(AppConfig.sidebar.panel.collapsedTransitionDuration);
                 setCollapsedVisibility("opacity-100");
-                setCollapsedTransitionDuration(2);
+                setCollapsedTransitionDuration(AppConfig.sidebar.panel.expandedTransitionDuration);
 
                 break;
             case "expanding":
             case "expanded":
                 setExpandedVisibility("opacity-100");
-                setExpandedTransitionDuration(2);
+                setExpandedTransitionDuration(AppConfig.sidebar.panel.expandedTransitionDuration);
                 setCollapsedVisibility("opacity-0");
-                setCollapsedTransitionDuration(0.5);
+                setCollapsedTransitionDuration(AppConfig.sidebar.panel.collapsedTransitionDuration);
 
                 break;
         }
@@ -76,7 +81,7 @@ export default function SidebarButton({
         <button
             className={`
                 relative w-full py-3 border-l-2 pr-[4px]
-                transition-all ease-in-out duration-150
+                transition-all ease-in-out duration-100
                 ${variantStyle}
             `}
             title={(!isActive && sidebarPanelState === "collapsed") ? data.label : ""}

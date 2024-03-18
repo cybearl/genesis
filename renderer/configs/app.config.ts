@@ -10,25 +10,40 @@ const AppConfig = {
         USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
     `,
 
+    loadingScreen: {
+        layerOneOpacity: 0.02,
+        layerOneBlur: 0,
+        layerTwoOpacity: 0,
+        layerTwoBlur: 0
+    },
+
     background: {
-        opacity: 0.9,
-        blur: 0
+        layerOneOpacity: 0.1,
+        layerOneBlur: 0,
+        layerTwoOpacity: 0.3,
+        layerTwoBlur: 0
+    },
+
+    mainFrame: {
+        opacity: 0.9
     },
 
     sidebar: {
         opacity: 0.9,
-        blur: 20,
+        blur: 6,
         panel: {
             collapsedSize: 56,
             expandedSize: 260,
             transitionDuration: 300,
-            minLabelLength: 16
+            minLabelLength: 16,
+            expandedTransitionDuration: 2.5,
+            collapsedTransitionDuration: 0.5
         }
     },
 
     statusBar: {
         opacity: 0.9,
-        blur: 4
+        blur: 6
     },
 
     sysInfo: {

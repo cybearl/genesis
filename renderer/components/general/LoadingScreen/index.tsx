@@ -39,8 +39,10 @@ export default function LoadingScreen({
             onClick={(e) => e.preventDefault()}
         >
             <Background
-                imgOpacity={0.1}
-                imgBlur={10}
+                layerOneOpacity={AppConfig.loadingScreen.layerOneOpacity}
+                layerOneBlur={AppConfig.loadingScreen.layerOneBlur}
+                layerTwoOpacity={AppConfig.loadingScreen.layerTwoOpacity}
+                layerTwoBlur={AppConfig.loadingScreen.layerTwoBlur}
             />
 
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">

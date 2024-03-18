@@ -41,8 +41,10 @@ export default function Layout({
     return (
         <div className="z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col">
             <Background
-                imgOpacity={1}
-                imgBlur={AppConfig.background.blur}
+                layerOneOpacity={AppConfig.background.layerOneOpacity}
+                layerOneBlur={AppConfig.background.layerOneBlur}
+                layerTwoOpacity={AppConfig.background.layerTwoOpacity}
+                layerTwoBlur={AppConfig.background.layerTwoBlur}
             />
 
             <LoadingScreen isEnabled={appStatus !== "ready"} />
@@ -59,11 +61,10 @@ export default function Layout({
                 <div className="relative w-full h-full max-h-screen flex flex-col">
                     <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-transparent">
                         <div
-                            className="-z-10 absolute inset-0 bg-secondary-700"
-                            style={{
-                                opacity: AppConfig.background.opacity
-                            }}
+                            className="-z-10 absolute inset-0 bg-secondary-800"
+                            style={{ opacity: AppConfig.mainFrame.opacity }}
                         />
+
                         {children}
                     </div>
 
@@ -71,11 +72,15 @@ export default function Layout({
                         leftSideContent={[
                             <span key={0} title="System CPU usage" className="flex justify-center items-center">
                                 <Icon icon="material-symbols:speed-outline-rounded" inline className="text-lg mr-1.5" />
-                                {sysInfo ? sysInfo.cpu.str : "..."}
+                                <span className="min-w-[4em]">
+                                    {sysInfo ? sysInfo.cpu.str : "..."}
+                                </span>
                             </span>,
-                            <span key={1} title="System memory usage" className="flex justify-center items-center">
+                            <span key={1} title="System memory usage" className="flex justify-center items-center min-w-[8em]">
                                 <Icon icon="material-symbols:memory-outline-rounded" inline className="text-lg mr-1" />
-                                {sysInfo ? sysInfo.memory.str : "..."}
+                                <span className="min-w-[4em]">
+                                    {sysInfo ? sysInfo.memory.str : "..."}
+                                </span>
                             </span>
                         ]}
                         rightSideContent={[]}

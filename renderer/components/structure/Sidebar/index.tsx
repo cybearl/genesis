@@ -57,22 +57,20 @@ export default function Sidebar({
     return (
         <nav
             className={`
-                relative h-full backdrop-blur-lg flex justify-between items-center
-                transition-all ease-in-out overflow-hidden border-r
+                relative h-full flex justify-between items-center
+                transition-all ease-in-out overflow-hidden border-r border-secondary-50
             `}
             style={{
                 transitionDuration: `${AppConfig.sidebar.panel.transitionDuration}ms`,
                 minWidth: `${AppConfig.sidebar.panel.collapsedSize}px`,
                 width: `${panelWidth}px`,
-                maxWidth: `${AppConfig.sidebar.panel.expandedSize}px`
+                maxWidth: `${AppConfig.sidebar.panel.expandedSize}px`,
+                backdropFilter: `blur(${AppConfig.sidebar.blur}px)`
             }}
         >
             <div
                 className="-z-10 absolute inset-0 bg-secondary-500"
-                style={{
-                    opacity: AppConfig.sidebar.opacity,
-                    backdropFilter: `blur(${AppConfig.sidebar.blur}px)`
-                }}
+                style={{ opacity: AppConfig.sidebar.opacity }}
             />
 
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
@@ -123,7 +121,7 @@ export default function Sidebar({
                     </div>
                 </div>
 
-                <div className="w-full flex justify-center items-center h-[31px] border-t">
+                <div className="w-full flex justify-center items-center h-[31px] border-t border-secondary-50">
                     <IconButton
                         title={sidebarPanelState === "collapsed" ? "Expand" : "Collapse"}
                         icon={

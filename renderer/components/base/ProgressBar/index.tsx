@@ -41,7 +41,7 @@ export default function ProgressBar({
             ${sizeStyle === null ? "invisible" : sizeStyle}
         `}>
             <div
-                className="h-full border-4 border-secondary-1000 rounded-full relative flex"
+                className="h-full border-4 border-secondary-50 rounded-full relative flex"
                 style={{ width: `${percentage}%` }}
             >
                 <Image
