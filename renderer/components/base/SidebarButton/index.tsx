@@ -7,6 +7,7 @@ import AppConfig from "@/configs/app.config";
 export type SidebarButtonData = {
     label: string;
     icon: ReactNode;
+    customClassName?: string;
 
     isDisabled?: boolean;
 };
@@ -90,6 +91,7 @@ export default function SidebarButton({
             className={`
                 relative w-full py-3 border-l-2 pr-[4px]
                 transition-all ease-in-out duration-100
+                ${data.customClassName}
                 ${variantStyle}
             `}
             title={(!isActive && sidebarPanelState === "collapsed") ? data.label : ""}

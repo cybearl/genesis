@@ -33,48 +33,51 @@ export default function Index() {
 
     return (
         <Layout
-            topSidebarButtons={[
-                {
-                    label: "Real-time market",
-                    icon: <Icon icon="material-symbols:account-balance-wallet-outline" />
-                },
-                {
-                    label: "Market data feed",
-                    icon: <Icon icon="material-symbols:price-change-outline-rounded" />
-                },
-                {
-                    label: "Strategy scoring",
-                    icon: <Icon icon="material-symbols:strategy-outline-rounded" />
-                },
-                {
-                    label: "Dry-run sandbox",
-                    icon: <Icon icon="material-symbols:bug-report-outline-rounded" />
-                },
-                {
-                    label: "Bot instances",
-                    icon: <Icon icon="material-symbols:smart-toy-outline-rounded" />
-                }
-            ]}
-            bottomSidebarButtons={[
-                {
-                    label: "Help",
-                    icon: <Icon icon="material-symbols:help-outline-rounded" />
-                },
-                {
-                    label: "Account",
-                    icon: <Icon icon="material-symbols:account-circle" />
-                },
-                {
-                    label: "Settings",
-                    icon: <Icon icon="material-symbols:settings-outline-rounded" />
-                }
-            ]}
-            devOnlySidebarButtons={[
-                {
-                    label: "Developer mode",
-                    icon: <Icon icon="material-symbols:developer-board-outline-rounded" />
-                }
-            ]}
+            sidebar={{
+                topButtons: [
+                    {
+                        label: "Real-time market",
+                        icon: <Icon icon="material-symbols:finance-mode-rounded" />
+                    },
+                    {
+                        label: "Market data feed",
+                        icon: <Icon icon="material-symbols:document-scanner-outline-rounded" />
+                    },
+                    {
+                        label: "Strategy scoring",
+                        icon: <Icon icon="material-symbols:strategy-outline-rounded" />
+                    },
+                    {
+                        label: "Dry-run sandbox",
+                        icon: <Icon icon="material-symbols:cool-to-dry" />
+                    },
+                    {
+                        label: "Bot instances",
+                        icon: <Icon icon="material-symbols:robot" />
+                    }
+                ],
+                bottomButtons: [
+                    {
+                        label: "Help",
+                        icon: <Icon icon="material-symbols:help-outline-rounded" />
+                    },
+                    {
+                        label: "Account",
+                        icon: <Icon icon="material-symbols:account-circle" />
+                    },
+                    {
+                        label: "Settings",
+                        icon: <Icon icon="material-symbols:settings-rounded" />
+                    }
+                ],
+                devOnlyButtons: [
+                    {
+                        label: "Developer mode",
+                        icon: <Icon icon="material-symbols:developer-board-outline-rounded" />,
+                        customClassName: "text-yellow-400"
+                    }
+                ]
+            }}
             onSidebarButtonClick={(index) => setCurrentPage(index)}
             currentPage={currentPage}
         >

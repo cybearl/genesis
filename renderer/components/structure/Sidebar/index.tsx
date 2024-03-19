@@ -8,19 +8,19 @@ import AppConfig from "@/configs/app.config";
 
 
 type SidebarProps = {
-    topSidebarButtons: SidebarButtonData[];
-    bottomSidebarButtons: SidebarButtonData[];
-    devOnlySidebarButtons?: SidebarButtonData[];
-    onSidebarButtonClick: (index: number) => void;
-    activeSidebarButtonIndex: number;
+    topButtons: SidebarButtonData[];
+    bottomButtons: SidebarButtonData[];
+    devOnlyButtons?: SidebarButtonData[];
+    onButtonClick: (index: number) => void;
+    activeButtonIndex: number;
 };
 
 export default function Sidebar({
-    topSidebarButtons,
-    bottomSidebarButtons,
-    devOnlySidebarButtons = [],
-    onSidebarButtonClick,
-    activeSidebarButtonIndex
+    topButtons,
+    bottomButtons,
+    devOnlyButtons = [],
+    onButtonClick,
+    activeButtonIndex
 }: SidebarProps) {
     const { sidebarPanelState, setSidebarPanelState } = useContext(CoreContext);
 
@@ -76,45 +76,45 @@ export default function Sidebar({
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
                 <div className="w-full flex flex-col h-full justify-between items-center">
                     <div className="w-full flex flex-col justify-start items-center">
-                        {topSidebarButtons.map((data, index) => (
+                        {topButtons.map((data, index) => (
                             <SidebarButton
                                 key={index}
                                 data={data}
                                 sidebarPanelState={sidebarPanelState}
-                                isActive={index === activeSidebarButtonIndex}
+                                isActive={index === activeButtonIndex}
                                 isDisabled={sidebarPanelState === "collapsing" || sidebarPanelState === "expanding" || data.isDisabled}
-                                onClick={() => onSidebarButtonClick?.(index)}
+                                onClick={() => onButtonClick?.(index)}
                             />
                         ))}
                     </div>
 
                     <div className="w-full flex flex-col justify-start items-center">
-                        {bottomSidebarButtons.map((data, index) => {
-                            const bottomIndex = topSidebarButtons.length + index;
+                        {bottomButtons.map((data, index) => {
+                            const bottomIndex = topButtons.length + index;
 
                             return (
                                 <SidebarButton
                                     key={bottomIndex}
                                     data={data}
                                     sidebarPanelState={sidebarPanelState}
-                                    isActive={bottomIndex === activeSidebarButtonIndex}
+                                    isActive={bottomIndex === activeButtonIndex}
                                     isDisabled={sidebarPanelState === "collapsing" || sidebarPanelState === "expanding" || data.isDisabled}
-                                    onClick={() => onSidebarButtonClick?.(bottomIndex)}
+                                    onClick={() => onButtonClick?.(bottomIndex)}
                                 />
                             );
                         })}
 
-                        {process.env.NODE_ENV === "development" && devOnlySidebarButtons.map((data, index) => {
-                            const devIndex = topSidebarButtons.length + bottomSidebarButtons.length + index;
+                        {process.env.NODE_ENV === "development" && devOnlyButtons.map((data, index) => {
+                            const devIndex = topButtons.length + bottomButtons.length + index;
 
                             return (
                                 <SidebarButton
                                     key={devIndex}
                                     data={data}
                                     sidebarPanelState={sidebarPanelState}
-                                    isActive={devIndex === activeSidebarButtonIndex}
+                                    isActive={devIndex === activeButtonIndex}
                                     isDisabled={sidebarPanelState === "collapsing" || sidebarPanelState === "expanding"}
-                                    onClick={() => onSidebarButtonClick?.(devIndex)}
+                                    onClick={() => onButtonClick?.(devIndex)}
                                 />
                             );
                         })}

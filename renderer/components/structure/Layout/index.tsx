@@ -12,22 +12,27 @@ import useInterval from "@/hooks/useInterval";
 import { SHR__SysInfo } from "@sharedTypes/shared";
 
 
+type SidebarObj = {
+    topButtons: SidebarButtonData[];
+    bottomButtons: SidebarButtonData[];
+    devOnlyButtons?: SidebarButtonData[];
+};
+
 type LayoutProps = {
     children: ReactNode;
 
-    topSidebarButtons: SidebarButtonData[];
-    bottomSidebarButtons: SidebarButtonData[];
-    devOnlySidebarButtons?: SidebarButtonData[];
+    sidebar: SidebarObj;
     onSidebarButtonClick: (index: number) => void;
+
     currentPage: number;
 };
 
 export default function Layout({
     children,
-    topSidebarButtons,
-    bottomSidebarButtons,
-    devOnlySidebarButtons = [],
+
+    sidebar,
     onSidebarButtonClick,
+
     currentPage
 }: LayoutProps) {
     const { info, appStatus } = useContext(CoreContext);
@@ -51,11 +56,11 @@ export default function Layout({
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Sidebar
-                    topSidebarButtons={topSidebarButtons}
-                    bottomSidebarButtons={bottomSidebarButtons}
-                    devOnlySidebarButtons={info?.environment === "development" ? devOnlySidebarButtons : []}
-                    onSidebarButtonClick={onSidebarButtonClick}
-                    activeSidebarButtonIndex={currentPage}
+                    topButtons={sidebar.topButtons}
+                    bottomButtons={sidebar.bottomButtons}
+                    devOnlyButtons={info?.environment === "development" ? sidebar.devOnlyButtons : []}
+                    onButtonClick={onSidebarButtonClick}
+                    activeButtonIndex={currentPage}
                 />
 
                 <div className="relative w-full h-full max-h-screen flex flex-col">
