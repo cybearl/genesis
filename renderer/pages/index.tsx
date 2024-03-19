@@ -40,11 +40,11 @@ export default function Index() {
                 },
                 {
                     label: "Market data feed",
-                    icon: <Icon icon="material-symbols-light:price-change-outline-rounded" />
+                    icon: <Icon icon="material-symbols:price-change-outline-rounded" />
                 },
                 {
                     label: "Strategy scoring",
-                    icon: <Icon icon="material-symbols:scoreboard-outline-rounded" />
+                    icon: <Icon icon="material-symbols:strategy-outline-rounded" />
                 },
                 {
                     label: "Dry-run sandbox",

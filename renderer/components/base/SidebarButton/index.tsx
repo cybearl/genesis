@@ -50,7 +50,7 @@ export default function SidebarButton({
             case "primary":
                 if (isDisabled && !isActive) setVariantStyle("border-transparent cursor-default");
                 else if (isActive) setVariantStyle("border-white cursor-default bg-secondary-900");
-                else setVariantStyle("border-transparent hover:bg-secondary-800 active:border-neutral-600 active:bg-secondary-700");
+                else setVariantStyle("border-transparent hover:bg-secondary-200 active:border-neutral-600 active:bg-secondary-100");
 
                 break;
         }

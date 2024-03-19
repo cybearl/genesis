@@ -20,7 +20,7 @@ const AppConfig = {
     background: {
         layerOneOpacity: 0.1,
         layerOneBlur: 0,
-        layerTwoOpacity: 0.3,
+        layerTwoOpacity: 0.5,
         layerTwoBlur: 0
     },
 
@@ -37,7 +37,7 @@ const AppConfig = {
             transitionDuration: 300,
             minLabelLength: 16,
             expandedTransitionDuration: 2.5,
-            collapsedTransitionDuration: 0.5
+            collapsedTransitionDuration: 0.6
         }
     },
 

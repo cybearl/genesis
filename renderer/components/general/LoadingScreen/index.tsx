@@ -13,28 +13,24 @@ export default function LoadingScreen({
     isEnabled = false
 }: LoadingScreenProps) {
     const [isFirstAppearance, setIsFirstAppearance] = useState(true);
-    const [isHiddenAfterAnimation, setIsHiddenAfterAnimation] = useState(false);
+    const [isHidden, setIsHidden] = useState(false);
 
     useEffect(() => {
-        if (isEnabled) {
-            setIsHiddenAfterAnimation(false);
-        }
+        if (isFirstAppearance) setIsFirstAppearance(false);
+    }, [isFirstAppearance]);
+
+    useEffect(() => {
+        if (isEnabled) setIsHidden(false);
+        else setTimeout(() => setIsHidden(true), 500);
     }, [isEnabled]);
 
     return (
         <div
-            className={`
-                absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-700
-                ${isEnabled ? "animate-opacity-in" : "animate-opacity-out"}
-                ${isHiddenAfterAnimation ? "hidden" : "flex"}
-                ${isFirstAppearance && "!opacity-100"}
-            `}
-            onAnimationEnd={() => {
-                if (!isEnabled) {
-                    setIsHiddenAfterAnimation(true);
-                }
-
-                setIsFirstAppearance(false);
+            className="absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-700 pointer-events-none"
+            style={{
+                animation: `${isEnabled ? "opacity-in" : "opacity-out"} 0.5s ease-in-out`,
+                display: isHidden ? "none" : "flex",
+                opacity: isFirstAppearance ? 1 : "unset"
             }}
             onClick={(e) => e.preventDefault()}
         >
@@ -61,14 +57,14 @@ export default function LoadingScreen({
                         src="/static/images/logo/grayscale.webp"
                         alt="Loading screen logo"
                         fill
-                        className="opacity-20"
+                        className="opacity-50"
                     />
 
                     <Image
                         src="/static/images/logo/colorized.webp"
                         alt="Loading screen logo"
                         fill
-                        className="animate-opacity-pulse"
+                        className="animate-opacity-pulse p-1"
                     />
                 </div>
 

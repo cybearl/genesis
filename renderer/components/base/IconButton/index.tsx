@@ -14,6 +14,28 @@ type IconButtonProps = {
     onClick?: () => void;
 };
 
+const styles = {
+    variant: {
+        primary: {
+            enabled: "text-white hover:bg-secondary-200 active:bg-secondary-900",
+            disabled: "text-white cursor-default bg-secondary-900"
+        },
+        secondary: {
+            enabled: "",
+            disabled: ""
+        },
+        tertiary: {
+            enabled: "",
+            disabled: ""
+        }
+    },
+    size: {
+        sm: "text-2xl",
+        md: "text-3xl",
+        lg: "text-4xl"
+    }
+};
+
 export default function IconButton({
     icon,
 
@@ -26,39 +48,16 @@ export default function IconButton({
 
     onClick
 }: IconButtonProps) {
-    const [variantStyle, setVariantStyle] = useState("");
-    const [sizeStyle, setSizeStyle] = useState("");
+    const [variantStyle, setVariantStyle] = useState(isDisabled ? styles.variant[variant].disabled : styles.variant[variant].enabled);
+    const [sizeStyle, setSizeStyle] = useState(styles.size[size]);
 
     useEffect(() => {
-        switch (variant) {
-            case "primary":
-                if (isDisabled) setVariantStyle("text-white cursor-default bg-secondary-50");
-                else setVariantStyle("text-white hover:bg-secondary-100 active:bg-secondary-50 bg-secondary-200");
-
-                break;
-            case "secondary":
-                setVariantStyle("");
-
-                break;
-            case "tertiary":
-                setVariantStyle("");
-
-                break;
-        }
+        if (isDisabled) setVariantStyle(styles.variant[variant].disabled);
+        else setVariantStyle(styles.variant[variant].enabled);
     }, [isDisabled, variant]);
 
     useEffect(() => {
-        switch (size) {
-            case "sm":
-                setSizeStyle("text-2xl");
-                break;
-            case "md":
-                setSizeStyle("text-3xl");
-                break;
-            case "lg":
-                setSizeStyle("text-4xl");
-                break;
-        }
+        setSizeStyle(styles.size[size]);
     }, [size]);
 
     return (
