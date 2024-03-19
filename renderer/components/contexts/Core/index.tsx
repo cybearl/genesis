@@ -33,7 +33,7 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const context = {
         info,
         appStatus,
-        setAppStatus,
+        setAppStatus,  // TODO: Implement app status change
         sidebarPanelState,
         setSidebarPanelState
     };

@@ -2,8 +2,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import Background from "@/components/base/Background";
-import AppConfig from "@/configs/app.config";
 import ProgressBar from "@/components/base/ProgressBar";
+import AppConfig from "@/configs/app.config";
 
 
 type LoadingScreenProps = {
@@ -78,10 +78,10 @@ export default function LoadingScreen({
                     <hr className="w-full h-[1px] border-transparent bg-white mt-1" />
                 </div>
 
-                <div>
-                    {/* <ProgressBar
-                        percentage={50}
-                    /> */}
+                <div className="pt-16 w-full max-w-md px-8">
+                    <ProgressBar
+                        progress={50}  // TODO: Replace with actual progress
+                    />
                 </div>
             </div>
 

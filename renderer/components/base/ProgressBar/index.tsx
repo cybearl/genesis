@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 
@@ -29,20 +28,14 @@ export default function ProgressBar({
 
     return (
         <div className={`
-            w-full border border-white rounded-full overflow-hidden flex items-center justify-start
+            w-full border border-white overflow-hidden flex items-center justify-start
+            shadow-lg shadow-black p-[3px]
             ${sizeStyle === null ? "invisible" : sizeStyle}
         `}>
             <div
-                className="h-full border-4 border-secondary-50 rounded-full relative flex"
+                className="bg-white transition-all h-full ease-in-out duration-300"
                 style={{ width: `${progress}%` }}
-            >
-                <Image
-                    src="/static/images/logo/colorized.webp"
-                    alt=""
-                    fill
-                    className="object-cover min-w-[200%] -translate-x-[25%] blur-sm brightness-150"
-                />
-            </div>
+            />
         </div>
     );
 }

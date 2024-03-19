@@ -47,7 +47,7 @@ export default function Layout({
                 layerTwoBlur={AppConfig.background.layerTwoBlur}
             />
 
-            <LoadingScreen isEnabled={false} />
+            <LoadingScreen isEnabled={appStatus !== "ready"} />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Sidebar
