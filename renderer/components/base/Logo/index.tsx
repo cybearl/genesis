@@ -6,32 +6,24 @@ type LogoProps = {
     size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
 };
 
+const styles = {
+    size: {
+        "sm": "w-12 h-12",
+        "md": "w-16 h-16",
+        "lg": "w-20 h-20",
+        "xl": "w-24 h-24",
+        "2xl": "w-32 h-32",
+        "3xl": "w-40 h-40"
+    }
+};
+
 export default function Logo({
     size = "md"
 }: LogoProps) {
-    const [sizeStyle, setSizeStyle] = useState("w-20 h-20");
+    const [sizeStyle, setSizeStyle] = useState(styles.size[size]);
 
     useEffect(() => {
-        switch (size) {
-            case "sm":
-                setSizeStyle("w-12 h-12");
-                break;
-            case "md":
-                setSizeStyle("w-16 h-16");
-                break;
-            case "lg":
-                setSizeStyle("w-20 h-20");
-                break;
-            case "xl":
-                setSizeStyle("w-24 h-24");
-                break;
-            case "2xl":
-                setSizeStyle("w-32 h-32");
-                break;
-            case "3xl":
-                setSizeStyle("w-40 h-40");
-                break;
-        }
+        setSizeStyle(styles.size[size]);
     }, [size]);
 
     return (

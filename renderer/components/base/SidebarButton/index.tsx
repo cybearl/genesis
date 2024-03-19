@@ -7,6 +7,7 @@ import AppConfig from "@/configs/app.config";
 export type SidebarButtonData = {
     label: string;
     icon: ReactNode;
+
     isDisabled?: boolean;
 };
 
@@ -22,6 +23,16 @@ type SidebarButtonProps = {
     onClick?: () => void;
 };
 
+const styles = {
+    variant: {
+        primary: {
+            default: "border-transparent hover:bg-secondary-200 active:border-neutral-600 active:bg-secondary-100",
+            disabled: "border-transparent cursor-default",
+            active: "border-white cursor-default bg-secondary-900"
+        }
+    }
+};
+
 export default function SidebarButton({
     data,
     sidebarPanelState,
@@ -33,27 +44,24 @@ export default function SidebarButton({
 
     onClick
 }: SidebarButtonProps) {
-    const [variantStyle, setVariantStyle] = useState("");
+    const [variantStyle, setVariantStyle] = useState(styles.variant[variant].default);
 
     const [expandedVisibility, setExpandedVisibility] = useState(sidebarPanelState === "collapsed" ? "opacity-0" : "");
     const [expandedTransitionDuration, setExpandedTransitionDuration] = useState(
-        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedTransitionDuration : AppConfig.sidebar.panel.expandedTransitionDuration
+        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedTransitionDuration :
+            AppConfig.sidebar.panel.expandedTransitionDuration
     );
 
     const [collapsedVisibility, setCollapsedVisibility] = useState(sidebarPanelState === "collapsed" ? "" : "opacity-0");
     const [collapsedTransitionDuration, setCollapsedTransitionDuration] = useState(
-        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.expandedTransitionDuration : AppConfig.sidebar.panel.collapsedTransitionDuration
+        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.expandedTransitionDuration :
+            AppConfig.sidebar.panel.collapsedTransitionDuration
     );
 
     useEffect(() => {
-        switch (variant) {
-            case "primary":
-                if (isDisabled && !isActive) setVariantStyle("border-transparent cursor-default");
-                else if (isActive) setVariantStyle("border-white cursor-default bg-secondary-900");
-                else setVariantStyle("border-transparent hover:bg-secondary-200 active:border-neutral-600 active:bg-secondary-100");
-
-                break;
-        }
+        if (isDisabled && !isActive) setVariantStyle(styles.variant[variant].disabled);
+        else if (isActive) setVariantStyle(styles.variant[variant].active);
+        else setVariantStyle(styles.variant[variant].default);
     }, [isActive, isDisabled, variant]);
 
     useEffect(() => {

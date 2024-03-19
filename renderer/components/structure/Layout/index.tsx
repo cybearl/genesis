@@ -61,7 +61,7 @@ export default function Layout({
                 <div className="relative w-full h-full max-h-screen flex flex-col">
                     <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-transparent">
                         <div
-                            className="-z-10 absolute inset-0 bg-secondary-800"
+                            className="-z-10 absolute inset-0 bg-secondary-750"
                             style={{ opacity: AppConfig.mainFrame.opacity }}
                         />
 

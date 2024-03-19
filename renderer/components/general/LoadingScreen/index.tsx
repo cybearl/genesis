@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import Background from "@/components/base/Background";
 import AppConfig from "@/configs/app.config";
+import ProgressBar from "@/components/base/ProgressBar";
 
 
 type LoadingScreenProps = {
@@ -26,7 +27,7 @@ export default function LoadingScreen({
 
     return (
         <div
-            className="absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-700 pointer-events-none"
+            className="absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-950 pointer-events-none"
             style={{
                 animation: `${isEnabled ? "opacity-in" : "opacity-out"} 0.5s ease-in-out`,
                 display: isHidden ? "none" : "flex",
@@ -75,6 +76,12 @@ export default function LoadingScreen({
 
                     {AppConfig.appProducer}.
                     <hr className="w-full h-[1px] border-transparent bg-white mt-1" />
+                </div>
+
+                <div>
+                    {/* <ProgressBar
+                        percentage={50}
+                    /> */}
                 </div>
             </div>
 

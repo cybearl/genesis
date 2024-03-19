@@ -17,22 +17,22 @@ type IconButtonProps = {
 const styles = {
     variant: {
         primary: {
-            enabled: "text-white hover:bg-secondary-200 active:bg-secondary-900",
-            disabled: "text-white cursor-default bg-secondary-900"
+            "enabled": "text-white hover:bg-secondary-200 active:bg-secondary-900",
+            "disabled": "text-white cursor-default bg-secondary-900"
         },
         secondary: {
-            enabled: "",
-            disabled: ""
+            "enabled": "",
+            "disabled": ""
         },
         tertiary: {
-            enabled: "",
-            disabled: ""
+            "enabled": "",
+            "disabled": ""
         }
     },
     size: {
-        sm: "text-2xl",
-        md: "text-3xl",
-        lg: "text-4xl"
+        "sm": "text-2xl",
+        "md": "text-3xl",
+        "lg": "text-4xl"
     }
 };
 

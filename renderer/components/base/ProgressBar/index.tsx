@@ -3,36 +3,28 @@ import { useEffect, useState } from "react";
 
 
 type ProgressBarProps = {
-    percentage: number;
+    progress: number;
 
     size?: "sm" | "md" | "lg";
 };
 
+const styles = {
+    size: {
+        "sm": "h-4",
+        "md": "h-6",
+        "lg": "h-8"
+    }
+};
+
 export default function ProgressBar({
-    percentage,
+    progress,
+
     size = "md"
 }: ProgressBarProps) {
-    const [sizeStyle, setSizeStyle] = useState<string | null>(null);
+    const [sizeStyle, setSizeStyle] = useState(styles.size[size]);
 
     useEffect(() => {
-        switch (size) {
-            case "sm":
-                setSizeStyle("h-4");
-
-                break;
-            case "md":
-                setSizeStyle("h-6");
-
-                break;
-            case "lg":
-                setSizeStyle("h-8");
-
-                break;
-            default:
-                setSizeStyle("h-2");
-
-                break;
-        }
+        setSizeStyle(styles.size[size]);
     }, [size]);
 
     return (
@@ -42,7 +34,7 @@ export default function ProgressBar({
         `}>
             <div
                 className="h-full border-4 border-secondary-50 rounded-full relative flex"
-                style={{ width: `${percentage}%` }}
+                style={{ width: `${progress}%` }}
             >
                 <Image
                     src="/static/images/logo/colorized.webp"
