@@ -51,8 +51,8 @@ Now, here's a quick list of features I'm thinking about:
 - [ ] I plan to implement a system that watch a lot of different cryptos at the same time to find the best
   opportunities (even for manual trading, it could be interesting).
 
-**Note:** I care about the Open-Source community,
+**Note:** I care about Open-Source,
 that's why this repo is public, but it is not aimed to be a commercial product,
 neither a product for the community, I'm doing this for personal use,
-and I'm sharing it with the community because I think it could be interesting
-or some people.
+and I'm sharing it because I think that it still could be interesting
+for some people.
