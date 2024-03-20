@@ -26,5 +26,4 @@ body {
     padding: 0;
     outline: none;
     user-select: none;
-    @apply border-secondary-100;
 }

@@ -9,6 +9,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                "roboto-mono": ["var(--font-roboto-mono)"]
+            },
             colors: {
                 primary: {
                     100: "#E5DCFD",
@@ -57,9 +60,6 @@ module.exports = {
                 "opacity-pulse": "opacity-pulse 2.5s ease-in-out infinite",
                 "opacity-in": "opacity-in 0.5s ease-in-out forwards",
                 "opacity-out": "opacity-out 0.5s ease-in-out forwards"
-            },
-            fontFamily: {
-                inconsolata: ["var(--font-inconsolata)", "sans-serif"]
             }
         }
     },

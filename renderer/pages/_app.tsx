@@ -3,12 +3,15 @@ import "@/styles/globals.css";
 import "@/styles/scrollbar.css";
 
 import CoreProvider from "@/components/contexts/Core";
+import { RobotoMono } from "@/lib/fonts";
 
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <CoreProvider>
-            <Component {...pageProps} />
-        </CoreProvider>
+        <div className={`${RobotoMono.variable} font-roboto-mono`}>
+            <CoreProvider>
+                <Component {...pageProps} />
+            </CoreProvider>
+        </div>
     );
 }

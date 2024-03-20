@@ -33,7 +33,7 @@ const AppConfig = {
         blur: 6,
         panel: {
             collapsedSize: 56,
-            expandedSize: 260,
+            expandedSize: 270,
             transitionDuration: 300,
             minLabelLength: 16,
             expandedTransitionDuration: 2.5,
