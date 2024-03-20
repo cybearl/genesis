@@ -6,11 +6,11 @@ import Account from "@/pages/account";
 import BotInstances from "@/pages/bot-instances";
 import DeveloperMode from "@/pages/developer-mode";
 import DryRunSandbox from "@/pages/dry-run-sandbox";
-import Help from "@/pages/help";
 import MarketDataFeed from "@/pages/market-data-feed";
 import RealTimeMarket from "@/pages/real-time-market";
 import Settings from "@/pages/settings";
 import StrategyScoring from "@/pages/strategy-scoring";
+import Toolbox from "@/pages/toolbox";
 
 
 export default function Index() {
@@ -23,9 +23,9 @@ export default function Index() {
         <StrategyScoring key={2} />,
         <DryRunSandbox key={3} />,
         <BotInstances key={4} />,
+        <Toolbox key={5} />,
 
         // BOTTOM NAV
-        <Help key={5} />,
         <Account key={6} />,
         <Settings key={7} />,
         <DeveloperMode key={8} />
@@ -54,13 +54,13 @@ export default function Index() {
                     {
                         label: "Bot instances",
                         icon: <Icon icon="material-symbols:robot" />
+                    },
+                    {
+                        label: "Toolbox",
+                        icon: <Icon icon="material-symbols:service-toolbox-rounded" />
                     }
                 ],
                 bottomButtons: [
-                    {
-                        label: "Help",
-                        icon: <Icon icon="material-symbols:help-outline-rounded" />
-                    },
                     {
                         label: "Account",
                         icon: <Icon icon="material-symbols:account-circle" />
@@ -74,7 +74,7 @@ export default function Index() {
                     {
                         label: "Developer mode",
                         icon: <Icon icon="material-symbols:developer-board-outline-rounded" />,
-                        textColor: "text-yellow-500"
+                        textColor: "text-blue-500"
                     }
                 ]
             }}
