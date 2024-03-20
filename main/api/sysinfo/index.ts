@@ -8,7 +8,7 @@ import { FetchRequest, FetchResponse, SHR__SysInfo } from "@sharedTypes/shared";
  * `GET` /api/sysinfo route handler.
  * @returns The system information.
  */
-const getSysInfo = async (): Promise<SHR__SysInfo> => {
+async function getSysInfo(): Promise<SHR__SysInfo> {
     const sysCPU = await currentLoad();
     const sysMemory = await mem();
     const sysMemoryAvailableGB = sysMemory.available / MemoryMap.GB;
@@ -31,7 +31,7 @@ const getSysInfo = async (): Promise<SHR__SysInfo> => {
     };
 
     return data;
-};
+}
 
 /**
  * Handler for the /api/sysinfo route.

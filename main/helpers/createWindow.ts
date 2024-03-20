@@ -16,10 +16,13 @@ type Window = {
     height: number;
 };
 
-export const createWindow = (
-    windowName: string,
-    options: BrowserWindowConstructorOptions
-): BrowserWindow => {
+/**
+ * Create the main app window.
+ * @param windowName The name of the window.
+ * @param options The options for the window.
+ * @returns The main app window.
+ */
+export function createWindow(windowName: string, options: BrowserWindowConstructorOptions): BrowserWindow {
     const defaultWindow: Window = {
         x: 0,
         y: 0,

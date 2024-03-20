@@ -5,6 +5,9 @@ import notifier from "node-notifier";
 import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
 
 
+/**
+ * Notification request object.
+ */
 export type NotifierRequest = {
     title?: string;
     message: string;
@@ -14,16 +17,15 @@ export type NotifierRequest = {
 
 /**
  * `POST` /api/notifier route handler.
- *
  */
-const notify = async (notification: NotifierRequest) => {
+async function notify(notification: NotifierRequest) {
     // Replace the undefined icon with the Genesis logo
     if (!notification.icon) {
         notification.icon = path.join(__dirname, "assets", "genesis-logo.png");
     }
 
     notifier.notify(notification);
-};
+}
 
 /**
  * Handler for the /api/notifier route.

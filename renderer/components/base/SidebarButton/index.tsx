@@ -7,7 +7,7 @@ import AppConfig from "@/configs/app.config";
 export type SidebarButtonData = {
     label: string;
     icon: ReactNode;
-    customClassName?: string;
+    textColor?: string;
 
     isDisabled?: boolean;
 };
@@ -91,7 +91,7 @@ export default function SidebarButton({
             className={`
                 relative w-full py-3 border-l-2 pr-[4px]
                 transition-all ease-in-out duration-100
-                ${data.customClassName}
+                ${data.textColor}
                 ${variantStyle}
             `}
             title={(!isActive && sidebarPanelState === "collapsed") ? data.label : ""}
@@ -113,7 +113,7 @@ export default function SidebarButton({
                 </span>
 
                 <p className="text-sm tracking-wider font-semibold text-nowrap">
-                    {data.label.padEnd(AppConfig.sidebar.panel.minLabelLength, "\xa0")}
+                    {data.label}
                 </p>
             </div>
 

@@ -1,6 +1,9 @@
 import { appConfig } from "@main/configs/app.config";
 
 
+/**
+ * The configuration for the main app window.
+ */
 export type WindowConfig = {
     title: string;
     initialWidth: number;
@@ -9,6 +12,9 @@ export type WindowConfig = {
     minHeight?: number;
 };
 
+/**
+ * The default configuration for the main app window.
+ */
 const defaultWindowConfig: WindowConfig = {
     title: appConfig.name,
     initialWidth: 1024,

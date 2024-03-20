@@ -6,6 +6,10 @@ type MousePosition = {
     y: number | null;
 };
 
+/**
+ * Custom hook for tracking the mouse position.
+ * @returns The current mouse position.
+ */
 export default function useMousePosition() {
     const [mousePosition, setMousePosition] = useState<MousePosition>({
         x: null,

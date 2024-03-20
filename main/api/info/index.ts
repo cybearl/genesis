@@ -6,10 +6,12 @@ import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
  * `GET` /api/info route handler.
  * @returns The info of the application.
  */
-const getInfo = async () => ({
-    ...appConfig,
-    applicationPath: __dirname
-});
+async function getInfo() {
+    return ({
+        ...appConfig,
+        applicationPath: __dirname
+    });
+}
 
 /**
  * Handler for the /api/info route.

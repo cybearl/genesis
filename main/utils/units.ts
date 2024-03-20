@@ -1,3 +1,6 @@
+/**
+ * Units for the memory.
+ */
 export enum Units {
     None = 1,
     K = 1024,
@@ -6,6 +9,9 @@ export enum Units {
     T = 1024 * 1024 * 1024 * 1024
 };
 
+/**
+ * Mapping for the memory units.
+ */
 export const MemoryMap = {
     "TB": Units.T,
     "GB": Units.G,

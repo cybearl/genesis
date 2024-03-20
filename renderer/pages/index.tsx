@@ -74,7 +74,7 @@ export default function Index() {
                     {
                         label: "Developer mode",
                         icon: <Icon icon="material-symbols:developer-board-outline-rounded" />,
-                        customClassName: "text-yellow-400"
+                        textColor: "text-yellow-500"
                     }
                 ]
             }}
