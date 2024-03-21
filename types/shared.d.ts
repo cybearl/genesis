@@ -1,6 +1,6 @@
 /**
  * The options passed to the API endpoint.
- * @param method The HTTP method to use (optional, defaults to `GET`).
+ * @param method The method to use (optional, defaults to `GET`).
  * @param headers The headers of the request (optional, defaults to `{}`).
  * @param body The body of the request (optional, defaults to `{}`).
  */
@@ -24,7 +24,7 @@ export interface RawFetchRequest {
  * FetchRequest with mandatory options merged with url, simulating the behavior
  * of the original NextJS fetch endpoint function.
  * @param url The URL to fetch.
- * @param method The HTTP method to use (optional, defaults to `GET`).
+ * @param method The method to use (optional, defaults to `GET`).
  * @param headers The headers of the request (optional, defaults to `{}`).
  * @param query The query of the request (optional, defaults to `{}`).
  * @param body The body of the request (optional, defaults to `{}`).
@@ -39,7 +39,7 @@ export interface FetchRequest {
 
 /**
  * The type of a response from the fetch API.
- * @param status The HTTP status code of the response.
+ * @param status The status code of the response.
  * @param message The message of the response.
  * @param data The data of the response.
  */

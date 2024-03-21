@@ -1,6 +1,6 @@
 import { currentLoad, mem } from "systeminformation";
 
-import { MemoryMap } from "@main/utils/units";
+import { MemoryMap } from "@main/lib/utils/units";
 import { FetchRequest, FetchResponse, SHR__SysInfo } from "@sharedTypes/shared";
 
 

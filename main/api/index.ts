@@ -4,7 +4,7 @@ import apiInfoHandler from "@main/api/info";
 import apiNotifierHandler from "@main/api/notifier";
 import apiSettingsHandler from "@main/api/settings";
 import apiSysInfoHandler from "@main/api/sysinfo";
-import { parseQueryFromUrl } from "@main/utils/api";
+import { parseQueryFromUrl } from "@main/lib/utils/api";
 
 import { FetchRequest, FetchResponse, RawFetchRequest } from "../../types/shared";
 
