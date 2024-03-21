@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 
 import { SidebarPanelState } from "@/components/contexts/Core";
 import AppConfig from "@/configs/app.config";
@@ -6,7 +7,7 @@ import AppConfig from "@/configs/app.config";
 
 export type SidebarButtonData = {
     label: string;
-    icon: ReactNode;
+    icon: string;
     textColor?: string;
 
     isDisabled?: boolean;
@@ -108,9 +109,7 @@ export default function SidebarButton({
                     transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * expandedTransitionDuration)}ms`
                 }}
             >
-                <span className="leading-none text-3xl">
-                    {data.icon}
-                </span>
+                <Icon icon={data.icon} className="leading-none text-3xl" />
 
                 <p className="text-sm tracking-wider font-semibold text-nowrap">
                     {data.label}
@@ -127,9 +126,7 @@ export default function SidebarButton({
                     transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * collapsedTransitionDuration)}ms`
                 }}
             >
-                <span className="leading-none text-3xl">
-                    {data.icon}
-                </span>
+                <Icon icon={data.icon} className="leading-none text-3xl" />
             </div>
         </button>
     );

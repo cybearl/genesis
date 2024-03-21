@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import { useMemo, useState } from "react";
 
 import Layout from "@/components/structure/Layout";
@@ -37,44 +36,44 @@ export default function Index() {
                 topButtons: [
                     {
                         label: "Real-time market",
-                        icon: <Icon icon="material-symbols:finance-mode-rounded" />
+                        icon: "material-symbols:finance-mode-rounded"
                     },
                     {
                         label: "Market data feed",
-                        icon: <Icon icon="material-symbols:document-scanner-outline-rounded" />
+                        icon: "material-symbols:document-scanner-outline-rounded"
                     },
                     {
                         label: "Strategy scoring",
-                        icon: <Icon icon="material-symbols:strategy-outline-rounded" />
+                        icon: "material-symbols:strategy-outline-rounded"
                     },
                     {
                         label: "Dry-run sandbox",
-                        icon: <Icon icon="material-symbols:cool-to-dry" />
+                        icon: "material-symbols:cool-to-dry"
                     },
                     {
                         label: "Bot instances",
-                        icon: <Icon icon="material-symbols:robot" />
+                        icon: "material-symbols:robot"
                     },
                     {
                         label: "Toolbox",
-                        icon: <Icon icon="material-symbols:service-toolbox-rounded" />
+                        icon: "material-symbols:service-toolbox-rounded"
                     }
                 ],
                 bottomButtons: [
                     {
                         label: "Account",
-                        icon: <Icon icon="material-symbols:account-circle" />
+                        icon: "material-symbols:account-circle"
                     },
                     {
                         label: "Settings",
-                        icon: <Icon icon="material-symbols:settings-rounded" />
+                        icon: "material-symbols:settings-rounded"
                     }
                 ],
                 devOnlyButtons: [
                     {
                         label: "Developer mode",
-                        icon: <Icon icon="material-symbols:developer-board-outline-rounded" />,
-                        textColor: "text-blue-500"
+                        icon: "material-symbols:developer-board-outline-rounded",
+                        textColor: "text-yellow-500"
                     }
                 ]
             }}
