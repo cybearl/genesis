@@ -1,6 +1,6 @@
 import Store from "electron-store";
 
-import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
 
 
 const getSettings = async () => {
@@ -10,7 +10,7 @@ const getSettings = async () => {
 /**
  * Handler for the /api/settings route.
  */
-export default async function handler(req: FetchRequest): Promise<FetchResponse> {
+export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") {
         // const data = await
 

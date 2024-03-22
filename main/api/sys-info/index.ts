@@ -1,7 +1,7 @@
 import { currentLoad, mem } from "systeminformation";
 
 import { MemoryMap } from "@main/lib/utils/units";
-import { FetchRequest, FetchResponse, SHR__SysInfo } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest, SHR__SysInfo } from "@sharedTypes/shared";
 
 
 /**
@@ -36,7 +36,7 @@ async function getSysInfo(): Promise<SHR__SysInfo> {
 /**
  * Handler for the /api/sysinfo route.
  */
-export default async function handler(req: FetchRequest): Promise<FetchResponse> {
+export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") {
         const data = await getSysInfo();
 

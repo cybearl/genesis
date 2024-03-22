@@ -1,35 +1,34 @@
 /**
- * The options passed to the API endpoint.
+ * The options passed to the incoming ipc request.
  * @param method The method to use (optional, defaults to `GET`).
  * @param headers The headers of the request (optional, defaults to `{}`).
  * @param body The body of the request (optional, defaults to `{}`).
  */
-export interface RawFetchRequestOptions {
+export interface IpcRequestOptions {
     method: "GET" | "POST" | "PATCH" | "DELETE";
     headers?: object;
     body?: object;
 }
 
 /**
- * The type of a request to the fetch API.
- * @param url The URL to fetch.
- * @param options The options to pass to the fetch API (optional, see `RawFetchRequestOptions` for default values).
+ * Incoming ipc request.
+ * @param url The ipc route url.
+ * @param options The options to pass to the ipc bridge (optional, see `IpcRequestOptions` for default values).
  */
-export interface RawFetchRequest {
+export interface IpcRequest {
     url: string;
-    options?: RawFetchRequestOptions;
+    options?: IpcRequestOptions;
 }
 
 /**
- * FetchRequest with mandatory options merged with url, simulating the behavior
- * of the original NextJS fetch endpoint function.
- * @param url The URL to fetch.
+ * Parsed ipc request with mandatory options merged with url.
+ * @param url The ipc route url.
  * @param method The method to use (optional, defaults to `GET`).
  * @param headers The headers of the request (optional, defaults to `{}`).
  * @param query The query of the request (optional, defaults to `{}`).
  * @param body The body of the request (optional, defaults to `{}`).
  */
-export interface FetchRequest {
+export interface ParsedIpcRequest {
     url: string;
     method: "GET" | "POST" | "PATCH" | "DELETE";
     headers?: object;
@@ -38,12 +37,12 @@ export interface FetchRequest {
 }
 
 /**
- * The type of a response from the fetch API.
+ * Response from the ipc router.
  * @param status The status code of the response.
  * @param message The message of the response.
  * @param data The data of the response.
  */
-export interface FetchResponse {
+export interface IpcResponse {
     status: number;
     message: string;
     data: object | null;
@@ -56,16 +55,16 @@ export interface FetchResponse {
  */
 
 /**
- * The type of the info returned by the /api/info route.
+ * Info returned by the `/api/app-info` route.
  */
-export interface SHR__Info {
+export interface SHR__AppInfo {
     name: string;
     version: string;
     environment: "development" | "production";
 }
 
 /**
- * The type of the settings returned by the /api/settings route.
+ * Settings returned by the `/api/settings` route.
  */
 export interface SHR__Settings {
     theme: "light" | "dark";
@@ -73,7 +72,7 @@ export interface SHR__Settings {
 }
 
 /**
- * The type of the system information returned by the /api/sysinfo route.
+ * System information returned by the `/api/sys-info` route.
  */
 export interface SHR__SysInfo {
     cpu: {

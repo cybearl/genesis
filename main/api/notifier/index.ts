@@ -2,7 +2,7 @@ import path from "path";
 
 import notifier from "node-notifier";
 
-import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
 
 
 /**
@@ -30,7 +30,7 @@ async function notify(notification: NotifierRequest) {
 /**
  * Handler for the /api/notifier route.
  */
-export default async function handler(req: FetchRequest): Promise<FetchResponse> {
+export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     const { title, message, icon, sound } = req.query as NotifierRequest;
 
     if (!message) {

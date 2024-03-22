@@ -1,8 +1,8 @@
-import { IpcFetch } from "@main/preload";
+import { IpcBridge } from "@main/preload";
 
 
 declare global {
     interface Window {
-        ipcFetch: IpcFetch;
+        ipcBridge: IpcBridge;
     }
 }

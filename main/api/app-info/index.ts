@@ -1,12 +1,12 @@
 import { appConfig } from "@main/configs/app.config";
-import { FetchRequest, FetchResponse } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
 
 
 /**
- * `GET` /api/info route handler.
+ * `GET` /api/app-info route handler.
  * @returns The info of the application.
  */
-async function getInfo() {
+async function getAppInfo() {
     return ({
         ...appConfig,
         applicationPath: __dirname
@@ -14,11 +14,11 @@ async function getInfo() {
 }
 
 /**
- * Handler for the /api/info route.
+ * Handler for the /api/app-info route.
  */
-export default async function handler(req: FetchRequest): Promise<FetchResponse> {
+export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") {
-        const data = await getInfo();
+        const data = await getAppInfo();
 
         return {
             status: 200,

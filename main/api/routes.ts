@@ -1,30 +1,33 @@
 import { IpcMainInvokeEvent } from "electron";
 
-import apiInfoHandler from "@main/api/info";
+
+import apiAppInfoHandler from "@main/api/app-info";
 import apiNotifierHandler from "@main/api/notifier";
 import apiSettingsHandler from "@main/api/settings";
-import apiSysInfoHandler from "@main/api/sysinfo";
+import apiSysInfoHandler from "@main/api/sys-info";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
 
-import { FetchRequest, FetchResponse, RawFetchRequest } from "../../types/shared";
+import { IpcRequest, IpcResponse, ParsedIpcRequest } from "../../types/shared";
 
 
 /**
- * The IPC router (entry point used for the IPC communication
- * between the main and the renderer process) redirects
- * the request to the appropriate API endpoint.
+ * The ipc router redirects the incoming requests
+ * to the appropriate handler (route) based on the request URL.
+ * @param event The ipc event.
+ * @param req The ipc request.
+ * @returns The response from the handler.
  */
 export default async function ipcRouter(
     event: IpcMainInvokeEvent,
-    req: RawFetchRequest
-): Promise<FetchResponse> {
+    req: IpcRequest
+): Promise<IpcResponse> {
     event.preventDefault();
 
-    // Convert the raw fetch request to a FetchRequest useable by the API handlers
+    // Parse the ipc request, making it easier to work with in the handlers.
     // ex: `req.options?.url` query parameters goes into `req.query`
     // ex: `req.options?.body` becomes `req.body`
     // etc..
-    const fetchRequest: FetchRequest = {
+    const parsedIpcRequest: ParsedIpcRequest = {
         url: req.url,
         method: req.options?.method || "GET",
         headers: req.options?.headers || {},
@@ -32,23 +35,23 @@ export default async function ipcRouter(
         body: req.options?.body
     };
 
-    let res: FetchResponse;
+    let res: IpcResponse;
 
     switch (req.url) {
-        case "/api/info": {
-            res = await apiInfoHandler(fetchRequest);
+        case "/api/app-info": {
+            res = await apiAppInfoHandler(parsedIpcRequest);
             break;
         }
         case "/api/notifier": {
-            res = await apiNotifierHandler(fetchRequest);
+            res = await apiNotifierHandler(parsedIpcRequest);
             break;
         }
         case "/api/settings": {
-            res = await apiSettingsHandler(fetchRequest);
+            res = await apiSettingsHandler(parsedIpcRequest);
             break;
         }
-        case "/api/sysinfo": {
-            res = await apiSysInfoHandler(fetchRequest);
+        case "/api/sys-info": {
+            res = await apiSysInfoHandler(parsedIpcRequest);
             break;
         }
         default: {

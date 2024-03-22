@@ -1,20 +1,20 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-import { FetchResponse, RawFetchRequestOptions } from "@sharedTypes/shared";
+import { IpcRequestOptions, IpcResponse } from "@sharedTypes/shared";
 
 
 /**
- * The ipcFetch API provides an interface allowing communication between the
- * renderer process and the main process.
- * @param url The URL to fetch.
+ * The ipc bridge function passes the request to the main process
+ * via the ipc router and returns the response.
+ * @param url The ipc route url.
  * @param method The method to use (optional, defaults to `GET`).
  * @param body The body of the request (optional, defaults to `undefined`).
  * @returns A promise that resolves to the response.
  */
-async function ipcFetch(
+async function ipcBridge(
     url: string,
-    options?: RawFetchRequestOptions
-): Promise<FetchResponse> {
+    options?: IpcRequestOptions
+): Promise<IpcResponse> {
     if (!url) throw new Error("URL is required.");
     if (typeof url !== "string") throw new Error("URL must be a string.");
 
@@ -28,5 +28,5 @@ async function ipcFetch(
 }
 
 
-contextBridge.exposeInMainWorld("ipcFetch", ipcFetch);
-export type IpcFetch = typeof ipcFetch;
+contextBridge.exposeInMainWorld("ipcBridge", ipcBridge);
+export type IpcBridge = typeof ipcBridge;

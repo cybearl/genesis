@@ -35,11 +35,11 @@ export default function Layout({
 
     currentPage
 }: LayoutProps) {
-    const { info, appStatus } = useContext(CoreContext);
+    const { appInfo, appStatus } = useContext(CoreContext);
     const [sysInfo, setSysInfo] = useState<SHR__SysInfo>();
 
     useInterval(async () => {
-        const res = await window.ipcFetch("/api/sysinfo");
+        const res = await window.ipcBridge("/api/sys-info");
         setSysInfo(res.data as SHR__SysInfo);
     }, AppConfig.sysInfo.refreshInterval);
 
@@ -52,13 +52,13 @@ export default function Layout({
                 layerTwoBlur={AppConfig.background.layerTwoBlur}
             />
 
-            <LoadingScreen isEnabled={false} />
+            <LoadingScreen isEnabled={appStatus !== "ready"} />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Sidebar
                     topButtons={sidebar.topButtons}
                     bottomButtons={sidebar.bottomButtons}
-                    devOnlyButtons={info?.environment === "development" ? sidebar.devOnlyButtons : []}
+                    devOnlyButtons={appInfo?.environment === "development" ? sidebar.devOnlyButtons : []}
                     onButtonClick={onSidebarButtonClick}
                     activeButtonIndex={currentPage}
                 />

@@ -3,9 +3,9 @@ import path from "path";
 import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 
-import ipcRouter from "@main/api/index";
+import ipcRouter from "@main/api/routes";
 import defaultWindowConfig from "@main/configs/window.config";
-import { createWindow } from "@main/helpers/createWindow";
+import { createWindow } from "@main/lib/helpers/createWindow";
 
 
 if (app.isPackaged) {
