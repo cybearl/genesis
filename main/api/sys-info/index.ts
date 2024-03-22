@@ -1,5 +1,6 @@
 import { currentLoad, mem } from "systeminformation";
 
+import { ERRORS } from "@main/lib/errors";
 import { MemoryMap } from "@main/lib/utils/units";
 import { IpcResponse, ParsedIpcRequest, SHR__SysInfo } from "@sharedTypes/shared";
 
@@ -34,22 +35,22 @@ async function getSysInfo(): Promise<SHR__SysInfo> {
 }
 
 /**
- * Handler for the /api/sysinfo route.
+ * Handler for the `/api/sysinfo` route.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") {
         const data = await getSysInfo();
 
         return {
-            status: 200,
-            message: "OK",
+            success: true,
+            message: "Successfully retrieved system information.",
             data: data
         };
     }
 
     return {
-        status: 405,
-        message: "Method Not Allowed",
-        data: null
+        success: false,
+        message: "This route only supports GET requests.",
+        data: ERRORS.METHOD_NOT_ALLOWED
     };
 }

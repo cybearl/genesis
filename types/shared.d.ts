@@ -4,7 +4,7 @@
  * @param headers The headers of the request (optional, defaults to `{}`).
  * @param body The body of the request (optional, defaults to `{}`).
  */
-export interface IpcRequestOptions {
+export type IpcRequestOptions = {
     method: "GET" | "POST" | "PATCH" | "DELETE";
     headers?: object;
     body?: object;
@@ -15,7 +15,7 @@ export interface IpcRequestOptions {
  * @param url The ipc route url.
  * @param options The options to pass to the ipc bridge (optional, see `IpcRequestOptions` for default values).
  */
-export interface IpcRequest {
+export type IpcRequest =  {
     url: string;
     options?: IpcRequestOptions;
 }
@@ -28,7 +28,7 @@ export interface IpcRequest {
  * @param query The query of the request (optional, defaults to `{}`).
  * @param body The body of the request (optional, defaults to `{}`).
  */
-export interface ParsedIpcRequest {
+export type ParsedIpcRequest = {
     url: string;
     method: "GET" | "POST" | "PATCH" | "DELETE";
     headers?: object;
@@ -38,12 +38,12 @@ export interface ParsedIpcRequest {
 
 /**
  * Response from the ipc router.
- * @param status The status code of the response.
+ * @param success Whether the request was successful or not.
  * @param message The message of the response.
  * @param data The data of the response.
  */
-export interface IpcResponse {
-    status: number;
+export type IpcResponse = {
+    success: boolean;
     message: string;
     data: object | null;
 }
@@ -57,7 +57,7 @@ export interface IpcResponse {
 /**
  * Info returned by the `/api/app-info` route.
  */
-export interface SHR__AppInfo {
+export type SHR__AppInfo = {
     name: string;
     version: string;
     environment: "development" | "production";
@@ -66,7 +66,7 @@ export interface SHR__AppInfo {
 /**
  * Settings returned by the `/api/settings` route.
  */
-export interface SHR__Settings {
+export type SHR__Settings = {
     theme: "light" | "dark";
     locale: string;
 }
@@ -74,7 +74,7 @@ export interface SHR__Settings {
 /**
  * System information returned by the `/api/sys-info` route.
  */
-export interface SHR__SysInfo {
+export type SHR__SysInfo = {
     cpu: {
         percentage: string;
         str: string;

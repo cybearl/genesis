@@ -1,10 +1,10 @@
 import { IpcMainInvokeEvent } from "electron";
 
-
 import apiAppInfoHandler from "@main/api/app-info";
 import apiNotifierHandler from "@main/api/notifier";
 import apiSettingsHandler from "@main/api/settings";
 import apiSysInfoHandler from "@main/api/sys-info";
+import { ERRORS } from "@main/lib/errors";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
 
 import { IpcRequest, IpcResponse, ParsedIpcRequest } from "../../types/shared";
@@ -56,9 +56,9 @@ export default async function ipcRouter(
         }
         default: {
             return {
-                status: 404,
-                message: "Not Found",
-                data: null
+                success: false,
+                message: "Ipc route not found.",
+                data: ERRORS.NOT_FOUND
             };
         }
     }

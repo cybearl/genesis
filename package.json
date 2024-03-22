@@ -11,7 +11,8 @@
         "v-bump": "yarn version --patch",
         "dev": "nextron",
         "build": "nextron build --config ./configs/electron-builder.yml",
-        "postinstall": "electron-builder install-app-deps"
+        "postinstall": "electron-builder install-app-deps",
+        "lint": "eslint . --ext .ts,.tsx"
     },
     "dependencies": {
         "electron-serve": "^1.1.0",

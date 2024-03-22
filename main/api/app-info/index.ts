@@ -1,4 +1,5 @@
 import { appConfig } from "@main/configs/app.config";
+import { ERRORS } from "@main/lib/errors";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
 
 
@@ -21,15 +22,15 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
         const data = await getAppInfo();
 
         return {
-            status: 200,
-            message: "OK",
+            success: true,
+            message: "Successfully retrieved application information.",
             data: data
         };
     }
 
     return {
-        status: 405,
-        message: "Method Not Allowed",
-        data: null
+        success: false,
+        message: "This route only supports GET requests.",
+        data: ERRORS.METHOD_NOT_ALLOWED
     };
 }

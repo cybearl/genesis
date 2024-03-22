@@ -2,6 +2,7 @@ import path from "path";
 
 import notifier from "node-notifier";
 
+import { ERRORS } from "@main/lib/errors";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
 
 
@@ -35,9 +36,9 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
 
     if (!message) {
         return {
-            status: 400,
-            message: "Bad Request",
-            data: null
+            success: false,
+            message: "Missing required parameter: 'message'.",
+            data: ERRORS.BAD_REQUEST
         };
     }
 
@@ -45,15 +46,15 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
         await notify({ title, message, icon, sound });
 
         return {
-            status: 200,
-            message: "OK",
+            success: true,
+            message: "Successfully sent notification.",
             data: null
         };
     }
 
     return {
-        status: 405,
-        message: "Method Not Allowed",
-        data: null
+        success: false,
+        message: "This route only supports POST requests.",
+        data: ERRORS.METHOD_NOT_ALLOWED
     };
 }
