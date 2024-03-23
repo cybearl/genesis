@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Background from "@/components/base/Background";
 import ProgressBar from "@/components/base/ProgressBar";
-import AppConfig from "@/configs/app.config";
+// import AppConfig from "@/configs/app.config";
 
 
 type LoadingScreenProps = {
@@ -35,18 +35,20 @@ export default function LoadingScreen({
             }}
             onClick={(e) => e.preventDefault()}
         >
-            <Background
+            {/* // TODO: Implement via settings */}
+            {/* <Background
                 layerOneOpacity={AppConfig.loadingScreen.layerOneOpacity}
                 layerOneBlur={AppConfig.loadingScreen.layerOneBlur}
                 layerTwoOpacity={AppConfig.loadingScreen.layerTwoOpacity}
                 layerTwoBlur={AppConfig.loadingScreen.layerTwoBlur}
-            />
+            /> */}
 
             <div className="absolute top-6 w-full flex justify-between items-center gap-8">
                 <hr className="w-full h-[1px] border-transparent bg-white grow" />
 
                 <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
-                    {AppConfig.appDescription}
+                    {/* // TODO: Implement via settings */}
+                    {/* {AppConfig.appDescription} */}
                 </div>
 
                 <hr className="w-full h-[1px] border-transparent bg-white grow" />
@@ -74,7 +76,8 @@ export default function LoadingScreen({
                         A project by<br />
                     </span>
 
-                    {AppConfig.appProducer}.
+                    {/* // TODO: Implement via settings */}
+                    {/* {AppConfig.appProducer}. */}
                     <hr className="w-full h-[1px] border-transparent bg-white mt-1" />
                 </div>
 
@@ -89,7 +92,8 @@ export default function LoadingScreen({
                 <hr className="h-[1px] border-transparent bg-white grow" />
 
                 <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
-                    {AppConfig.appDisclaimer}
+                    {/* // TODO: Implement via settings */}
+                    {/* {AppConfig.appDisclaimer} */}
                 </div>
 
                 <hr className="h-[1px] border-transparent bg-white grow" />

@@ -1,7 +1,6 @@
 import { IpcMainInvokeEvent } from "electron";
 
 import apiNotifierHandler from "@main/api/notifier";
-import apiSettingsHandler from "@main/api/settings";
 import apiSysInfoHandler from "@main/api/sys-info";
 import { ERRORS } from "@main/lib/errors";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
@@ -38,10 +37,6 @@ export default async function ipcRouter(
     switch (req.url) {
         case "/api/notifier": {
             res = await apiNotifierHandler(parsedIpcRequest);
-            break;
-        }
-        case "/api/settings": {
-            res = await apiSettingsHandler(parsedIpcRequest);
             break;
         }
         case "/api/sys-info": {

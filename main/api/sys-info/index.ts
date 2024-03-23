@@ -2,6 +2,7 @@ import { currentLoad, mem } from "systeminformation";
 
 import { ERRORS } from "@main/lib/errors";
 import { MemoryMap } from "@main/lib/utils/units";
+import { SysInfo } from "@sharedTypes/api";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
@@ -9,7 +10,7 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
  * `GET` /api/sysinfo route handler.
  * @returns The system information.
  */
-async function getSysInfo(): Promise<SHR__SysInfo> {
+async function getSysInfo(): Promise<SysInfo> {
     const sysCPU = await currentLoad();
     const sysMemory = await mem();
     const sysMemoryAvailableGB = sysMemory.available / MemoryMap.GB;
@@ -17,7 +18,7 @@ async function getSysInfo(): Promise<SHR__SysInfo> {
     const sysMemoryTotalGB = sysMemory.total / MemoryMap.GB;
     const sysMemoryPercentage = (sysMemoryUsedGB / sysMemoryTotalGB) * 100;
 
-    const data: SHR__SysInfo = {
+    const data: SysInfo = {
         cpu: {
             percentage: (100 - sysCPU.currentLoadIdle).toFixed(2),
             str: `${(100 - sysCPU.currentLoadIdle).toFixed(2)}%`

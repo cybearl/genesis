@@ -7,9 +7,9 @@ import { CoreContext } from "@/components/contexts/Core";
 import LoadingScreen from "@/components/general/LoadingScreen";
 import Sidebar from "@/components/structure/Sidebar";
 import StatusBar from "@/components/structure/StatusBar";
-import AppConfig from "@/configs/app.config";
+// import AppConfig from "@/configs/app.config";
 import useInterval from "@/hooks/useInterval";
-import { ShrSysInfo } from "@sharedTypes/api";
+import { SysInfo } from "@sharedTypes/api";
 
 
 type SidebarObj = {
@@ -35,22 +35,24 @@ export default function Layout({
 
     currentPage
 }: LayoutProps) {
-    const { appInfo, appStatus } = useContext(CoreContext);
-    const [sysInfo, setSysInfo] = useState<ShrSysInfo>();
+    const { appStatus } = useContext(CoreContext);
+    const [sysInfo, setSysInfo] = useState<SysInfo>();
 
-    useInterval(async () => {
-        const res = await window.ipcBridge("/api/sys-info");
-        setSysInfo(res.data as ShrSysInfo);
-    }, AppConfig.sysInfo.refreshInterval);
+    // TODO: Implement via settings
+    // useInterval(async () => {
+    //     const res = await window.ipcBridge("/api/sys-info");
+    //     setSysInfo(res.data as SysInfo);
+    // }, AppConfig.sysInfo.refreshInterval);
 
     return (
         <div className="z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col">
-            <Background
+            {/* // TODO: Implement via settings */}
+            {/* <Background
                 layerOneOpacity={AppConfig.background.layerOneOpacity}
                 layerOneBlur={AppConfig.background.layerOneBlur}
                 layerTwoOpacity={AppConfig.background.layerTwoOpacity}
                 layerTwoBlur={AppConfig.background.layerTwoBlur}
-            />
+            /> */}
 
             <LoadingScreen isEnabled={appStatus !== "ready"} />
 
@@ -58,7 +60,7 @@ export default function Layout({
                 <Sidebar
                     topButtons={sidebar.topButtons}
                     bottomButtons={sidebar.bottomButtons}
-                    devOnlyButtons={appInfo?.environment === "development" ? sidebar.devOnlyButtons : []}
+                    devOnlyButtons={true ? sidebar.devOnlyButtons : []}  // TODO: Add environment check
                     onButtonClick={onSidebarButtonClick}
                     activeButtonIndex={currentPage}
                 />
@@ -67,7 +69,8 @@ export default function Layout({
                     <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-transparent">
                         <div
                             className="-z-10 absolute inset-0 bg-secondary-750"
-                            style={{ opacity: AppConfig.mainFrame.opacity }}
+                            // TODO: Implement via settings
+                            // style={{ opacity: AppConfig.mainFrame.opacity }}
                         />
 
                         {children}

@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 
 import { SidebarPanelState } from "@/components/contexts/Core";
-import AppConfig from "@/configs/app.config";
+// import AppConfig from "@/configs/app.config";
 
 
 export type SidebarButtonData = {
@@ -50,14 +50,18 @@ export default function SidebarButton({
 
     const [expandedVisibility, setExpandedVisibility] = useState(sidebarPanelState === "collapsed" ? "opacity-0" : "");
     const [expandedTransitionDuration, setExpandedTransitionDuration] = useState(
-        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedTransitionDuration :
-            AppConfig.sidebar.panel.expandedTransitionDuration
+        // TODO: Implement via settings
+        // sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedTransitionDuration :
+        //     AppConfig.sidebar.panel.expandedTransitionDuration
+        sidebarPanelState === "collapsed" ? 0.5 : 2
     );
 
     const [collapsedVisibility, setCollapsedVisibility] = useState(sidebarPanelState === "collapsed" ? "" : "opacity-0");
     const [collapsedTransitionDuration, setCollapsedTransitionDuration] = useState(
-        sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.expandedTransitionDuration :
-            AppConfig.sidebar.panel.collapsedTransitionDuration
+        // TODO: Implement via settings
+        // sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.expandedTransitionDuration :
+        //     AppConfig.sidebar.panel.collapsedTransitionDuration
+        sidebarPanelState === "collapsed" ? 2 : 0.5
     );
 
     useEffect(() => {
@@ -71,17 +75,21 @@ export default function SidebarButton({
             case "collapsing":
             case "collapsed":
                 setExpandedVisibility("opacity-0");
-                setExpandedTransitionDuration(AppConfig.sidebar.panel.collapsedTransitionDuration);
+                // TODO: Implement via settings
+                // setExpandedTransitionDuration(AppConfig.sidebar.panel.collapsedTransitionDuration);
+                setExpandedTransitionDuration(0.5);
                 setCollapsedVisibility("opacity-100");
-                setCollapsedTransitionDuration(AppConfig.sidebar.panel.expandedTransitionDuration);
+                // TODO: Implement via settings
+                // setCollapsedTransitionDuration(AppConfig.sidebar.panel.expandedTransitionDuration);
+                setCollapsedTransitionDuration(2);
 
                 break;
             case "expanding":
             case "expanded":
                 setExpandedVisibility("opacity-100");
-                setExpandedTransitionDuration(AppConfig.sidebar.panel.expandedTransitionDuration);
+                setExpandedTransitionDuration(2);
                 setCollapsedVisibility("opacity-0");
-                setCollapsedTransitionDuration(AppConfig.sidebar.panel.collapsedTransitionDuration);
+                setCollapsedTransitionDuration(0.5);
 
                 break;
         }
@@ -106,7 +114,8 @@ export default function SidebarButton({
                     ${expandedVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * expandedTransitionDuration)}ms`
+                    // TODO: Implement via settings
+                    // transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * expandedTransitionDuration)}ms`
                 }}
             >
                 <Icon icon={data.icon} className="leading-none text-3xl" />
@@ -123,7 +132,8 @@ export default function SidebarButton({
                     ${collapsedVisibility}
                 `}
                 style={{
-                    transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * collapsedTransitionDuration)}ms`
+                    // TODO: Implement via settings
+                    // transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * collapsedTransitionDuration)}ms`
                 }}
             >
                 <Icon icon={data.icon} className="leading-none text-3xl" />
