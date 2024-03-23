@@ -1,4 +1,5 @@
 import { AppLoadingStatus } from "@sharedTypes/api";
+import { ErrorCode } from "@sharedTypes/errors";
 
 
 /**
@@ -25,5 +26,5 @@ export async function updateAppLoadingStatus(frontendProgressAdder?: number, bac
         }
     });
 
-    return response.data as AppLoadingStatus | null;
+    return response.data as AppLoadingStatus | ErrorCode;
 }

@@ -1,10 +1,3 @@
-export type ErrorCode = {
-    status: number,    // HTTP Status Code
-    code: string,      // Error Code (status + variant)
-    log: string,       // Log message
-    data: any;         // Additional data
-};
-
 /**
  * Error codes for the application.
  */
@@ -42,6 +35,13 @@ export const ERRORS = {
         status: 405,
         code: "405_METHOD_NOT_ALLOWED",
         log: "Method Not Allowed",
+        data: null
+    },
+    /** [422] Unprocessable Entity */
+    UNPROCESSABLE_ENTITY: {
+        status: 422,
+        code: "422_UNPROCESSABLE_ENTITY",
+        log: "Unprocessable Entity",
         data: null
     },
     /** [500] Internal Server Error */

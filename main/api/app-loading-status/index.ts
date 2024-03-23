@@ -27,8 +27,14 @@ const appLoadingStatus: AppLoadingStatus = {
  * @returns The updated app loading status.
  */
 export function updateAppLoadingStatus(frontendProgressAdder?: number, backendProgressAdder?: number): AppLoadingStatus {
-    if (frontendProgressAdder) appLoadingStatus.frontend.progress += frontendProgressAdder;
-    if (backendProgressAdder) appLoadingStatus.backend.progress += backendProgressAdder;
+    if (frontendProgressAdder && frontendProgressAdder >= 0 && frontendProgressAdder <= 100) {
+        appLoadingStatus.frontend.progress += frontendProgressAdder;
+    }
+
+    if (backendProgressAdder && backendProgressAdder >= 0 && backendProgressAdder <= 100) {
+        appLoadingStatus.backend.progress += backendProgressAdder;
+    }
+
     return appLoadingStatus;
 }
 
@@ -55,8 +61,29 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
     }
 
     if (req.method === "PATCH") {
-        if (frontendProgressAdder) appLoadingStatus.frontend.progress += frontendProgressAdder;
-        if (backendProgressAdder) appLoadingStatus.backend.progress += backendProgressAdder;
+        if (frontendProgressAdder) {
+            if (frontendProgressAdder < 0 || frontendProgressAdder > 100) {
+                return {
+                    success: false,
+                    message: "Invalid frontend progress adder (should be between 0 and 100).",
+                    data: ERRORS.UNPROCESSABLE_ENTITY
+                };
+            }
+
+            appLoadingStatus.frontend.progress += frontendProgressAdder;
+        }
+
+        if (backendProgressAdder) {
+            if (backendProgressAdder < 0 || backendProgressAdder > 100) {
+                return {
+                    success: false,
+                    message: "Invalid backend progress adder (should be between 0 and 100).",
+                    data: ERRORS.UNPROCESSABLE_ENTITY
+                };
+            }
+
+            appLoadingStatus.backend.progress += backendProgressAdder;
+        }
 
         return {
             success: true,
