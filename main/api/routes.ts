@@ -1,13 +1,11 @@
 import { IpcMainInvokeEvent } from "electron";
 
-import apiAppInfoHandler from "@main/api/app-info";
 import apiNotifierHandler from "@main/api/notifier";
 import apiSettingsHandler from "@main/api/settings";
 import apiSysInfoHandler from "@main/api/sys-info";
 import { ERRORS } from "@main/lib/errors";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
-
-import { IpcRequest, IpcResponse, ParsedIpcRequest } from "../../types/shared";
+import { IpcRequest, IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
 /**
@@ -38,10 +36,6 @@ export default async function ipcRouter(
     let res: IpcResponse;
 
     switch (req.url) {
-        case "/api/app-info": {
-            res = await apiAppInfoHandler(parsedIpcRequest);
-            break;
-        }
         case "/api/notifier": {
             res = await apiNotifierHandler(parsedIpcRequest);
             break;

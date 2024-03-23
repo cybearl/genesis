@@ -106,7 +106,7 @@
         "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
     },
     "include": [
-        "../types/shared.d.ts",
+        "../types/**/*.d.ts",
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx"

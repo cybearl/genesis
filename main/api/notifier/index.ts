@@ -3,7 +3,7 @@ import path from "path";
 import notifier from "node-notifier";
 
 import { ERRORS } from "@main/lib/errors";
-import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
 /**

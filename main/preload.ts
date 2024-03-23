@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-import { IpcRequestOptions, IpcResponse } from "@sharedTypes/shared";
+import { IpcRequestOptions, IpcResponse } from "@sharedTypes/ipc";
 
 
 /**

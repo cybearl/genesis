@@ -9,7 +9,7 @@ import Sidebar from "@/components/structure/Sidebar";
 import StatusBar from "@/components/structure/StatusBar";
 import AppConfig from "@/configs/app.config";
 import useInterval from "@/hooks/useInterval";
-import { SHR__SysInfo } from "@sharedTypes/shared";
+import { ShrSysInfo } from "@sharedTypes/api";
 
 
 type SidebarObj = {
@@ -36,11 +36,11 @@ export default function Layout({
     currentPage
 }: LayoutProps) {
     const { appInfo, appStatus } = useContext(CoreContext);
-    const [sysInfo, setSysInfo] = useState<SHR__SysInfo>();
+    const [sysInfo, setSysInfo] = useState<ShrSysInfo>();
 
     useInterval(async () => {
         const res = await window.ipcBridge("/api/sys-info");
-        setSysInfo(res.data as SHR__SysInfo);
+        setSysInfo(res.data as ShrSysInfo);
     }, AppConfig.sysInfo.refreshInterval);
 
     return (

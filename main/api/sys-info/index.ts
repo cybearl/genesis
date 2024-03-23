@@ -2,7 +2,7 @@ import { currentLoad, mem } from "systeminformation";
 
 import { ERRORS } from "@main/lib/errors";
 import { MemoryMap } from "@main/lib/utils/units";
-import { IpcResponse, ParsedIpcRequest, SHR__SysInfo } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
 /**

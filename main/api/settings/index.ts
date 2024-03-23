@@ -1,7 +1,7 @@
 import Store from "electron-store";
 
 import { ERRORS } from "@main/lib/errors";
-import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/shared";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
 const getSettings = async () => {
