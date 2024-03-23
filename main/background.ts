@@ -1,6 +1,6 @@
 import path from "path";
 
-import { app, ipcMain } from "electron";
+import { BrowserWindow, app, ipcMain } from "electron";
 import serve from "electron-serve";
 
 import ipcRouter from "@main/api/routes";
@@ -9,13 +9,17 @@ import createSplashScreen from "@main/lib/helpers/createSplashScreen";
 import createWindow from "@main/lib/helpers/createWindow";
 
 
-// Handle storage location
+// Storage location
 if (app.isPackaged) serve({ directory: "app" });
 else app.setPath("userData", `${app.getPath("userData")} (development)`);
 
-// Handle the application lifecycle
+// Windows
+let splashScreen: BrowserWindow;
+let mainWindow: BrowserWindow;
+
+// Lifecycle
 app.on("ready", async () => {
-    const splashScreen = createSplashScreen({
+    splashScreen = createSplashScreen({
         title: "Genesis",
         icon: path.join(__dirname, "..", "assets", "favicon.ico"),
         webPreferences: {
@@ -23,24 +27,21 @@ app.on("ready", async () => {
         }
     });
 
+    mainWindow = createWindow("main", {
+        // TODO: Implement via settings
+        // title: defaultWindowConfig.title,
+        // width: defaultWindowConfig.initialWidth,
+        // height: defaultWindowConfig.initialHeight,
+        // minWidth: defaultWindowConfig.minWidth,
+        // minHeight: defaultWindowConfig.minHeight,
+        icon: path.join(__dirname, "..", "assets", "favicon.ico"),
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js")
+        }
+    });
 
-    // const mainWindow = createWindow("main", {
-    //     // TODO: Implement via settings
-    //     // title: defaultWindowConfig.title,
-    //     // width: defaultWindowConfig.initialWidth,
-    //     // height: defaultWindowConfig.initialHeight,
-    //     // minWidth: defaultWindowConfig.minWidth,
-    //     // minHeight: defaultWindowConfig.minHeight,
-    //     icon: path.join(__dirname, "..", "assets", "favicon.ico"),
-    //     webPreferences: {
-    //         preload: path.join(__dirname, "preload.js")
-    //     }
-    // });
+    mainWindow.setMenuBarVisibility(false);
 
-    // // Disable the default menu bar
-    // mainWindow.setMenuBarVisibility(false);
-
-    // Load the application
     if (app.isPackaged) {
         await splashScreen.loadURL("app://./home");
     } else {
@@ -57,10 +58,13 @@ app.on("ready", async () => {
     // }
 });
 
-// Handle the application closing cycle
+// Closing cycle
 app.on("window-all-closed", () => {
 
 });
 
-// Handle IPC routing
+// IPC routing
 ipcMain.handle("ipc::router", ipcRouter);
+
+// Make windows available globally
+export { splashScreen, mainWindow };

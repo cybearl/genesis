@@ -1,3 +1,4 @@
+import { mainWindow, splashScreen } from "@main/background";
 import { ERRORS } from "@main/lib/errors";
 import { AppLoadingStatus } from "@sharedTypes/api";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
@@ -44,14 +45,6 @@ export function updateAppLoadingStatus(frontendProgressAdder?: number, backendPr
  * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
-    const {
-        frontendProgressAdder,
-        backendProgressAdder
-    } = req.body as {
-        frontendProgressAdder?: number;
-        backendProgressAdder?: number;
-    };
-
     if (req.method === "GET") {
         return {
             success: true,
@@ -61,6 +54,8 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
     }
 
     if (req.method === "PATCH") {
+        const { frontendProgressAdder } = req.body as { frontendProgressAdder?: number; };
+
         if (frontendProgressAdder) {
             if (frontendProgressAdder < 0 || frontendProgressAdder > 100) {
                 return {
@@ -71,18 +66,12 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
             }
 
             appLoadingStatus.frontend.progress += frontendProgressAdder;
-        }
 
-        if (backendProgressAdder) {
-            if (backendProgressAdder < 0 || backendProgressAdder > 100) {
-                return {
-                    success: false,
-                    message: "Invalid backend progress adder (should be between 0 and 100).",
-                    data: ERRORS.UNPROCESSABLE_ENTITY
-                };
+            if (appLoadingStatus.frontend.progress >= 100) {
+                appLoadingStatus.frontend.loaded = true;
+                splashScreen.destroy();
+                mainWindow.show();
             }
-
-            appLoadingStatus.backend.progress += backendProgressAdder;
         }
 
         return {

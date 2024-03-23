@@ -114,6 +114,7 @@ export default function createWindow(
     );
 
     const win = new BrowserWindow({
+        show: false,
         title: options.title,
         minWidth: options.minWidth,
         minHeight: options.minHeight,

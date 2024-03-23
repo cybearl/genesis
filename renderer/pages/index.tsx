@@ -1,6 +1,5 @@
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { CoreContext } from "@/components/contexts/Core";
 import Layout from "@/components/structure/Layout";
 import Account from "@/pages/account";
 import BotInstances from "@/pages/bot-instances";
@@ -14,8 +13,6 @@ import Toolbox from "@/pages/toolbox";
 
 
 export default function Index() {
-    const { appLoadingStatus } = useContext(CoreContext);
-
     const [currentPage, setCurrentPage] = useState(0);
 
     const pages = useMemo(() => [
@@ -34,60 +31,56 @@ export default function Index() {
     ], []);
 
     return (
-        <div className="w-full min-h-screen flex justify-center items-center text-2xl">
-            FRONTEND: {appLoadingStatus?.frontend.progress}<br />
-            BACKEND: {appLoadingStatus?.backend.progress}
-        </div>
-        // <Layout
-        //     sidebar={{
-        //         topButtons: [
-        //             {
-        //                 label: "Real-time market",
-        //                 icon: "material-symbols:finance-mode-rounded"
-        //             },
-        //             {
-        //                 label: "Market data feed",
-        //                 icon: "material-symbols:document-scanner-outline-rounded"
-        //             },
-        //             {
-        //                 label: "Strategy scoring",
-        //                 icon: "material-symbols:strategy-outline-rounded"
-        //             },
-        //             {
-        //                 label: "Dry-run sandbox",
-        //                 icon: "material-symbols:cool-to-dry"
-        //             },
-        //             {
-        //                 label: "Bot instances",
-        //                 icon: "material-symbols:robot"
-        //             },
-        //             {
-        //                 label: "Toolbox",
-        //                 icon: "material-symbols:service-toolbox-rounded"
-        //             }
-        //         ],
-        //         bottomButtons: [
-        //             {
-        //                 label: "Account",
-        //                 icon: "material-symbols:account-circle"
-        //             },
-        //             {
-        //                 label: "Settings",
-        //                 icon: "material-symbols:settings-rounded"
-        //             }
-        //         ],
-        //         devOnlyButtons: [
-        //             {
-        //                 label: "Developer mode",
-        //                 icon: "material-symbols:developer-board-outline-rounded",
-        //                 textColor: "text-yellow-500"
-        //             }
-        //         ]
-        //     }}
-        //     onSidebarButtonClick={(index) => setCurrentPage(index)}
-        //     currentPage={currentPage}
-        // >
-        //     {pages[currentPage]}
-        // </Layout>
+        <Layout
+            sidebar={{
+                topButtons: [
+                    {
+                        label: "Real-time market",
+                        icon: "material-symbols:finance-mode-rounded"
+                    },
+                    {
+                        label: "Market data feed",
+                        icon: "material-symbols:document-scanner-outline-rounded"
+                    },
+                    {
+                        label: "Strategy scoring",
+                        icon: "material-symbols:strategy-outline-rounded"
+                    },
+                    {
+                        label: "Dry-run sandbox",
+                        icon: "material-symbols:cool-to-dry"
+                    },
+                    {
+                        label: "Bot instances",
+                        icon: "material-symbols:robot"
+                    },
+                    {
+                        label: "Toolbox",
+                        icon: "material-symbols:service-toolbox-rounded"
+                    }
+                ],
+                bottomButtons: [
+                    {
+                        label: "Account",
+                        icon: "material-symbols:account-circle"
+                    },
+                    {
+                        label: "Settings",
+                        icon: "material-symbols:settings-rounded"
+                    }
+                ],
+                devOnlyButtons: [
+                    {
+                        label: "Developer mode",
+                        icon: "material-symbols:developer-board-outline-rounded",
+                        textColor: "text-yellow-500"
+                    }
+                ]
+            }}
+            onSidebarButtonClick={(index) => setCurrentPage(index)}
+            currentPage={currentPage}
+        >
+            {pages[currentPage]}
+        </Layout>
     );
 }

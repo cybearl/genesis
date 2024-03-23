@@ -15,14 +15,14 @@ export default function createSplashScreen(
         height: 0
     };
 
-    // 4/3 of the screen size centered
     defaultWindow.width = width / 4;
-    defaultWindow.height = height / 3;
+    defaultWindow.height = (4 / 3) * defaultWindow.width;
     defaultWindow.x = (width - defaultWindow.width) / 2;
     defaultWindow.y = (height - defaultWindow.height) / 2;
 
     // Create the splash screen window
     const splashScreen = new BrowserWindow({
+        show: false,
         title: options.title,
         width: defaultWindow.width,
         height: defaultWindow.height,

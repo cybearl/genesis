@@ -35,7 +35,7 @@ export default function Layout({
 
     currentPage
 }: LayoutProps) {
-    const { appStatus } = useContext(CoreContext);
+    const { appLoadingStatus } = useContext(CoreContext);
     const [sysInfo, setSysInfo] = useState<SysInfo>();
 
     // TODO: Implement via settings

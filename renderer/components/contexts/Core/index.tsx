@@ -1,7 +1,7 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 import useInterval from "@/hooks/useInterval";
-import { updateAppLoadingStatus } from "@/lib/crud/appLoadingStatus";
+import { getAppLoadingStatus, updateAppLoadingStatus } from "@/lib/crud/appLoadingStatus";
 import { AppLoadingStatus } from "@sharedTypes/api";
 
 
@@ -21,10 +21,19 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appLoadingStatus, setAppLoadingStatus] = useState<AppLoadingStatus>();
     const [sidebarPanelState, setSidebarPanelState] = useState<SidebarPanelState>("expanded");
 
-    useInterval(async () => {
-        const result = await updateAppLoadingStatus(1);
-        if (result) setAppLoadingStatus(result);
-    }, 200);
+    useEffect(() => {
+        const getStatus = async () => {
+            const res = await getAppLoadingStatus();
+            if (res) setAppLoadingStatus(res);
+        };
+
+        getStatus();
+    }, []);
+
+    // useInterval(async () => {
+    //     const result = await updateAppLoadingStatus(10);
+    //     if (result) setAppLoadingStatus(result);
+    // }, 200);
 
     // TODO: Implement via settings
     // useEffect(() => {

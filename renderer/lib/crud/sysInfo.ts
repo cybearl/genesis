@@ -1,5 +1,4 @@
 import { SysInfo } from "@sharedTypes/api";
-import { ErrorCode } from "@sharedTypes/errors";
 
 
 /**
@@ -8,5 +7,9 @@ import { ErrorCode } from "@sharedTypes/errors";
  */
 export async function getSysInfo() {
     const response = await window.ipcBridge("/api/sys-info");
-    return response.data as SysInfo | ErrorCode;
+
+    if (response.success) return response.data as SysInfo;
+
+    console.error(`Failed to get system information: ${response.data}`);
+    return null;
 }

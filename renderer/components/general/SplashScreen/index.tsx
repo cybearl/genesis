@@ -1,8 +1,5 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
-import Background from "@/components/base/Background";
-import ProgressBar from "@/components/base/ProgressBar";
 // import AppConfig from "@/configs/app.config";
 
 
@@ -27,7 +24,7 @@ export default function SplashScreen({
 
     return (
         <div
-            className="absolute z-50 inset-0 w-full h-full items-end justify-center bg-secondary-950 pointer-events-none"
+            className="absolute z-50 inset-0 w-full h-full items-center justify-center bg-secondary-950 pointer-events-none"
             style={{
                 animation: `${isEnabled ? "opacity-in" : "opacity-out"} 0.5s ease-in-out`,
                 display: isHidden ? "none" : "flex",
@@ -35,65 +32,20 @@ export default function SplashScreen({
             }}
             onClick={(e) => e.preventDefault()}
         >
-            {/* // TODO: Implement via settings */}
-            {/* <Background
-                layerOneOpacity={AppConfig.loadingScreen.layerOneOpacity}
-                layerOneBlur={AppConfig.loadingScreen.layerOneBlur}
-                layerTwoOpacity={AppConfig.loadingScreen.layerTwoOpacity}
-                layerTwoBlur={AppConfig.loadingScreen.layerTwoBlur}
-            /> */}
+            <div className="relative w-full aspect-square flex items-center max-w-[320px]">
+                <Image
+                    src="/static/images/logo/grayscale.webp"
+                    alt="Loading screen logo"
+                    fill
+                    className="opacity-50"
+                />
 
-            <div className="absolute top-6 w-full flex justify-between items-center gap-8">
-                <hr className="w-full h-[1px] border-transparent bg-white grow" />
-
-                <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
-                    WELCOME TO THE DEVELOPMENT EDITION OF GENESIS, AN ADVANCED CRYPTO TRADING TOOLBOX.
-                </div>
-
-                <hr className="w-full h-[1px] border-transparent bg-white grow" />
-            </div>
-
-            <div className="w-full h-full flex flex-col items-center justify-center">
-                <div className="relative w-1/4 aspect-square flex items-center max-w-[320px]">
-                    <Image
-                        src="/static/images/logo/grayscale.webp"
-                        alt="Loading screen logo"
-                        fill
-                        className="opacity-50"
-                    />
-
-                    <Image
-                        src="/static/images/logo/colorized.webp"
-                        alt="Loading screen logo"
-                        fill
-                        className="animate-opacity-pulse p-1"
-                    />
-                </div>
-
-                <div className="text-4xl font-extralight text-left">
-                    <span className="text-sm pl-4">
-                        A project by<br />
-                    </span>
-                    CYBEARL
-                    <hr className="w-full h-[1px] border-transparent bg-white mt-1" />
-                </div>
-
-                <div className="pt-16 w-full max-w-md px-8">
-                    <ProgressBar
-                        progress={50}  // TODO: Replace with actual progress
-                    />
-                </div>
-            </div>
-
-            <div className="absolute bottom-6 w-full flex justify-between items-center gap-8">
-                <hr className="h-[1px] border-transparent bg-white grow" />
-
-                <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
-                    THIS SOFTWARE IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT RISK MONEY WHICH YOU ARE AFRAID TO LOOSE.
-                    USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
-                </div>
-
-                <hr className="h-[1px] border-transparent bg-white grow" />
+                <Image
+                    src="/static/images/logo/colorized.webp"
+                    alt="Loading screen logo"
+                    fill
+                    className="animate-opacity-pulse p-1"
+                />
             </div>
         </div>
     );

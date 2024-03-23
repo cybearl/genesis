@@ -1,5 +1,4 @@
 import { AppLoadingStatus } from "@sharedTypes/api";
-import { ErrorCode } from "@sharedTypes/errors";
 
 
 /**
@@ -8,23 +7,27 @@ import { ErrorCode } from "@sharedTypes/errors";
  */
 export async function getAppLoadingStatus() {
     const response = await window.ipcBridge("/api/app-loading-status");
-    return response.data as AppLoadingStatus | null;
+    if (response.success) return response.data as AppLoadingStatus;
+
+    console.error(`Failed to get app loading status: ${response.data}`);
+    return null;
 }
 
 /**
  * Updates the app loading status.
  * @param frontendProgressAdder The amount to add to the frontend progress.
- * @param backendProgressAdder The amount to add to the backend progress.
  * @returns The updated app loading status.
  */
-export async function updateAppLoadingStatus(frontendProgressAdder?: number, backendProgressAdder?: number) {
+export async function updateAppLoadingStatus(frontendProgressAdder?: number) {
     const response = await window.ipcBridge("/api/app-loading-status", {
         method: "PATCH",
         body: {
-            frontendProgressAdder,
-            backendProgressAdder
+            frontendProgressAdder
         }
     });
 
-    return response.data as AppLoadingStatus | ErrorCode;
+    if (response.success) return response.data as AppLoadingStatus;
+
+    console.error(`Failed to update app loading status: ${response.data}`);
+    return null;
 }
