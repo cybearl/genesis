@@ -1,8 +1,8 @@
-import { Icon } from "@iconify/react";
 import { ReactNode, useContext, useState } from "react";
 
 import Background from "@/components/base/Background";
 import { SidebarButtonData } from "@/components/base/SidebarButton";
+import ValueWithIcon from "@/components/base/ValueWithIcon";
 import { CoreContext } from "@/components/contexts/Core";
 import LoadingScreen from "@/components/general/LoadingScreen";
 import Sidebar from "@/components/structure/Sidebar";
@@ -75,18 +75,20 @@ export default function Layout({
 
                     <StatusBar
                         leftSideContent={[
-                            <span key={0} title="System CPU usage" className="flex justify-center items-center">
-                                <Icon icon="material-symbols:speed-outline-rounded" inline className="text-lg mr-1.5" />
-                                <span className="min-w-[4em]">
-                                    {sysInfo ? sysInfo.cpu.str : "..."}
-                                </span>
-                            </span>,
-                            <span key={1} title="System memory usage" className="flex justify-center items-center min-w-[8em]">
-                                <Icon icon="material-symbols:memory-outline-rounded" inline className="text-lg mr-1" />
-                                <span className="min-w-[4em]">
-                                    {sysInfo ? sysInfo.memory.str : "..."}
-                                </span>
-                            </span>
+                            <ValueWithIcon
+                                key={0}
+                                title="System CPU usage"
+                                icon="material-symbols:speed-outline-rounded"
+                                value={sysInfo?.cpu.str}
+                                isLoading={!sysInfo}
+                            />,
+                            <ValueWithIcon
+                                key={1}
+                                title="System memory usage"
+                                icon="material-symbols:memory-outline-rounded"
+                                value={sysInfo?.memory.str}
+                                isLoading={!sysInfo}
+                            />
                         ]}
                         rightSideContent={[]}
                     />

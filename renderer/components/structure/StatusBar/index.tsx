@@ -22,7 +22,7 @@ export default function StatusBar({
                 style={{ opacity: AppConfig.statusBar.opacity }}
             />
 
-            <div className="flex-grow flex items-center justify-start">
+            <div className="flex-grow flex items-center justify-start gap-4">
                 {leftSideContent.map((content, index) => (
                     <p key={index} className="font-medium text-xs">
                         {content}

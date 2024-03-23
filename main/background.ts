@@ -42,9 +42,7 @@ if (app.isPackaged) {
 })();
 
 app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-    }
+
 });
 
 ipcMain.handle("ipc::router", ipcRouter);
