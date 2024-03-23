@@ -1,7 +1,7 @@
 {
     "name": "genesis",
     "version": "1.0.0",
-    "description": "A crypto trading bot that uses the volatility of the market to make profits.",
+    "description": "An advanced crypto trading toolbox.",
     "repository": "https://github.com/cybearl/genesis",
     "author": "yoratoni <yoratoni.dev@gmail.com>",
     "license": "MIT",
