@@ -21,6 +21,18 @@ const appLoadingStatus: AppLoadingStatus = {
 };
 
 /**
+ * Backend way to update the app loading status.
+ * @param frontendProgressAdder The amount to add to the frontend progress.
+ * @param backendProgressAdder The amount to add to the backend progress.
+ * @returns The updated app loading status.
+ */
+export function updateAppLoadingStatus(frontendProgressAdder?: number, backendProgressAdder?: number): AppLoadingStatus {
+    if (frontendProgressAdder) appLoadingStatus.frontend.progress += frontendProgressAdder;
+    if (backendProgressAdder) appLoadingStatus.backend.progress += backendProgressAdder;
+    return appLoadingStatus;
+}
+
+/**
  * Handler for the `/api/app-loading-status` route.
  * @param req The parsed ipc request.
  * @returns The ipc response.
