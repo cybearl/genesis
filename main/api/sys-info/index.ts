@@ -7,7 +7,7 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
 /**
- * `GET` /api/sysinfo route handler.
+ * `GET` `/api/sys-info` route handler.
  * @returns The system information.
  */
 async function getSysInfo(): Promise<SysInfo> {
@@ -36,7 +36,9 @@ async function getSysInfo(): Promise<SysInfo> {
 }
 
 /**
- * Handler for the `/api/sysinfo` route.
+ * Handler for the `/api/sys-info` route.
+ * @param req The parsed ipc request.
+ * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") {
@@ -51,7 +53,7 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
 
     return {
         success: false,
-        message: "This route only supports GET requests.",
+        message: "This route only supports 'GET' requests.",
         data: ERRORS.METHOD_NOT_ALLOWED
     };
 }

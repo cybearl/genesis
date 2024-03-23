@@ -6,15 +6,9 @@ import {
 } from "electron";
 import Store from "electron-store";
 
+import { Window } from "@main/types/global";
 // import defaultWindowConfig from "@main/configs/window.config";
 
-
-type Window = {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-};
 
 /**
  * Create the main app window.
@@ -22,11 +16,14 @@ type Window = {
  * @param options The options for the window.
  * @returns The main app window.
  */
-export function createWindow(windowName: string, options: BrowserWindowConstructorOptions): BrowserWindow {
+export default function createWindow(
+    windowName: string,
+    options: BrowserWindowConstructorOptions
+): BrowserWindow {
     const defaultWindow: Window = {
         x: 0,
         y: 0,
-        width: options.width || 1024 ,  // TODO: Implement via settings
+        width: options.width || 1024,  // TODO: Implement via settings
         height: options.height || 768  // TODO: Implement via settings
     };
 
@@ -73,10 +70,10 @@ export function createWindow(windowName: string, options: BrowserWindowConstruct
     );
 
     /**
-     * Resets the window to the default position.
+     * Get the default position of the window (primary display center).
      * @returns The default position of the window.
      */
-    const resetToDefaults = () => {
+    const getWindowDefaultPosition = () => {
         const bounds = screen.getPrimaryDisplay().bounds;
 
         return Object.assign({}, defaultWindow, {
@@ -94,7 +91,8 @@ export function createWindow(windowName: string, options: BrowserWindowConstruct
         const visible = screen.getAllDisplays().some((display) => windowWithinBounds(windowState, display.bounds));
 
         if (!visible) {
-            return resetToDefaults();
+            const windowDefaultPosition = getWindowDefaultPosition();
+            return windowDefaultPosition;
         }
 
         return windowState;

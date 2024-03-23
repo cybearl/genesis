@@ -3,21 +3,13 @@ import path from "path";
 import notifier from "node-notifier";
 
 import { ERRORS } from "@main/lib/errors";
+import { NotifierRequest } from "@sharedTypes/api";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
 /**
- * Notification request object.
- */
-export type NotifierRequest = {
-    title?: string;
-    message: string;
-    icon?: string;  // Defaults to Genesis logo
-    sound?: boolean;  // Only Notification Center or Windows Toasters
-};
-
-/**
- * `POST` /api/notifier route handler.
+ * `POST` `/api/notifier` route handler.
+ * @param notification The notification request object.
  */
 async function notify(notification: NotifierRequest) {
     // Replace the undefined icon with the Genesis logo
@@ -29,10 +21,12 @@ async function notify(notification: NotifierRequest) {
 }
 
 /**
- * Handler for the /api/notifier route.
+ * Handler for the `/api/notifier` route.
+ * @param req The parsed ipc request.
+ * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
-    const { title, message, icon, sound } = req.query as NotifierRequest;
+    const { title, message, icon, sound } = req.body as NotifierRequest;
 
     if (!message) {
         return {
@@ -54,7 +48,7 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
 
     return {
         success: false,
-        message: "This route only supports POST requests.",
+        message: "This route only supports 'POST' requests.",
         data: ERRORS.METHOD_NOT_ALLOWED
     };
 }

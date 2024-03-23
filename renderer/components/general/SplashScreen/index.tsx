@@ -6,13 +6,13 @@ import ProgressBar from "@/components/base/ProgressBar";
 // import AppConfig from "@/configs/app.config";
 
 
-type LoadingScreenProps = {
+type SplashScreenProps = {
     isEnabled?: boolean;
 };
 
-export default function LoadingScreen({
+export default function SplashScreen({
     isEnabled = false
-}: LoadingScreenProps) {
+}: SplashScreenProps) {
     const [isFirstAppearance, setIsFirstAppearance] = useState(true);
     const [isHidden, setIsHidden] = useState(false);
 
@@ -47,8 +47,7 @@ export default function LoadingScreen({
                 <hr className="w-full h-[1px] border-transparent bg-white grow" />
 
                 <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
-                    {/* // TODO: Implement via settings */}
-                    {/* {AppConfig.appDescription} */}
+                    WELCOME TO THE DEVELOPMENT EDITION OF GENESIS, AN ADVANCED CRYPTO TRADING TOOLBOX.
                 </div>
 
                 <hr className="w-full h-[1px] border-transparent bg-white grow" />
@@ -75,9 +74,7 @@ export default function LoadingScreen({
                     <span className="text-sm pl-4">
                         A project by<br />
                     </span>
-
-                    {/* // TODO: Implement via settings */}
-                    {/* {AppConfig.appProducer}. */}
+                    CYBEARL
                     <hr className="w-full h-[1px] border-transparent bg-white mt-1" />
                 </div>
 
@@ -92,8 +89,8 @@ export default function LoadingScreen({
                 <hr className="h-[1px] border-transparent bg-white grow" />
 
                 <div className="w-full text-base max-w-3xl text-center px-2 max-lg:text-sm tracking-wide">
-                    {/* // TODO: Implement via settings */}
-                    {/* {AppConfig.appDisclaimer} */}
+                    THIS SOFTWARE IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT RISK MONEY WHICH YOU ARE AFRAID TO LOOSE.
+                    USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
                 </div>
 
                 <hr className="h-[1px] border-transparent bg-white grow" />

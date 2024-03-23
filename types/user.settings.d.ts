@@ -1,29 +1,20 @@
 /**
- * The settings object for the application.
+ * The user settings object for the application.
  */
-export type ShrSettings = {
-    environment: "development" | "production";
-    app: {
-        producer: string;
-        name: string;
-        version: string;
-        description: string;
-        disclaimer: string;
-    };
-    window: {
-        title: string;
-        initialWidth: number;
-        initialHeight: number;
-        minWidth: number;
-        minHeight: number;
+export type UserSettings = {
+    windows: {
+        splashScreen: {
+            width: number;
+            height: number;
+        };
+        app: {
+            initialWidth: number;
+            initialHeight: number;
+            minWidth: number;
+            minHeight: number;
+        };
     };
     interface: {
-        loadingScreen: {
-            layerOneOpacity: number;
-            layerOneBlur: number;
-            layerTwoOpacity: number;
-            layerTwoBlur: number;
-        };
         background: {
             layerOneOpacity: number;
             layerOneBlur: number;
