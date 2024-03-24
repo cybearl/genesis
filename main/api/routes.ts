@@ -7,7 +7,7 @@ import apiSysInfoHandler from "@main/api/sys-info";
 import apiUserPreferencesHandler from "@main/api/user-preferences";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
 import ERRORS from "@main/lib/utils/errors";
-import logger from "@main/lib/utils/logger";
+// import logger from "@main/lib/utils/logger";
 import { IpcRequest, IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
@@ -23,7 +23,7 @@ export default async function ipcRouter(
     req: IpcRequest
 ): Promise<IpcResponse> {
     event.preventDefault();
-    logger.silly(`IPC request sent to '${req.url}'.`);
+    // logger.silly(`IPC request sent to '${req.url}'.`);
 
     // Parse the ipc request, making it easier to work with in the handlers.
     // ex: `req.options?.url` query parameters goes into `req.query`

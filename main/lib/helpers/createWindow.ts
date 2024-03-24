@@ -90,8 +90,10 @@ export default async function createWindow(
         minWidth: 1024,
         minHeight: 768,
         show: false,
-        frame: !isSplash,
-        movable: !isSplash,
+        // frame: !isSplash,
+        frame: true,
+        // movable: !isSplash,
+        movable: true,
         resizable: !isSplash,
         alwaysOnTop: false,
         webPreferences: {

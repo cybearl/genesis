@@ -11,9 +11,8 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 const appLoadingStatus: AppLoadingStatus = {
     loaded: false,
     progress: 0,
-    stream: ""
+    stream: "Loading /core/modules/langlerd/measde/opriont.js ..."
 };
-
 
 /**
  * `GET` `/api/app-loading-status` route handler.
@@ -92,7 +91,7 @@ export default async function handler(req: ParsedIpcRequest): Promise<IpcRespons
 
     return {
         success: false,
-        message: "This route only supports 'GET', 'POST' and 'PATCH' requests.",
+        message: "This route only supports 'GET' and 'PATCH' requests.",
         data: ERRORS.METHOD_NOT_ALLOWED
     };
 }

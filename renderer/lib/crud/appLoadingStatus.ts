@@ -19,7 +19,8 @@ export async function getAppLoadingStatus() {
  */
 export async function closeSplashScreen() {
     const response = await window.ipcBridge("/api/app-loading-status", {
-        method: "POST"
+        method: "POST",
+        body: {}
     });
 
     if (response.success) return response.data as AppLoadingStatus;

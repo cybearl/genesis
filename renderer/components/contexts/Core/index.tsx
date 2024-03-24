@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 import useInterval from "@/hooks/useInterval";
-import { getAppLoadingStatus, updateAppLoadingStatus } from "@/lib/crud/appLoadingStatus";
+import { closeSplashScreen, updateAppLoadingStatus } from "@/lib/crud/appLoadingStatus";
 import { AppLoadingStatus } from "@sharedTypes/api";
 
 
@@ -17,37 +17,21 @@ type CoreContext = {
 export const CoreContext = createContext({} as CoreContext);
 
 export default function CoreProvider({ children }: { children: ReactNode; }) {
-    // const [appInfo, setAppInfo] = useState<ApiAppInfoReturnType | null>(null);
     const [appLoadingStatus, setAppLoadingStatus] = useState<AppLoadingStatus>();
     const [sidebarPanelState, setSidebarPanelState] = useState<SidebarPanelState>("expanded");
 
-    // useEffect(() => {
-    //     const getStatus = async () => {
-    //         const res = await getAppLoadingStatus();
-    //         if (res) setAppLoadingStatus(res);
-    //     };
-
-    //     getStatus();
-    // }, []);
-
     useInterval(async () => {
         const result = await updateAppLoadingStatus(10);
-        if (result) {
-            setAppLoadingStatus(result);
+        if (result) { setAppLoadingStatus(result); }
+    }, 300);
 
-            // if (result.progress >= 100) 
-        }
-    }, 100);
+    useEffect(() => {
+        // const openMainWindow = async () => {
+        //     if (appLoadingStatus?.loaded) await closeSplashScreen();
+        // };
 
-    // TODO: Implement via settings
-    // useEffect(() => {
-    //     const getAppInfo = async () => {
-    //         const res = await window.ipcBridge("/api/app-info");
-    //         if (res.data) setAppInfo(res.data as ApiAppInfoReturnType);
-    //     };
-
-    //     getAppInfo();
-    // }, []);
+        // openMainWindow();
+    }, [appLoadingStatus?.loaded]);
 
     const context = {
         // appInfo,
