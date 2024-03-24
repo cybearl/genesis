@@ -1,7 +1,7 @@
 /**
- * Error codes for the application.
+ * Error codes for the app.
  */
-export const ERRORS = {
+const ERRORS = {
     /** [400] Bad Request */
     BAD_REQUEST: {
         status: 400,
@@ -52,3 +52,5 @@ export const ERRORS = {
         data: null
     }
 };
+
+export default ERRORS;

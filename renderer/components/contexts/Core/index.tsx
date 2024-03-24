@@ -21,19 +21,23 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appLoadingStatus, setAppLoadingStatus] = useState<AppLoadingStatus>();
     const [sidebarPanelState, setSidebarPanelState] = useState<SidebarPanelState>("expanded");
 
-    useEffect(() => {
-        const getStatus = async () => {
-            const res = await getAppLoadingStatus();
-            if (res) setAppLoadingStatus(res);
-        };
+    // useEffect(() => {
+    //     const getStatus = async () => {
+    //         const res = await getAppLoadingStatus();
+    //         if (res) setAppLoadingStatus(res);
+    //     };
 
-        getStatus();
-    }, []);
+    //     getStatus();
+    // }, []);
 
-    // useInterval(async () => {
-    //     const result = await updateAppLoadingStatus(10);
-    //     if (result) setAppLoadingStatus(result);
-    // }, 200);
+    useInterval(async () => {
+        const result = await updateAppLoadingStatus(10);
+        if (result) {
+            setAppLoadingStatus(result);
+
+            // if (result.progress >= 100) 
+        }
+    }, 100);
 
     // TODO: Implement via settings
     // useEffect(() => {

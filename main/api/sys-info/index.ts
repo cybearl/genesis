@@ -1,6 +1,6 @@
 import { currentLoad, mem } from "systeminformation";
 
-import { ERRORS } from "@main/lib/errors";
+import ERRORS from "@main/lib/utils/errors";
 import { MemoryMap } from "@main/lib/utils/units";
 import { SysInfo } from "@sharedTypes/api";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
@@ -10,7 +10,7 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
  * `GET` `/api/sys-info` route handler.
  * @returns The system information.
  */
-async function getSysInfo(): Promise<SysInfo> {
+async function get(): Promise<IpcResponse> {
     const sysCPU = await currentLoad();
     const sysMemory = await mem();
     const sysMemoryAvailableGB = sysMemory.available / MemoryMap.GB;
@@ -32,7 +32,11 @@ async function getSysInfo(): Promise<SysInfo> {
         }
     };
 
-    return data;
+    return {
+        success: true,
+        message: "Successfully retrieved system information.",
+        data: data
+    };
 }
 
 /**
@@ -41,15 +45,7 @@ async function getSysInfo(): Promise<SysInfo> {
  * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
-    if (req.method === "GET") {
-        const data = await getSysInfo();
-
-        return {
-            success: true,
-            message: "Successfully retrieved system information.",
-            data: data
-        };
-    }
+    if (req.method === "GET") return await get();
 
     return {
         success: false,

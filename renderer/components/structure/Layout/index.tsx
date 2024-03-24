@@ -35,8 +35,9 @@ export default function Layout({
 
     currentPage
 }: LayoutProps) {
-    const { appLoadingStatus } = useContext(CoreContext);
     const [sysInfo, setSysInfo] = useState<SysInfo>();
+
+    const { appLoadingStatus } = useContext(CoreContext);
 
     // TODO: Implement via settings
     // useInterval(async () => {
@@ -54,7 +55,7 @@ export default function Layout({
                 layerTwoBlur={AppConfig.background.layerTwoBlur}
             /> */}
 
-            <SplashScreen isEnabled={true} />
+            <SplashScreen isEnabled={!appLoadingStatus?.loaded} />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Sidebar

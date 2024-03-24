@@ -3,16 +3,30 @@
  * by the `/api/app-loading-status` route.
  */
 export type AppLoadingStatus = {
-    frontend: {
-        loaded: boolean;
-        progress: number;
-        stream: string;
-    };
-    backend: {
-        loaded: boolean;
-        progress: number;
-        stream: string;
-    };
+    loaded: boolean;
+    progress: number;
+    stream: string;
+};
+
+/**
+ * The environment object for the app.
+ */
+export type Environment = {
+    environment: "production" | "development";
+    appName: string;
+    appVersion: string;
+    appIcon: string;
+    appPath: string;
+};
+
+/**
+ * Notification request object.
+ */
+export type NotifierRequest = {
+    title?: string;
+    message: string;
+    icon?: string;  // Defaults to Genesis logo
+    sound?: boolean;  // Only Notification Center or Windows Toasters
 };
 
 /**
@@ -30,14 +44,4 @@ export type SysInfo = {
         percentage: string;
         str: string;
     };
-};
-
-/**
- * Notification request object.
- */
-export type NotifierRequest = {
-    title?: string;
-    message: string;
-    icon?: string;  // Defaults to Genesis logo
-    sound?: boolean;  // Only Notification Center or Windows Toasters
 };

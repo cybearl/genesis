@@ -49,17 +49,12 @@ export interface UserPreferences {
     };
 }
 
+
 /**
- * The storage object.
+ * The main store object.
  */
 export interface Storage {
-    windowPositions: {
-        splashScreen: WindowCoords;
-        app: WindowCoords;
-    };
-    windowDimensions: {
-        splashScreen: WindowDimensions;
-        app: WindowDimensions;
-    };
+    windowCoordinates: { [key: string]: WindowCoords };
+    windowDimensions: { [key: string]: WindowDimensions };
     userPreferences: UserPreferences;
 }

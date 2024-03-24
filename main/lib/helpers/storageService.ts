@@ -1,7 +1,6 @@
 import Store from "electron-store";
 
-
-import defaultUserPreferences from "@main/lib/storage/user.preferences";
+import defaultUserPreferences from "@main/lib/defaults/user.preferences";
 import { Storage } from "@sharedTypes/storage";
 
 
@@ -15,7 +14,7 @@ export default class StorageService {
         this.store = new Store<Storage>({
             name: "storage",
             defaults: {
-                windowPositions: {
+                windowCoordinates: {
                     splashScreen: {
                         x: 0,
                         y: 0
@@ -42,10 +41,10 @@ export default class StorageService {
 
     /**
      * Get a value from the storage.
-     * @param key The key of the value to get.
+     * @param key The key of the value to get (dot notation is supported).
      * @returns The value.
      */
-    public get(key: keyof Storage): Storage[keyof Storage] {
+    public get(key: keyof Storage): Storage[keyof Storage] | undefined {
         return this.store.get(key);
     }
 

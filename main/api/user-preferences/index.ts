@@ -1,6 +1,18 @@
-import { ERRORS } from "@main/lib/errors";
+import ERRORS from "@main/lib/utils/errors";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
+
+/**
+ * `GET` `/api/user-preferences` route handler.
+ * @returns The user preferences.
+ */
+async function get(): Promise<IpcResponse> {
+    return {
+        success: true,
+        message: "Successfully retrieved user preferences.",
+        data: {}
+    };
+}
 
 /**
  * Handler for the `/api/user-preferences` route.
@@ -8,15 +20,7 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
  * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
-    if (req.method === "GET") {
-        const data = {};
-
-        return {
-            success: true,
-            message: "Successfully retrieved system information.",
-            data: data
-        };
-    }
+    if (req.method === "GET") return await get();
 
     return {
         success: false,

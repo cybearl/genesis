@@ -5,8 +5,8 @@ import apiEnvironmentHandler from "@main/api/environment";
 import apiNotifierHandler from "@main/api/notifier";
 import apiSysInfoHandler from "@main/api/sys-info";
 import apiUserPreferencesHandler from "@main/api/user-preferences";
-import { ERRORS } from "@main/lib/errors";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
+import ERRORS from "@main/lib/utils/errors";
 import logger from "@main/lib/utils/logger";
 import { IpcRequest, IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 

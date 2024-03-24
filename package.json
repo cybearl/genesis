@@ -1,5 +1,6 @@
 {
     "name": "genesis",
+    "productName": "Genesis",
     "version": "1.0.0",
     "description": "An advanced crypto trading toolbox.",
     "repository": "https://github.com/cybearl/genesis",

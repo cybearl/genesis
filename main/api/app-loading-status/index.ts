@@ -1,5 +1,5 @@
 import { mainWindow, splashScreen } from "@main/background";
-import { ERRORS } from "@main/lib/errors";
+import ERRORS from "@main/lib/utils/errors";
 import { AppLoadingStatus } from "@sharedTypes/api";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
@@ -9,34 +9,75 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
  * Stored temporarily in memory during the app lifecycle.
  */
 const appLoadingStatus: AppLoadingStatus = {
-    frontend: {
-        loaded: false,
-        progress: 0,
-        stream: ""
-    },
-    backend: {
-        loaded: false,
-        progress: 0,
-        stream: ""
-    }
+    loaded: false,
+    progress: 0,
+    stream: ""
 };
 
+
 /**
- * Backend way to update the app loading status.
- * @param frontendProgressAdder The amount to add to the frontend progress.
- * @param backendProgressAdder The amount to add to the backend progress.
+ * `GET` `/api/app-loading-status` route handler.
+ * @returns The app loading status.
+ */
+async function get(): Promise<IpcResponse> {
+    return {
+        success: true,
+        message: "Successfully retrieved app loading status.",
+        data: appLoadingStatus
+    };
+}
+
+/**
+ * `POST` `/api/app-loading-status` route handler.
+ * @returns The app loading status.
+ */
+async function post(): Promise<IpcResponse> {
+    splashScreen.destroy();
+    mainWindow.show();
+
+    return {
+        success: true,
+        message: "Successfully finished loading the app and destroyed the splash screen.",
+        data: appLoadingStatus
+    };
+}
+
+/**
+ * `PATCH` `/api/app-loading-status` route handler.
  * @returns The updated app loading status.
  */
-export function updateAppLoadingStatus(frontendProgressAdder?: number, backendProgressAdder?: number): AppLoadingStatus {
-    if (frontendProgressAdder && frontendProgressAdder >= 0 && frontendProgressAdder <= 100) {
-        appLoadingStatus.frontend.progress += frontendProgressAdder;
+async function patch(req: ParsedIpcRequest): Promise<IpcResponse> {
+    const { progressAdder } = req.body as { progressAdder?: number; };
+
+    if (progressAdder && !appLoadingStatus.loaded) {
+        if (progressAdder < 0 || progressAdder > 100) {
+            return {
+                success: false,
+                message: "Invalid progress adder (should be between 0 and 100).",
+                data: ERRORS.UNPROCESSABLE_ENTITY
+            };
+        }
+
+        if (appLoadingStatus.progress < 100) {
+            appLoadingStatus.progress += progressAdder;
+        }
+
+        // Show splash screen after frontend replied by increasing progress
+        if (appLoadingStatus.progress > 0 && !splashScreen.isDestroyed()) {
+            splashScreen.show();
+        }
+
+        if (appLoadingStatus.progress >= 100) {
+            appLoadingStatus.progress = 100;
+            appLoadingStatus.loaded = true;
+        }
     }
 
-    if (backendProgressAdder && backendProgressAdder >= 0 && backendProgressAdder <= 100) {
-        appLoadingStatus.backend.progress += backendProgressAdder;
-    }
-
-    return appLoadingStatus;
+    return {
+        success: true,
+        message: "Successfully updated app loading status.",
+        data: appLoadingStatus
+    };
 }
 
 /**
@@ -45,45 +86,13 @@ export function updateAppLoadingStatus(frontendProgressAdder?: number, backendPr
  * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
-    if (req.method === "GET") {
-        return {
-            success: true,
-            message: "Successfully retrieved app loading status.",
-            data: appLoadingStatus
-        };
-    }
-
-    if (req.method === "PATCH") {
-        const { frontendProgressAdder } = req.body as { frontendProgressAdder?: number; };
-
-        if (frontendProgressAdder) {
-            if (frontendProgressAdder < 0 || frontendProgressAdder > 100) {
-                return {
-                    success: false,
-                    message: "Invalid frontend progress adder (should be between 0 and 100).",
-                    data: ERRORS.UNPROCESSABLE_ENTITY
-                };
-            }
-
-            appLoadingStatus.frontend.progress += frontendProgressAdder;
-
-            if (appLoadingStatus.frontend.progress >= 100) {
-                appLoadingStatus.frontend.loaded = true;
-                splashScreen.destroy();
-                mainWindow.show();
-            }
-        }
-
-        return {
-            success: true,
-            message: "Successfully updated app loading status.",
-            data: appLoadingStatus
-        };
-    }
+    if (req.method === "GET") return await get();
+    if (req.method === "POST") return await post();
+    if (req.method === "PATCH") return await patch(req);
 
     return {
         success: false,
-        message: "This route only supports 'PATCH' requests.",
+        message: "This route only supports 'GET', 'POST' and 'PATCH' requests.",
         data: ERRORS.METHOD_NOT_ALLOWED
     };
 }

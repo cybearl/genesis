@@ -2,7 +2,8 @@ import { BrowserWindow, app, ipcMain } from "electron";
 import serve from "electron-serve";
 
 import ipcRouter from "@main/api/routes";
-import StorageService from "@main/lib/storage";
+import createWindow from "@main/lib/helpers/createWindow";
+import StorageService from "@main/lib/helpers/storageService";
 
 
 // Storage location
@@ -18,14 +19,18 @@ let mainWindow: BrowserWindow;
 
 // Lifecycle
 app.on("ready", async () => {
+    splashScreen = await createWindow(storage, "splash", true);
+    mainWindow = await createWindow(storage, "main", false);
 
-    // // Load the application
-    // if (app.isPackaged) {
-    //     await mainWindow.loadURL("app://./home");
-    // } else {
-    //     const port = process.argv[2];
-    //     await mainWindow.loadURL(`http://localhost:${port}/home`);
-    // }
+    // Load the app
+    if (app.isPackaged) {
+        await splashScreen.loadURL("app://./home");
+        await mainWindow.loadURL("app://./home");
+    } else {
+        const port = process.argv[2];
+        await splashScreen.loadURL(`http://localhost:${port}/home`);
+        await mainWindow.loadURL(`http://localhost:${port}/home`);
+    }
 });
 
 // Closing cycle
