@@ -1,9 +1,10 @@
 import { IpcMainInvokeEvent } from "electron";
 
 import apiAppLoadingStatusHandler from "@main/api/app-loading-status";
+import apiEnvironmentHandler from "@main/api/environment";
 import apiNotifierHandler from "@main/api/notifier";
-import apiStaticConfigHandler from "@main/api/static-config";
 import apiSysInfoHandler from "@main/api/sys-info";
+import apiUserPreferencesHandler from "@main/api/user-preferences";
 import { ERRORS } from "@main/lib/errors";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
 import logger from "@main/lib/utils/logger";
@@ -43,16 +44,20 @@ export default async function ipcRouter(
             res = await apiAppLoadingStatusHandler(parsedIpcRequest);
             break;
         }
+        case "/api/environment": {
+            res = await apiEnvironmentHandler(parsedIpcRequest);
+            break;
+        }
         case "/api/notifier": {
             res = await apiNotifierHandler(parsedIpcRequest);
             break;
         }
-        case "/api/static-config": {
-            res = await apiStaticConfigHandler(parsedIpcRequest);
-            break;
-        }
         case "/api/sys-info": {
             res = await apiSysInfoHandler(parsedIpcRequest);
+            break;
+        }
+        case "/api/user-preferences": {
+            res = await apiUserPreferencesHandler(parsedIpcRequest);
             break;
         }
         default: {

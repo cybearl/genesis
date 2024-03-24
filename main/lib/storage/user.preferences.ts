@@ -1,23 +1,10 @@
-import { UserSettings } from "@sharedTypes/user.settings";
+import { UserPreferences } from "@sharedTypes/storage";
 
 
 /**
- * The default settings applied to the user's application
- * at initial startup.
+ * The default preferences applied at first startup.
  */
-const defaultUserSettings: UserSettings = {
-    windows: {
-        splashScreen: {
-            width: 480,
-            height: 320
-        },
-        app: {
-            initialWidth: 1024,
-            initialHeight: 768,
-            minWidth: 1024,
-            minHeight: 768
-        }
-    },
+const defaultUserPreferences: UserPreferences = {
     interface: {
         background: {
             layerOneOpacity: 0.1,
@@ -42,11 +29,11 @@ const defaultUserSettings: UserSettings = {
         statusBar: {
             opacity: 0.9,
             blur: 6
+        },
+        sysInfo: {
+            refreshInterval: 1500
         }
-    },
-    sysInfo: {
-        refreshInterval: 1500
     }
 };
 
-export default defaultUserSettings;
+export default defaultUserPreferences;

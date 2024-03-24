@@ -19,3 +19,13 @@ export const MemoryMap = {
     "KB": Units.K,
     "B": Units.None
 };
+
+/**
+ * Mapping for aspect ratios.
+ */
+export const AspectRatios = {
+    "21:9": 21/9,
+    "16:9": 16/9,
+    "4:3": 4/3,
+    "1:1": 1
+};

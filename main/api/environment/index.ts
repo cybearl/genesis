@@ -1,30 +1,30 @@
-import { ERRORS } from "@main/lib/errors";
-import staticConfig from "@main/static.config";
-import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
-import { StaticConfig } from "@sharedTypes/static.config";
+import { app } from "electron";
 
-// TODO
+import { ERRORS } from "@main/lib/errors";
+import { Environment } from "@sharedTypes/environment";
+import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
+
 
 /**
- * `GET` `/api/static-config` route handler.
+ * `GET` `/api/environment` route handler.
  * @returns The system information.
  */
-async function getStaticConfig(): Promise<StaticConfig> {
+async function getEnvironment(): Promise<Environment> {
     return {
-        ...staticConfig,
-        path: __dirname
+        environment: app.isPackaged ? "production" : "development",
+        version: app.getVersion(),
+        path: app.getAppPath()
     };
 }
 
-
 /**
- * Handler for the `/api/static-config` route.
+ * Handler for the `/api/environment` route.
  * @param req The parsed ipc request.
  * @returns The ipc response.
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") {
-        const data = await getStaticConfig();
+        const data = await getEnvironment();
 
         return {
             success: true,

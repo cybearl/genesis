@@ -1,40 +1,44 @@
 import { BrowserWindow, BrowserWindowConstructorOptions, screen } from "electron";
 
-import { Window } from "@main/types/global";
+import { AspectRatios } from "@main/lib/utils/units";
+import { WindowFrame } from "@main/types/global";
 
 
 export default function createSplashScreen(
     options: BrowserWindowConstructorOptions
 ): BrowserWindow {
-    const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-
-    const defaultWindow: Window = {
+    const dimensions: WindowFrame = {
         x: 0,
         y: 0,
         width: 0,
         height: 0
     };
 
-    defaultWindow.width = width / 4;
-    defaultWindow.height = (4 / 3) * defaultWindow.width;
-    defaultWindow.x = (width - defaultWindow.width) / 2;
-    defaultWindow.y = (height - defaultWindow.height) / 2;
+    const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+    dimensions.width = Math.round(width / 4);
+    dimensions.height = Math.round(dimensions.width / AspectRatios["16:9"]);
+    dimensions.x = Math.round((width - dimensions.width) / 2);
+    dimensions.y = Math.round((height - dimensions.height) / 2);
 
     // Create the splash screen window
     const splashScreen = new BrowserWindow({
-        show: false,
+        // Window information
         title: options.title,
-        width: defaultWindow.width,
-        height: defaultWindow.height,
-        x: defaultWindow.x,
-        y: defaultWindow.y,
         icon: options.icon,
+        alwaysOnTop: true,
+
+        // Dimensions and position
+        ...dimensions,
+
+        // Window behavior options
+        show: false,
         frame: false,
         resizable: false,
         movable: false,
         minimizable: false,
         maximizable: false,
-        alwaysOnTop: true,
+
+        // Web preferences
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,

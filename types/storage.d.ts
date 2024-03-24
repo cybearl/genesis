@@ -1,19 +1,23 @@
 /**
- * The user settings object for the application.
+ * Represents the coordinates of a window.
  */
-export type UserSettings = {
-    windows: {
-        splashScreen: {
-            width: number;
-            height: number;
-        };
-        app: {
-            initialWidth: number;
-            initialHeight: number;
-            minWidth: number;
-            minHeight: number;
-        };
-    };
+export type WindowCoords = {
+    x: number;
+    y: number;
+};
+
+/**
+ * Represents the dimensions of a window.
+ */
+export type WindowDimensions = {
+    width: number;
+    height: number;
+};
+
+/**
+ * The user preferences object.
+ */
+export interface UserPreferences {
     interface: {
         background: {
             layerOneOpacity: number;
@@ -39,8 +43,23 @@ export type UserSettings = {
             opacity: number;
             blur: number;
         };
+        sysInfo: {
+            refreshInterval: number;
+        };
     };
-    sysInfo: {
-        refreshInterval: number;
+}
+
+/**
+ * The storage object.
+ */
+export interface Storage {
+    windowPositions: {
+        splashScreen: WindowCoords;
+        app: WindowCoords;
     };
+    windowDimensions: {
+        splashScreen: WindowDimensions;
+        app: WindowDimensions;
+    };
+    userPreferences: UserPreferences;
 }
