@@ -18,32 +18,31 @@ export default function SplashScreen({
 
     return (
         <div
-            className="absolute z-50 inset-0 w-full h-full bg-secondary-950 pointer-events-none"
+            className="absolute z-50 inset-0 bg-secondary-900 pointer-events-none"
             onClick={(e) => e.preventDefault()}
         >
-            <div className="relative w-full aspect-square flex items-center max-w-[320px]">
-                <Image
-                    src="/static/images/logo/grayscale.webp"
-                    alt="Loading screen logo"
-                    fill
-                    className="opacity-50"
-                />
+            {/* <div className="relative w-full aspect-square flex items-center justify-center">
+                    <Image
+                        src="/static/images/logo/grayscale.webp"
+                        alt="Loading screen logo"
+                        fill
+                        className="opacity-50 object-contain"
+                    />
 
-                <Image
-                    src="/static/images/logo/colorized.webp"
-                    alt="Loading screen logo"
-                    fill
-                    className="animate-opacity-pulse p-1"
+                    <Image
+                        src="/static/images/logo/colorized.webp"
+                        alt="Loading screen logo"
+                        fill
+                        className="animate-opacity-pulse p-2 object-contain"
+                    />
+                </div> */}
+
+            <div className="absolute bottom-8 left-4 right-4">
+                <ProgressBar
+                    progress={50}
+                    size="sm"
                 />
             </div>
-
-            {appLoadingStatus?.progress && (
-                <div className="w-full px-4 max-w-[320px]">
-                    <ProgressBar
-                        progress={appLoadingStatus.progress}
-                    />
-                </div>
-            )}
         </div>
     );
 }

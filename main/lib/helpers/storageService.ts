@@ -15,21 +15,13 @@ export default class StorageService {
             name: "storage",
             defaults: {
                 windowCoordinates: {
-                    splashScreen: {
-                        x: 0,
-                        y: 0
-                    },
-                    app: {
+                    main: {
                         x: 0,
                         y: 0
                     }
                 },
                 windowDimensions: {
-                    splashScreen: {
-                        width: 0,
-                        height: 0
-                    },
-                    app: {
+                    main: {
                         width: 0,
                         height: 0
                     }
