@@ -37,15 +37,43 @@ export default function SplashScreen({
                 />
             </div>
 
-            <div className="w-full h-full flex z-10">
-                <div className="w-full backdrop-blur">
+            <div className="relative w-full h-full flex z-10 justify-center items-center">
+                <div className="w-full backdrop-blur-sm h-full" />
+                <div className="w-full h-full" />
 
+                <div className="absolute inset-0 flex justify-between p-4">
+                    <div className="flex flex-col gap-1">
+                        <h1 className="text-white text-5xl font-light">
+                            GENESIS
+                            <span className="text-sm text-yellow-500 font-normal">
+                                &nbsp;[DEVELOPER MODE]
+                            </span>
+                        </h1>
+
+                        <div className="flex justify-between items-center gap-4">
+                            <p className="pl-1 text-sm text-nowrap">
+                                BETA v1.5.4
+                            </p>
+
+                            <hr className="h-[1px] w-full bg-gray-400 border-none" />
+                        </div>
+
+                        <p className="text-xs text-gray-500 pl-1">
+                            Copyright © 2023 Cybearl
+                        </p>
+                    </div>
                 </div>
 
-                <hr className="h-full border-none w-[1px] bg-primary-50 bg-opacity-50" />
+                <div className="absolute w-full bottom-8 flex items-center justify-center">
+                    <p className="text-gray-200 text-sm">
+                        {appLoadingStatus?.stream ? appLoadingStatus.stream : "Loading..."}
+                    </p>
+                </div>
 
-                <div className="w-full">
-
+                <div className="absolute w-full bottom-4 right-4 text-end">
+                    <p className="text-xs text-gray-200">
+                        {appLoadingStatus?.progress ? `${appLoadingStatus.progress}%` : "0%"}
+                    </p>
                 </div>
             </div>
 

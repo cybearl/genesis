@@ -41,7 +41,7 @@ export default function ProgressBar({
     return (
         <div className={`
             w-full overflow-hidden flex items-center justify-start
-            shadow-lg shadow-black bg-gray-900
+            shadow-lg shadow-black bg-gray-800
             ${variantStyle}
             ${sizeStyle === null ? "invisible" : sizeStyle}
         `}>

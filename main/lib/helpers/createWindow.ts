@@ -34,7 +34,7 @@ export default async function createWindow(
 
     if (isSplash) {
         const splashWidth = Math.round(primaryDisplay.workAreaSize.width / 4);
-        const splashHeight = Math.round((splashWidth / 16) * 12);
+        const splashHeight = Math.round((splashWidth / 16) * 9);
 
         window = {
             x: (primaryDisplay.workAreaSize.width - splashWidth) / 2,
@@ -102,10 +102,8 @@ export default async function createWindow(
         minWidth: 1024,
         minHeight: 768,
         show: false,
-        // frame: !isSplash,
-        frame: true,
-        // movable: !isSplash,
-        movable: true,
+        frame: !isSplash,
+        movable: !isSplash,
         resizable: !isSplash,
         alwaysOnTop: false,
         webPreferences: {
