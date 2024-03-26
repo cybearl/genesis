@@ -15,16 +15,19 @@ async function get(): Promise<IpcResponse> {
     const appPath = app.getAppPath();
     const iconPath = path.join(appPath, "..", "assets", "favicon.ico");
 
+    const data: Environment = {
+        environment: app.isPackaged ? "production" : "development",
+        appName: app.getName(),
+        appStage: "pre-alpha",
+        appVersion: app.getVersion(),
+        appIcon: iconPath,
+        appPath: app.getAppPath()
+    };
+
     return {
         success: true,
         message: "Successfully retrieved environment.",
-        data: {
-            environment: app.isPackaged ? "production" : "development",
-            appName: app.getName(),
-            appVersion: app.getVersion(),
-            appIcon: iconPath,
-            appPath: app.getAppPath()
-        }
+        data: data
     };
 }
 

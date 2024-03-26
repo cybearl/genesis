@@ -3,6 +3,7 @@
  * by the `/api/app-loading-status` route.
  */
 export type AppLoadingStatus = {
+    currentWindow: "splash-screen" | "main-window" | "none";
     loaded: boolean;
     progress: number;
     stream: string;
@@ -14,6 +15,7 @@ export type AppLoadingStatus = {
 export type Environment = {
     environment: "production" | "development";
     appName: string;
+    appStage: "pre-alpha" | "alpha" | "beta" | "rc" | "stable";
     appVersion: string;
     appIcon: string;
     appPath: string;

@@ -9,6 +9,7 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
  * Stored temporarily in memory during the app lifecycle.
  */
 const appLoadingStatus: AppLoadingStatus = {
+    currentWindow: "splash-screen",
     loaded: false,
     progress: 0,
     stream: "Loading /core/modules/langlerd/measde/opriont.js ..."
@@ -30,9 +31,25 @@ async function get(): Promise<IpcResponse> {
  * `POST` `/api/app-loading-status` route handler.
  * @returns The app loading status.
  */
-async function post(): Promise<IpcResponse> {
-    splashScreen.destroy();
-    mainWindow.show();
+async function post(req: ParsedIpcRequest): Promise<IpcResponse> {
+    const { mode } = req.body as { mode?: "close-splash-screen" | "open-main-window"; };
+
+    // TODO: Remove that at one point
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    if (mode === "close-splash-screen") {
+        appLoadingStatus.currentWindow = "none";
+        splashScreen.destroy();
+    } else if (mode === "open-main-window") {
+        appLoadingStatus.currentWindow = "main-window";
+        mainWindow.show();
+    } else {
+        return {
+            success: false,
+            message: "Invalid mode.",
+            data: ERRORS.UNPROCESSABLE_ENTITY
+        };
+    }
 
     return {
         success: true,
@@ -86,7 +103,7 @@ async function patch(req: ParsedIpcRequest): Promise<IpcResponse> {
  */
 export default async function handler(req: ParsedIpcRequest): Promise<IpcResponse> {
     if (req.method === "GET") return await get();
-    if (req.method === "POST") return await post();
+    if (req.method === "POST") return await post(req);
     if (req.method === "PATCH") return await patch(req);
 
     return {

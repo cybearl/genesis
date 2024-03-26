@@ -55,7 +55,12 @@ export default function Layout({
                 layerTwoBlur={AppConfig.background.layerTwoBlur}
             /> */}
 
-            <SplashScreen isEnabled={true} />
+            <SplashScreen
+                isEnabled={
+                    appLoadingStatus?.currentWindow === "splash-screen" ||
+                    !appLoadingStatus?.loaded
+                }
+            />
 
             <main className="w-full flex-grow z-0 flex items-start justify-start">
                 <Sidebar

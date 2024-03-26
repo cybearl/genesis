@@ -14,17 +14,36 @@ export async function getAppLoadingStatus() {
 }
 
 /**
- * Closes the splash screen and shows the main window.
+ * Closes the splash screen.
  * @returns The app loading status.
  */
 export async function closeSplashScreen() {
     const response = await window.ipcBridge("/api/app-loading-status", {
         method: "POST",
-        body: {}
+        body: {
+            mode: "close-splash-screen"
+        }
     });
 
     if (response.success) return response.data as AppLoadingStatus;
     console.error(`Failed to close splash screen: ${response.data}`);
+    return null;
+}
+
+/**
+ * Opens the main window.
+ * @returns The app loading status.
+ */
+export async function openMainWindow() {
+    const response = await window.ipcBridge("/api/app-loading-status", {
+        method: "POST",
+        body: {
+            mode: "open-main-window"
+        }
+    });
+
+    if (response.success) return response.data as AppLoadingStatus;
+    console.error(`Failed to open main window: ${response.data}`);
     return null;
 }
 

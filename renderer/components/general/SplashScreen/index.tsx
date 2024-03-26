@@ -12,7 +12,7 @@ type SplashScreenProps = {
 export default function SplashScreen({
     isEnabled = false
 }: SplashScreenProps) {
-    const { appLoadingStatus } = useContext(CoreContext);
+    const { appLoadingStatus, environment } = useContext(CoreContext);
 
     if (!isEnabled) return null;
 
@@ -44,27 +44,29 @@ export default function SplashScreen({
                 <div className="absolute inset-0 flex justify-between p-4">
                     <div className="flex flex-col gap-1">
                         <h1 className="text-white text-5xl font-light">
-                            GENESIS
-                            <span className="text-sm text-yellow-500 font-normal">
-                                &nbsp;[DEVELOPER MODE]
-                            </span>
+                            {environment?.appName.toUpperCase() || "GENESIS"}
+                            {environment?.environment && (
+                                <span className="text-sm text-yellow-500 font-normal">
+                                    &nbsp;[DEVELOPER MODE]
+                                </span>
+                            )}
                         </h1>
 
                         <div className="flex justify-between items-center gap-4">
                             <p className="pl-1 text-sm text-nowrap">
-                                BETA v1.5.4
+                                {environment?.appStage.toUpperCase()} v{environment?.appVersion || "v0.0.0"}
                             </p>
 
                             <hr className="h-[1px] w-full bg-gray-400 border-none" />
                         </div>
 
-                        <p className="text-xs text-gray-500 pl-1">
-                            Copyright © 2023 Cybearl
+                        <p className="text-xs text-gray-400 pl-1">
+                            Copyright © {new Date().getFullYear()} Cybearl
                         </p>
                     </div>
                 </div>
 
-                <div className="absolute w-full bottom-8 flex items-center justify-center">
+                <div className="absolute w-full bottom-4 flex items-center justify-center">
                     <p className="text-gray-200 text-sm">
                         {appLoadingStatus?.stream ? appLoadingStatus.stream : "Loading..."}
                     </p>
@@ -78,7 +80,7 @@ export default function SplashScreen({
             </div>
 
             <ProgressBar
-                progress={64}
+                progress={appLoadingStatus?.progress || 0}
                 size="xs"
             />
         </div>
