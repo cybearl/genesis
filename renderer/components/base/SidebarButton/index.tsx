@@ -28,9 +28,9 @@ type SidebarButtonProps = {
 const styles = {
     variant: {
         primary: {
-            default: "border-transparent hover:bg-secondary-200 active:border-neutral-600 active:bg-secondary-100",
+            default: "border-transparent hover:bg-primary-200 active:border-neutral-600 active:bg-primary-100",
             disabled: "border-transparent cursor-default",
-            active: "border-white cursor-default bg-secondary-900"
+            active: "border-white cursor-default bg-primary-900"
         }
     }
 };

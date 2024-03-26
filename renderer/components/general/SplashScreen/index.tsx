@@ -18,31 +18,41 @@ export default function SplashScreen({
 
     return (
         <div
-            className="absolute z-50 inset-0 bg-secondary-900 pointer-events-none"
+            className="absolute z-50 inset-0 bg-primary-900 pointer-events-none flex items-center justify-center flex-col"
             onClick={(e) => e.preventDefault()}
         >
-            {/* <div className="relative w-full aspect-square flex items-center justify-center">
-                    <Image
-                        src="/static/images/logo/grayscale.webp"
-                        alt="Loading screen logo"
-                        fill
-                        className="opacity-50 object-contain"
-                    />
+            <div className="absolute w-1/2 aspect-square z-0 mr-2">
+                <Image
+                    src="/static/images/logo/grayscale.webp"
+                    alt="Loading screen logo"
+                    fill
+                    className="opacity-30 object-cover overflow-visible"
+                />
 
-                    <Image
-                        src="/static/images/logo/colorized.webp"
-                        alt="Loading screen logo"
-                        fill
-                        className="animate-opacity-pulse p-2 object-contain"
-                    />
-                </div> */}
-
-            <div className="absolute bottom-8 left-4 right-4">
-                <ProgressBar
-                    progress={50}
-                    size="sm"
+                <Image
+                    src="/static/images/logo/colorized.webp"
+                    alt="Loading screen logo"
+                    fill
+                    className="animate-opacity-pulse p-1 object-cover"
                 />
             </div>
+
+            <div className="w-full h-full flex z-10">
+                <div className="w-full backdrop-blur">
+
+                </div>
+
+                <hr className="h-full border-none w-[1px] bg-primary-50 bg-opacity-50" />
+
+                <div className="w-full">
+
+                </div>
+            </div>
+
+            <ProgressBar
+                progress={64}
+                size="xs"
+            />
         </div>
     );
 }

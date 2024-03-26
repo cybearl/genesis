@@ -62,7 +62,7 @@ export default function Sidebar({
         <nav
             className={`
                 relative h-full flex justify-between items-center
-                transition-all ease-in-out overflow-hidden border-r border-secondary-50
+                transition-all ease-in-out overflow-hidden border-r border-primary-50
             `}
             style={{
                 // TODO: Implement via settings
@@ -74,7 +74,7 @@ export default function Sidebar({
             }}
         >
             <div
-                className="-z-10 absolute inset-0 bg-secondary-500"
+                className="-z-10 absolute inset-0 bg-primary-500"
                 // TODO: Implement via settings
                 // style={{ opacity: AppConfig.sidebar.opacity }}
             />
@@ -127,7 +127,7 @@ export default function Sidebar({
                     </div>
                 </div>
 
-                <div className="w-full flex justify-center items-center h-[31px] border-t border-secondary-50">
+                <div className="w-full flex justify-center items-center h-[31px] border-t border-primary-50">
                     <IconButton
                         title={sidebarPanelState === "collapsed" ? "Expand" : "Collapse"}
                         icon={
