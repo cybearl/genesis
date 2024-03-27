@@ -1,5 +1,7 @@
+import { storage } from "@main/background";
 import ERRORS from "@main/lib/utils/errors";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
+import { UserPreferences } from "@sharedTypes/storage";
 
 
 /**
@@ -7,10 +9,12 @@ import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
  * @returns The user preferences.
  */
 async function get(): Promise<IpcResponse> {
+    const preferences = storage.get("userPreferences") as UserPreferences;
+
     return {
         success: true,
         message: "Successfully retrieved user preferences.",
-        data: {}
+        data: preferences
     };
 }
 

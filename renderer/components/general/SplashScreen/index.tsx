@@ -45,7 +45,7 @@ export default function SplashScreen({
                     <div className="flex flex-col gap-1">
                         <h1 className="text-white text-5xl font-light">
                             {environment?.appName.toUpperCase() || "GENESIS"}
-                            {environment?.environment && (
+                            {environment?.env && (
                                 <span className="text-sm text-yellow-500 font-normal">
                                     &nbsp;[DEVELOPER MODE]
                                 </span>

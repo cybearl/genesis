@@ -3,7 +3,9 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import useInterval from "@/hooks/useInterval";
 import { closeSplashScreen, getAppLoadingStatus, openMainWindow, updateAppLoadingStatus } from "@/lib/crud/appLoadingStatus";
 import { getEnvironment } from "@/lib/crud/environment";
+import { getUserPreferences } from "@/lib/crud/userPreferences";
 import { AppLoadingStatus, Environment } from "@sharedTypes/api";
+import { UserPreferences } from "@sharedTypes/storage";
 
 
 export type SidebarPanelState = "collapsing" | "collapsed" | "expanding" | "expanded";
@@ -11,6 +13,7 @@ export type SidebarPanelState = "collapsing" | "collapsed" | "expanding" | "expa
 type CoreContext = {
     appLoadingStatus: AppLoadingStatus | undefined;
     environment: Environment | undefined;
+    userPreferences: UserPreferences | undefined;
     sidebarPanelState: SidebarPanelState;
     setSidebarPanelState: (sidebarPanelState: SidebarPanelState) => void;
 };
@@ -20,15 +23,19 @@ export const CoreContext = createContext({} as CoreContext);
 export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appLoadingStatus, setAppLoadingStatus] = useState<AppLoadingStatus>();
     const [environment, setEnvironment] = useState<Environment>();
+    const [userPreferences, setUserPreferences] = useState<UserPreferences>();
+
     const [sidebarPanelState, setSidebarPanelState] = useState<SidebarPanelState>("expanded");
 
     useEffect(() => {
         const getInitialData = async () => {
             const env = await getEnvironment();
             const status = await getAppLoadingStatus();
+            const userPrefs = await getUserPreferences();
 
             if (env) setEnvironment(env);
             if (status) setAppLoadingStatus(status);
+            if (userPrefs) setUserPreferences(userPrefs);
         };
 
         getInitialData();
@@ -38,7 +45,7 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
         // TODO: Replace by real data
         const result = await updateAppLoadingStatus(10);
         if (environment && result) setAppLoadingStatus(result);
-    }, 300);
+    }, 200);
 
     useEffect(() => {
         const closeSplash = async () => {
@@ -60,6 +67,7 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     const context = {
         environment,
         appLoadingStatus,
+        userPreferences,
         sidebarPanelState,
         setSidebarPanelState
     };

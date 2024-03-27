@@ -13,7 +13,7 @@ export type AppLoadingStatus = {
  * The environment object for the app.
  */
 export type Environment = {
-    environment: "production" | "development";
+    env: "production" | "development";
     appName: string;
     appStage: "pre-alpha" | "alpha" | "beta" | "rc" | "stable";
     appVersion: string;

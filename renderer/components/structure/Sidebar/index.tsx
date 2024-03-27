@@ -110,7 +110,7 @@ export default function Sidebar({
                             );
                         })}
 
-                        {process.env.NODE_ENV === "development" && devOnlyButtons.map((data, index) => {
+                        {devOnlyButtons.map((data, index) => {
                             const devIndex = topButtons.length + bottomButtons.length + index;
 
                             return (

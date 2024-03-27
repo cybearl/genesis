@@ -16,7 +16,7 @@ async function get(): Promise<IpcResponse> {
     const iconPath = path.join(appPath, "..", "assets", "favicon.ico");
 
     const data: Environment = {
-        environment: app.isPackaged ? "production" : "development",
+        env: app.isPackaged ? "production" : "development",
         appName: app.getName(),
         appStage: "pre-alpha",
         appVersion: app.getVersion(),

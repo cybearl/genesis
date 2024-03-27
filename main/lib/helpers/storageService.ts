@@ -33,7 +33,7 @@ export default class StorageService {
 
     /**
      * Get a value from the storage.
-     * @param key The key of the value to get (dot notation is supported).
+     * @param key The key of the value to get.
      * @returns The value.
      */
     public get(key: keyof Storage): Storage[keyof Storage] | undefined {

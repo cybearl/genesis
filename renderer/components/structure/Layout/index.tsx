@@ -37,7 +37,7 @@ export default function Layout({
 }: LayoutProps) {
     const [sysInfo, setSysInfo] = useState<SysInfo>();
 
-    const { appLoadingStatus } = useContext(CoreContext);
+    const { appLoadingStatus, environment } = useContext(CoreContext);
 
     // TODO: Implement via settings
     // useInterval(async () => {
@@ -66,7 +66,7 @@ export default function Layout({
                 <Sidebar
                     topButtons={sidebar.topButtons}
                     bottomButtons={sidebar.bottomButtons}
-                    devOnlyButtons={true ? sidebar.devOnlyButtons : []}  // TODO: Add environment check
+                    devOnlyButtons={environment?.env ? sidebar.devOnlyButtons : []}
                     onButtonClick={onSidebarButtonClick}
                     activeButtonIndex={currentPage}
                 />
