@@ -3,9 +3,10 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import useInterval from "@/hooks/useInterval";
 import { closeSplashScreen, getAppLoadingStatus, openMainWindow, updateAppLoadingStatus } from "@/lib/crud/appLoadingStatus";
 import { getEnvironment } from "@/lib/crud/environment";
-import { getUserPreferences } from "@/lib/crud/userPreferences";
+import { getLocalStorage } from "@/lib/crud/localStorage";
+import { getPreferences } from "@/lib/crud/preferences";
 import { AppLoadingStatus, Environment } from "@sharedTypes/api";
-import { Preferences } from "@sharedTypes/storage";
+import { LocalStorage, Preferences } from "@sharedTypes/storage";
 
 
 export type SidebarPanelState = "collapsing" | "collapsed" | "expanding" | "expanded";
@@ -13,9 +14,13 @@ export type SidebarPanelState = "collapsing" | "collapsed" | "expanding" | "expa
 type CoreContext = {
     appLoadingStatus: AppLoadingStatus | undefined;
     environment: Environment | undefined;
+    localStorage: LocalStorage | undefined;
     preferences: Preferences | undefined;
+
     sidebarPanelState: SidebarPanelState;
     setSidebarPanelState: (sidebarPanelState: SidebarPanelState) => void;
+    currentPage: number;
+    setCurrentPage: (currentPage: number) => void;
 };
 
 export const CoreContext = createContext({} as CoreContext);
@@ -23,19 +28,27 @@ export const CoreContext = createContext({} as CoreContext);
 export default function CoreProvider({ children }: { children: ReactNode; }) {
     const [appLoadingStatus, setAppLoadingStatus] = useState<AppLoadingStatus>();
     const [environment, setEnvironment] = useState<Environment>();
+    const [localStorage, setLocalStorage] = useState<LocalStorage>();
     const [preferences, setPreferences] = useState<Preferences>();
 
     const [sidebarPanelState, setSidebarPanelState] = useState<SidebarPanelState>("expanded");
+    const [currentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
         const getInitialData = async () => {
-            const env = await getEnvironment();
             const status = await getAppLoadingStatus();
-            const prefs = await getUserPreferences();
+            const env = await getEnvironment();
+            const storage = await getLocalStorage();
+            const prefs = await getPreferences();
 
-            if (env) setEnvironment(env);
             if (status) setAppLoadingStatus(status);
+            if (env) setEnvironment(env);
+            if (storage) setLocalStorage(storage);
             if (prefs) setPreferences(prefs);
+
+            // Default local storage values
+            setSidebarPanelState(storage?.lastSidebarState || "expanded");
+            setCurrentPage(storage?.lastOpenedPage || 0);
         };
 
         getInitialData();
@@ -65,11 +78,15 @@ export default function CoreProvider({ children }: { children: ReactNode; }) {
     }, [appLoadingStatus?.currentWindow, appLoadingStatus?.loaded, appLoadingStatus?.progress]);
 
     const context = {
-        environment,
         appLoadingStatus,
+        environment,
+        localStorage,
         preferences,
+
         sidebarPanelState,
-        setSidebarPanelState
+        setSidebarPanelState,
+        currentPage,
+        setCurrentPage
     };
 
     return (

@@ -2,12 +2,12 @@ import { IpcMainInvokeEvent } from "electron";
 
 import apiAppLoadingStatusHandler from "@main/api/app-loading-status";
 import apiEnvironmentHandler from "@main/api/environment";
+import apiLocalStorageHandler from "@main/api/local-storage";
 import apiNotifierHandler from "@main/api/notifier";
+import apiPreferencesHandler from "@main/api/preferences";
 import apiSysInfoHandler from "@main/api/sys-info";
-import apiUserPreferencesHandler from "@main/api/user-preferences";
 import { parseQueryFromUrl } from "@main/lib/utils/api";
 import ERRORS from "@main/lib/utils/errors";
-// import logger from "@main/lib/utils/logger";
 import { IpcRequest, IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
 
 
@@ -48,6 +48,10 @@ export default async function ipcRouter(
             res = await apiEnvironmentHandler(parsedIpcRequest);
             break;
         }
+        case "/api/local-storage": {
+            res = await apiLocalStorageHandler(parsedIpcRequest);
+            break;
+        }
         case "/api/notifier": {
             res = await apiNotifierHandler(parsedIpcRequest);
             break;
@@ -56,8 +60,8 @@ export default async function ipcRouter(
             res = await apiSysInfoHandler(parsedIpcRequest);
             break;
         }
-        case "/api/user-preferences": {
-            res = await apiUserPreferencesHandler(parsedIpcRequest);
+        case "/api/preferences": {
+            res = await apiPreferencesHandler(parsedIpcRequest);
             break;
         }
         default: {

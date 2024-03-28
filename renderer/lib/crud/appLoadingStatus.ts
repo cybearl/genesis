@@ -9,7 +9,7 @@ export async function getAppLoadingStatus() {
     const response = await window.ipcBridge("/api/app-loading-status");
 
     if (response.success) return response.data as AppLoadingStatus;
-    console.error(`Failed to get app loading status: ${response.data}`);
+    console.error(`Failed to get the app loading status: ${response.data}`);
     return null;
 }
 
@@ -26,7 +26,7 @@ export async function closeSplashScreen() {
     });
 
     if (response.success) return response.data as AppLoadingStatus;
-    console.error(`Failed to close splash screen: ${response.data}`);
+    console.error(`Failed to close the splash screen: ${response.data}`);
     return null;
 }
 
@@ -43,7 +43,7 @@ export async function openMainWindow() {
     });
 
     if (response.success) return response.data as AppLoadingStatus;
-    console.error(`Failed to open main window: ${response.data}`);
+    console.error(`Failed to open the main window: ${response.data}`);
     return null;
 }
 
@@ -61,6 +61,6 @@ export async function updateAppLoadingStatus(progressAdder?: number) {
     });
 
     if (response.success) return response.data as AppLoadingStatus;
-    console.error(`Failed to update app loading status: ${response.data}`);
+    console.error(`Failed to update the app loading status: ${response.data}`);
     return null;
 }

@@ -1,5 +1,6 @@
 import Store from "electron-store";
 
+import defaultLocalStorage from "@main/lib/defaults/localStorage.default";
 import defaultPreferences from "@main/lib/defaults/preferences.default";
 import defaultWindowStorage from "@main/lib/defaults/windowStorage.default";
 import { Storage } from "@sharedTypes/storage";
@@ -16,6 +17,7 @@ export default class StorageService {
             name: "storage",
             defaults: {
                 windowStorage: defaultWindowStorage,
+                localStorage: defaultLocalStorage,
                 preferences: defaultPreferences
             }
         });

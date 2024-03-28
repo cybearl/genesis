@@ -17,8 +17,8 @@ type IconButtonProps = {
 const styles = {
     variant: {
         primary: {
-            "enabled": "text-white hover:bg-primary-200 active:bg-primary-900",
-            "disabled": "text-white cursor-default bg-primary-900"
+            "enabled": "text-white hover:bg-primary-200 active:bg-primary-800",
+            "disabled": "text-white cursor-default bg-primary-800"
         },
         secondary: {
             "enabled": "",

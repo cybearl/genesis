@@ -81,6 +81,9 @@ export default async function createWindow(
 
     const win = new BrowserWindow(options);
 
+    // Hide the menu bar
+    win.setMenuBarVisibility(false);
+
     win.once("show", () => {
         // Focus the window when it's shown
         win.focus();

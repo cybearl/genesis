@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 
+import { CoreContext } from "@/components/contexts/Core";
 import Layout from "@/components/structure/Layout";
 import Account from "@/pages/account";
 import BotInstances from "@/pages/bot-instances";
@@ -13,7 +14,7 @@ import Toolbox from "@/pages/toolbox";
 
 
 export default function Index() {
-    const [currentPage, setCurrentPage] = useState(0);
+    const { currentPage, setCurrentPage } = useContext(CoreContext);
 
     const pages = useMemo(() => [
         // TOP NAV

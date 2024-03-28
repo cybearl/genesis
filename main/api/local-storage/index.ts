@@ -1,25 +1,25 @@
 import { storage } from "@main/background";
 import ERRORS from "@main/lib/utils/errors";
 import { IpcResponse, ParsedIpcRequest } from "@sharedTypes/ipc";
-import { UserPreferences } from "@sharedTypes/storage";
+import { LocalStorage } from "@sharedTypes/storage";
 
 
 /**
- * `GET` `/api/user-preferences` route handler.
- * @returns The user preferences.
+ * `GET` `/api/local-storage` route handler.
+ * @returns The local storage.
  */
 async function get(): Promise<IpcResponse> {
-    const preferences = storage.get("userPreferences") as UserPreferences;
+    const localStorage = storage.get("localStorage") as LocalStorage;
 
     return {
         success: true,
-        message: "Successfully retrieved user preferences.",
-        data: preferences
+        message: "Successfully retrieved preferences.",
+        data: localStorage
     };
 }
 
 /**
- * Handler for the `/api/user-preferences` route.
+ * Handler for the `/api/local-storage` route.
  * @param req The parsed ipc request.
  * @returns The ipc response.
  */

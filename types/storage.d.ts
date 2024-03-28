@@ -25,9 +25,18 @@ export interface Preferences {
 }
 
 /**
+ * The local storage object.
+ */
+export interface LocalStorage {
+    lastSidebarState: "collapsed" | "expanded";
+    lastOpenedPage: number;
+}
+
+/**
  * The main store object.
  */
 export interface Storage {
     windowStorage: { [windowName: string]: WindowStorage; };
     preferences: Preferences;
+    localStorage: LocalStorage;
 }
