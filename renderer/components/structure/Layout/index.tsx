@@ -1,14 +1,13 @@
 import { ReactNode, useContext, useState } from "react";
 
-// import Background from "@/components/base/Background";
+import Background from "@/components/base/Background";
 import { SidebarButtonData } from "@/components/base/SidebarButton";
 import ValueWithIcon from "@/components/base/ValueWithIcon";
 import { CoreContext } from "@/components/contexts/Core";
 import SplashScreen from "@/components/general/SplashScreen";
 import Sidebar from "@/components/structure/Sidebar";
 import StatusBar from "@/components/structure/StatusBar";
-// import AppConfig from "@/configs/app.config";
-// import useInterval from "@/hooks/useInterval";
+import StaticConfig from "@/lib/config/static.config";
 import { SysInfo } from "@sharedTypes/api";
 
 
@@ -39,7 +38,7 @@ export default function Layout({
 
     const { appLoadingStatus, environment } = useContext(CoreContext);
 
-    // TODO: Implement via settings
+    // TODO: Implement via preferences
     // useInterval(async () => {
     //     const res = await window.ipcBridge("/api/sys-info");
     //     setSysInfo(res.data as SysInfo);
@@ -47,13 +46,12 @@ export default function Layout({
 
     return (
         <div className="z-0 relative w-full h-screen min-h-screen overflow-hidden flex flex-col">
-            {/* // TODO: Implement via settings */}
-            {/* <Background
-                layerOneOpacity={AppConfig.background.layerOneOpacity}
-                layerOneBlur={AppConfig.background.layerOneBlur}
-                layerTwoOpacity={AppConfig.background.layerTwoOpacity}
-                layerTwoBlur={AppConfig.background.layerTwoBlur}
-            /> */}
+            <Background
+                layerOneOpacity={StaticConfig.opacities.backgroundLayerOne}
+                layerOneBlur={StaticConfig.blurs.backgroundLayerOne}
+                layerTwoOpacity={StaticConfig.opacities.backgroundLayerTwo}
+                layerTwoBlur={StaticConfig.blurs.backgroundLayerTwo}
+            />
 
             <SplashScreen
                 isEnabled={
@@ -75,8 +73,7 @@ export default function Layout({
                     <div className="relative h-full scrollbar overflow-y-auto flex-grow bg-transparent">
                         <div
                             className="-z-10 absolute inset-0 bg-primary-750"
-                        // TODO: Implement via settings
-                        // style={{ opacity: AppConfig.mainFrame.opacity }}
+                            style={{ opacity: StaticConfig.opacities.mainFrame }}
                         />
 
                         {children}

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-// import AppConfig from "@/configs/app.config";
+import StaticConfig from "@/lib/config/static.config";
 
 
 type StatusBarProps = {
@@ -15,13 +15,11 @@ export default function StatusBar({
     return (
         <div
             className="relative w-full h-8 flex items-center px-4 text-white border-t border-primary-50"
-            // TODO: Implement via settings
-            // style={{ backdropFilter: `blur(${AppConfig.statusBar.blur}px)` }}
+            style={{ backdropFilter: `blur(${StaticConfig.blurs.statusBar}px)` }}
         >
             <div
                 className="-z-10 absolute inset-0 bg-primary-500"
-                // TODO: Implement via settings
-                // style={{ opacity: AppConfig.statusBar.opacity }}
+                style={{ opacity: StaticConfig.opacities.statusBar }}
             />
 
             <div className="flex-grow flex items-center justify-start gap-4">

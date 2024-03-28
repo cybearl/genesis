@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 
 import { SidebarPanelState } from "@/components/contexts/Core";
-// import AppConfig from "@/configs/app.config";
+import StaticConfig from "@/lib/config/static.config";
 
 
 export type SidebarButtonData = {
@@ -50,18 +50,14 @@ export default function SidebarButton({
 
     const [expandedVisibility, setExpandedVisibility] = useState(sidebarPanelState === "collapsed" ? "opacity-0" : "");
     const [expandedTransitionDuration, setExpandedTransitionDuration] = useState(
-        // TODO: Implement via settings
-        // sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedTransitionDuration :
-        //     AppConfig.sidebar.panel.expandedTransitionDuration
-        sidebarPanelState === "collapsed" ? 0.5 : 2
+        sidebarPanelState === "collapsed" ? StaticConfig.transitionDurations.sidebar.collapsed :
+            StaticConfig.transitionDurations.sidebar.expanded
     );
 
     const [collapsedVisibility, setCollapsedVisibility] = useState(sidebarPanelState === "collapsed" ? "" : "opacity-0");
     const [collapsedTransitionDuration, setCollapsedTransitionDuration] = useState(
-        // TODO: Implement via settings
-        // sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.expandedTransitionDuration :
-        //     AppConfig.sidebar.panel.collapsedTransitionDuration
-        sidebarPanelState === "collapsed" ? 2 : 0.5
+        sidebarPanelState === "collapsed" ? StaticConfig.transitionDurations.sidebar.expanded :
+            StaticConfig.transitionDurations.sidebar.collapsed
     );
 
     useEffect(() => {
@@ -75,12 +71,10 @@ export default function SidebarButton({
             case "collapsing":
             case "collapsed":
                 setExpandedVisibility("opacity-0");
-                // TODO: Implement via settings
-                // setExpandedTransitionDuration(AppConfig.sidebar.panel.collapsedTransitionDuration);
+                setExpandedTransitionDuration(StaticConfig.transitionDurations.sidebar.collapsed);
                 setExpandedTransitionDuration(0.5);
                 setCollapsedVisibility("opacity-100");
-                // TODO: Implement via settings
-                // setCollapsedTransitionDuration(AppConfig.sidebar.panel.expandedTransitionDuration);
+                setCollapsedTransitionDuration(StaticConfig.transitionDurations.sidebar.expanded);
                 setCollapsedTransitionDuration(2);
 
                 break;
@@ -114,8 +108,7 @@ export default function SidebarButton({
                     ${expandedVisibility}
                 `}
                 style={{
-                    // TODO: Implement via settings
-                    // transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * expandedTransitionDuration)}ms`
+                    transitionDuration: `${Math.round(StaticConfig.transitionDurations.sidebar.normal * expandedTransitionDuration)}ms`
                 }}
             >
                 <Icon icon={data.icon} className="leading-none text-3xl" />
@@ -132,8 +125,7 @@ export default function SidebarButton({
                     ${collapsedVisibility}
                 `}
                 style={{
-                    // TODO: Implement via settings
-                    // transitionDuration: `${Math.round(AppConfig.sidebar.panel.transitionDuration * collapsedTransitionDuration)}ms`
+                    transitionDuration: `${Math.round(StaticConfig.transitionDurations.sidebar.normal * collapsedTransitionDuration)}ms`
                 }}
             >
                 <Icon icon={data.icon} className="leading-none text-3xl" />

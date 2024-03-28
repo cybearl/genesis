@@ -3,7 +3,6 @@ import path from "path";
 import {
     BrowserWindow,
     BrowserWindowConstructorOptions,
-    Rectangle,
     screen
 } from "electron";
 
@@ -24,70 +23,25 @@ export default async function createWindow(
     storage: StorageService,
     windowName: string,
     isSplash: boolean
-): Promise<BrowserWindow> {
-    const savedWindowCoordinates = storage.get("windowCoordinates") as Storage["windowCoordinates"] || {};
-    const savedWindowDimensions = storage.get("windowDimensions") as Storage["windowDimensions"] || {};
+) {
+    const windowsStorage = storage.get("windowStorage") as Storage["windowStorage"] || {};
+    const windowStorage = windowsStorage[windowName] || {};
 
-    const primaryDisplay = screen.getPrimaryDisplay();
+    if (Object.keys(windowStorage).length === 0 || !windowStorage.initialized) {
+        const primaryDisplay = screen.getPrimaryDisplay();
 
-    let window: Rectangle;
+        let width: number;
+        if (isSplash) width = Math.round(primaryDisplay.workAreaSize.width / 4);
+        else width = Math.round(primaryDisplay.workAreaSize.width / 2);
+        const height = Math.round((width / 16) * 9);
 
-    if (isSplash) {
-        const splashWidth = Math.round(primaryDisplay.workAreaSize.width / 4);
-        const splashHeight = Math.round((splashWidth / 16) * 9);
-
-        window = {
-            x: (primaryDisplay.workAreaSize.width - splashWidth) / 2,
-            y: (primaryDisplay.workAreaSize.height - splashHeight) / 2,
-            width: splashWidth,
-            height: splashHeight
-        };
-    } else {
-        window = {
-            x: savedWindowCoordinates[windowName]?.x || 0,
-            y: savedWindowCoordinates[windowName]?.y || 0,
-            width: savedWindowDimensions[windowName]?.width || 1024,
-            height: savedWindowDimensions[windowName]?.height || 768
-        };
-    }
-
-    /**
-     * Get the default coordinates of the window (primary display center).
-     * @returns The default coordinates of the window.
-     */
-    const getDefaultWindowCoordinates = () => ({
-        x: (primaryDisplay.workAreaSize.width - window.width) / 2,
-        y: (primaryDisplay.workAreaSize.height - window.height) / 2
-    });
-
-    /**
-     * Checks if a window is within the bounds of the screen.
-     * @param window The window with its dimensions and coordinates.
-     * @param bounds The bounds of the screen.
-     * @returns Whether the window is within the bounds of the screen or not.
-     */
-    const isWithinBounds = (window: Rectangle, bounds: Rectangle) => (
-        window.x >= bounds.x &&
-        window.y >= bounds.y &&
-        window.x + window.width <= bounds.x + bounds.width &&
-        window.y + window.height <= bounds.y + bounds.height
-    );
-
-    /**
-     * Ensure that the window is visible on at least one screen.
-     * @param window The window to check.
-     * @returns Whether the window is visible on at least one display or not.
-     */
-    const isVisibleOnAtLeastOneDisplay = (window: Rectangle) => {
-        const displays = screen.getAllDisplays();
-        return displays.some(display => isWithinBounds(window, display.bounds));
-    };
-
-    // Reset to default coordinates in case of 0 or invalid coordinates
-    if ((window.x === 0 && window.y === 0) || !isVisibleOnAtLeastOneDisplay(window)) {
-        const defaultCoordinates = getDefaultWindowCoordinates();
-        window.x = defaultCoordinates.x;
-        window.y = defaultCoordinates.y;
+        windowStorage.initialized = true;
+        windowStorage.monitor = primaryDisplay.label;
+        windowStorage.x = (primaryDisplay.workArea.width - width) / 2;
+        windowStorage.y = (primaryDisplay.workArea.height - height) / 2;
+        windowStorage.width = width;
+        windowStorage.height = height;
+        windowStorage.maximized = false;
     }
 
     // Environment API
@@ -95,10 +49,10 @@ export default async function createWindow(
 
     const options: BrowserWindowConstructorOptions = {
         title: environment.appName,
-        x: window.x,
-        y: window.y,
-        width: window.width,
-        height: window.height,
+        x: windowStorage.x as number,
+        y: windowStorage.y as number,
+        width: windowStorage.width as number,
+        height: windowStorage.height as number,
         minWidth: 1024,
         minHeight: 768,
         show: false,
@@ -116,32 +70,43 @@ export default async function createWindow(
     // Fixes an issue with the window resizing itself when moved if resizable is set to false
     // https://github.com/electron/electron/issues/13043
     if (isSplash) {
-        options.minWidth = window.width;
-        options.minHeight = window.height;
+        options.minWidth = windowStorage.width as number;
+        options.minHeight = windowStorage.height as number;
     }
 
     const win = new BrowserWindow(options);
 
-    // Save on close
+    win.once("show", () => {
+        // Maximize the window if it was maximized before
+        if (!isSplash || windowStorage.maximized) win.maximize();
+    });
+
+    win.on("move", () => {
+        const bounds = win.getBounds();
+        windowStorage.x = bounds.x;
+        windowStorage.y = bounds.y;
+
+        // Change monitor too
+        const newMonitor = screen.getDisplayMatching(bounds).label;
+        if (windowStorage.monitor !== newMonitor) {
+            windowStorage.monitor = newMonitor;
+        }
+    });
+
+    win.on("resize", () => {
+        const bounds = win.getBounds();
+        windowStorage.width = bounds.width;
+        windowStorage.height = bounds.height;
+    });
+
+    win.on("maximize", () => windowStorage.maximized = true);
+    win.on("unmaximize", () => windowStorage.maximized = false);
+
     win.on("close", () => {
-        const coordinates = win.getPosition();
-        const size = win.getSize();
-
         if (!isSplash) {
-            storage.set("windowCoordinates", {
-                ...savedWindowCoordinates,
-                [windowName]: {
-                    x: coordinates[0],
-                    y: coordinates[1]
-                }
-            });
-
-            storage.set("windowDimensions", {
-                ...savedWindowDimensions,
-                [windowName]: {
-                    width: size[0],
-                    height: size[1]
-                }
+            storage.set("windowStorage", {
+                ...windowsStorage,
+                [windowName]: windowStorage
             });
         }
     });

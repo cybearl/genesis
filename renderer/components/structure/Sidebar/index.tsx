@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import IconButton from "@/components/base/IconButton";
 import SidebarButton, { SidebarButtonData } from "@/components/base/SidebarButton";
 import { CoreContext } from "@/components/contexts/Core";
-// import AppConfig from "@/configs/app.config";
+import StaticConfig from "@/lib/config/static.config";
 
 
 type SidebarProps = {
@@ -24,38 +24,35 @@ export default function Sidebar({
 }: SidebarProps) {
     const { sidebarPanelState, setSidebarPanelState } = useContext(CoreContext);
 
-    // TODO: Implement via settings
-    // const [panelWidth, setPanelWidth] = useState(
-    //     sidebarPanelState === "collapsed" ? AppConfig.sidebar.panel.collapsedSize : AppConfig.sidebar.panel.expandedSize
-    // );
+    const [panelWidth, setPanelWidth] = useState(
+        sidebarPanelState === "collapsed" ? StaticConfig.dimensions.sidebar.collapsed :
+            StaticConfig.dimensions.sidebar.expanded
+    );
 
     useEffect(() => {
         switch (sidebarPanelState) {
             case "collapsing":
-                // TODO: Implement via settings
-                // setPanelWidth(AppConfig.sidebar.panel.collapsedSize);
+                setPanelWidth(StaticConfig.dimensions.sidebar.collapsed);
 
                 break;
             case "expanding":
-                // TODO: Implement via settings
-                // setPanelWidth(AppConfig.sidebar.panel.expandedSize);
+                setPanelWidth(StaticConfig.dimensions.sidebar.expanded);
 
                 break;
         }
 
-        // TODO: Implement via settings
-        // setTimeout(() => {
-        //     switch (sidebarPanelState) {
-        //         case "collapsing":
-        //             setSidebarPanelState("collapsed");
+        setTimeout(() => {
+            switch (sidebarPanelState) {
+                case "collapsing":
+                    setSidebarPanelState("collapsed");
 
-        //             break;
-        //         case "expanding":
-        //             setSidebarPanelState("expanded");
+                    break;
+                case "expanding":
+                    setSidebarPanelState("expanded");
 
-        //             break;
-        //     }
-        // }, AppConfig.sidebar.panel.transitionDuration);
+                    break;
+            }
+        }, StaticConfig.transitionDurations.sidebar.normal);
     }, [sidebarPanelState, setSidebarPanelState]);
 
     return (
@@ -65,18 +62,16 @@ export default function Sidebar({
                 transition-all ease-in-out overflow-hidden border-r border-primary-50
             `}
             style={{
-                // TODO: Implement via settings
-                // transitionDuration: `${AppConfig.sidebar.panel.transitionDuration}ms`,
-                // minWidth: `${AppConfig.sidebar.panel.collapsedSize}px`,
-                // width: `${panelWidth}px`,
-                // maxWidth: `${AppConfig.sidebar.panel.expandedSize}px`,
-                // backdropFilter: `blur(${AppConfig.sidebar.blur}px)`
+                transitionDuration: `${StaticConfig.transitionDurations.sidebar.normal}ms`,
+                minWidth: `${StaticConfig.dimensions.sidebar.collapsed}px`,
+                width: `${panelWidth}px`,
+                maxWidth: `${StaticConfig.dimensions.sidebar.expanded}px`,
+                backdropFilter: `blur(${StaticConfig.blurs.sidebar}px)`
             }}
         >
             <div
                 className="-z-10 absolute inset-0 bg-primary-500"
-                // TODO: Implement via settings
-                // style={{ opacity: AppConfig.sidebar.opacity }}
+                style={{ opacity: StaticConfig.opacities.sidebar }}
             />
 
             <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
@@ -135,8 +130,7 @@ export default function Sidebar({
                                 icon="material-symbols:keyboard-double-arrow-right-rounded"
                                 className="transform transition-transform ease-in-out"
                                 style={{
-                                    // TODO: Implement via settings
-                                    // transitionDuration: `${AppConfig.sidebar.panel.transitionDuration}ms`,
+                                    transitionDuration: `${StaticConfig.transitionDurations.sidebar.normal}ms`,
                                     transform: `rotate(${(sidebarPanelState === "collapsed" || sidebarPanelState === "collapsing") ? 0 : 180}deg)`
                                 }}
                             />
