@@ -1,3 +1,6 @@
+/**
+ * The window storage object.
+ */
 export type WindowStorage = {
     initialized: boolean;
     monitor: string;
@@ -12,10 +15,12 @@ export type WindowStorage = {
  * The preferences object.
  */
 export interface Preferences {
-    interface: {
-        sysInfo: {
-            refreshInterval: number;
-        };
+    window: {
+        startMaximized: boolean;
+        restoreCoordinates: boolean;
+    },
+    sysInfo: {
+        refreshInterval: number;
     };
 }
 
@@ -23,6 +28,6 @@ export interface Preferences {
  * The main store object.
  */
 export interface Storage {
-    windowStorage: { [windowName: string]: WindowStorage };
+    windowStorage: { [windowName: string]: WindowStorage; };
     preferences: Preferences;
 }

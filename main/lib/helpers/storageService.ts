@@ -1,6 +1,7 @@
 import Store from "electron-store";
 
 import defaultPreferences from "@main/lib/defaults/preferences.default";
+import defaultWindowStorage from "@main/lib/defaults/windowStorage.default";
 import { Storage } from "@sharedTypes/storage";
 
 
@@ -14,17 +15,7 @@ export default class StorageService {
         this.store = new Store<Storage>({
             name: "storage",
             defaults: {
-                windowStorage: {
-                    main: {
-                        initialized: false,
-                        monitor: "",
-                        x: 0,
-                        y: 0,
-                        width: 1024,
-                        height: 768,
-                        maximized: false
-                    }
-                },
+                windowStorage: defaultWindowStorage,
                 preferences: defaultPreferences
             }
         });

@@ -27,7 +27,12 @@ export default async function createWindow(
     const windowsStorage = storage.get("windowStorage") as Storage["windowStorage"] || {};
     const windowStorage = windowsStorage[windowName] || {};
 
-    if (Object.keys(windowStorage).length === 0 || !windowStorage.initialized) {
+    const preferences = storage.get("preferences") as Storage["preferences"];
+
+    if (!preferences.window.restoreCoordinates ||
+        Object.keys(windowStorage).length === 0 ||
+        !windowStorage.initialized
+    ) {
         const primaryDisplay = screen.getPrimaryDisplay();
 
         let width: number;
@@ -77,20 +82,22 @@ export default async function createWindow(
     const win = new BrowserWindow(options);
 
     win.once("show", () => {
-        // Maximize the window if it was maximized before
-        if (!isSplash || windowStorage.maximized) win.maximize();
+        // Focus the window when it's shown
+        win.focus();
+
+        if (!isSplash && (preferences.window.startMaximized || (preferences.window.restoreCoordinates && windowStorage.maximized))) {
+            win.maximize();
+        }
     });
 
     win.on("move", () => {
+        // Prevent maximized windows from triggering the move event
+        if (win.isMaximized()) return;
+
         const bounds = win.getBounds();
         windowStorage.x = bounds.x;
         windowStorage.y = bounds.y;
-
-        // Change monitor too
-        const newMonitor = screen.getDisplayMatching(bounds).label;
-        if (windowStorage.monitor !== newMonitor) {
-            windowStorage.monitor = newMonitor;
-        }
+        windowStorage.monitor = screen.getDisplayMatching(bounds).label;
     });
 
     win.on("resize", () => {
@@ -103,7 +110,7 @@ export default async function createWindow(
     win.on("unmaximize", () => windowStorage.maximized = false);
 
     win.on("close", () => {
-        if (!isSplash) {
+        if (!isSplash && preferences.window.restoreCoordinates) {
             storage.set("windowStorage", {
                 ...windowsStorage,
                 [windowName]: windowStorage
